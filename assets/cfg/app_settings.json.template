@@ -1,0 +1,21 @@
+{
+    "api": "url",
+    "authors": [ 
+        {
+            "name": "nombre",
+            "github": "url"
+        },
+        {
+            "name": "nombre",
+            "github": "url"
+        },
+        {
+            "name": "nombre",
+            "github": "url"
+        },
+        {
+            "name": "nombre",
+            "github": "url"
+        }
+    ]
+}
