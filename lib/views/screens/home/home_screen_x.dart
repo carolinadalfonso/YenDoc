@@ -10,7 +10,7 @@ class HomeScreenX extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Titulo"),
+        title: const Text("YenDoc"),
       ),
       body: Center(
         child: Column(
