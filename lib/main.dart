@@ -5,11 +5,15 @@ import 'package:yendoc/core/framework/injection_container.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
-import 'package:yendoc/views/screens/home/home_screen_x.dart';
 import 'package:yendoc/views/screens/login/login_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) => {runApp(const YenDocApp())});
 }
 
@@ -19,6 +23,7 @@ class YenDocApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialBinding: InjectionContainer(),
       translations: Localization(),
       locale: const Locale('es'),

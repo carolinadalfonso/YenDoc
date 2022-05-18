@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:yendoc/controllers/login_controller.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/views/widgets/common/simple_button.dart';
 import 'package:yendoc/views/widgets/common/text_field_custom.dart';
 
@@ -49,7 +48,7 @@ class LoginScreen extends GetView<LoginController> {
                     ),
                     const SizedBox(height: 20),
                     SimpleButton(
-                      onPressed: () => {},
+                      onPressed: () => controller.login(),
                       text: Localization.xLogin.signIn,
                     )
                   ],

@@ -5,14 +5,15 @@ class ThemeManager {
   static Color kPrimaryColor = const Color.fromRGBO(31, 82, 235, 1);
 
   /// Primary Color With Alpha 100
-  static Color kPrimaryColor100 = kPrimaryColor.withAlpha(100);
+  static Color kPrimaryColor100 = kPrimaryColor.withAlpha(90);
 
   /// Primary Color With Alpha 50
-  static Color kPrimaryColor50 = kPrimaryColor.withAlpha(50);
+  static Color kPrimaryColor50 = kPrimaryColor.withAlpha(40);
 
   static Color kTextH1Color = const Color.fromRGBO(13, 12, 101, 1);
   static Color kTextH2Color = const Color.fromRGBO(8, 13, 37, 1);
   static Color kTextH2LightColor = kTextH2Color.withOpacity(0.4);
+  static Color kPrimaryColorLight = const Color.fromARGB(255, 119, 147, 232);
 
   static ThemeData getTheme() {
     return ThemeData(
@@ -76,6 +77,10 @@ class ThemeManager {
         cursorColor: kPrimaryColor,
         selectionColor: kPrimaryColor100,
         selectionHandleColor: kPrimaryColor,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: kPrimaryColor,
+        titleTextStyle: const TextStyle(fontFamily: 'Montserrat', fontSize: 18),
       ),
     );
   }
