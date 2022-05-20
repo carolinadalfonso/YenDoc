@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:yendoc/controllers/about_controller.dart';
 import 'package:yendoc/controllers/home_controller.dart';
 import 'package:yendoc/controllers/login_controller.dart';
 
@@ -7,5 +7,6 @@ class InjectionContainer extends Bindings {
   void dependencies() {
     Get.put<HomeController>(HomeController());
     Get.put<LoginController>(LoginController());
+    Get.put<AboutController>(AboutController());
   }
 }

@@ -8,14 +8,21 @@ abstract class LocalizationBase extends Translations {
           'common.cancel': 'Cancelar',
           'login.signIn': 'Iniciar sesión',
           'login.username': 'Usuario',
-          'login.password': 'Contraseña'
+          'login.password': 'Contraseña',
+          'drawer.visits': 'Visitas',
+          'drawer.about': 'Acerca de',
+          'drawer.signOut': 'Cerrar Sesión',
+          'about.developedBy': 'Desarrollado por:',
         },
         'en': {
           'common.ok': 'Ok',
           'common.cancel': 'Cancel',
-          'login.signIn': 'Sign In',
+          'login.signIn': 'Sign in',
           'login.username': 'Username',
           'login.password': 'Password',
+          'drawer.about': 'About',
+          'drawer.signOut': 'Sign out',
+          'about.developedBy': 'Developed by:',
         }
       };
 }

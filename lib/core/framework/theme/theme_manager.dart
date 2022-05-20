@@ -80,7 +80,11 @@ class ThemeManager {
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: kPrimaryColor,
-        titleTextStyle: const TextStyle(fontFamily: 'Montserrat', fontSize: 18),
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
