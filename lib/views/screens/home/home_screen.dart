@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:yendoc/controllers/home_controller.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/views/widgets/common/drawer/drawer_menu.dart';
 import 'package:yendoc/views/widgets/common/visit_card/visit_card.dart';
 
@@ -27,10 +26,10 @@ class HomeScreen extends GetView<HomeController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: const [
-              VisitCard(icon: FontAwesomeIcons.solidCircleCheck, iconColor: Colors.green, visitId: 4),
-              VisitCard(icon: FontAwesomeIcons.solidCircleXmark, iconColor: Colors.red, visitId: 3),
-              VisitCard(icon: FontAwesomeIcons.circleArrowRight, iconColor: Colors.black38, visitId: 2),
-              VisitCard(icon: FontAwesomeIcons.solidClock, iconColor: Colors.black26, visitId: 1),
+              VisitCard(icon: FontAwesomeIcons.circleCheck, iconColor: Colors.green, visitId: 4),
+              VisitCard(icon: FontAwesomeIcons.circleXmark, iconColor: Colors.red, visitId: 3),
+              VisitCard(icon: FontAwesomeIcons.circleRight, iconColor: Colors.black38, visitId: 2),
+              VisitCard(icon: FontAwesomeIcons.clock, iconColor: Colors.black26, visitId: 1),
               // GetBuilder<HomeController>(
               //   init: controller,
               //   builder: (controller) {

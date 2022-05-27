@@ -22,19 +22,29 @@ class VisitCard extends GetView<VisitCardController> {
       child: InkWell(
         highlightColor: ThemeManager.kPrimaryColor100,
         borderRadius: BorderRadius.circular(8),
-        onTap: () => {},
+        onTap: () => controller.visit(),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
           elevation: 2,
           child: Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 8, 8, 8),
+              Container(
+                decoration: BoxDecoration(
+                  color: iconColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    bottomLeft: Radius.circular(8),
+                  ),
+                ),
+                height: 58,
+                width: 50,
                 child: Icon(
                   icon,
-                  color: iconColor,
+                  color: Colors.white,
                 ),
               ),
               Padding(

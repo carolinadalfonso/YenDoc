@@ -12,7 +12,14 @@ abstract class LocalizationBase extends Translations {
           'drawer.visits': 'Visitas',
           'drawer.about': 'Acerca de',
           'drawer.signOut': 'Cerrar Sesión',
+          'drawer.visit': 'Visita',
           'about.developedBy': 'Desarrollado por:',
+          'visit.detail': 'Detalle',
+          'visit.map': 'Mapa',
+          'visit.photos': 'Fotos',
+          'visit.signature': 'Firma',
+          'visit.camera': 'Cámara',
+          'visit.finish': 'Finalizar',
         },
         'en': {
           'common.ok': 'Ok',
@@ -22,7 +29,14 @@ abstract class LocalizationBase extends Translations {
           'login.password': 'Password',
           'drawer.about': 'About',
           'drawer.signOut': 'Sign out',
+          'drawer.visit': 'Visit',
           'about.developedBy': 'Developed by:',
+          'visit.detail': 'Detail',
+          'visit.map': 'Map',
+          'visit.photos': 'Photos',
+          'visit.signature': 'Signature',
+          'visit.camera': 'Camera',
+          'visit.finish': 'Finish',
         }
       };
 }

@@ -51,7 +51,7 @@ class ThemeManager {
         unselectedLabelColor: kPrimaryColor100,
         indicator: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.elliptical(5, 5)),
-          color: kPrimaryColor100,
+          color: kPrimaryColor,
         ),
       ),
       drawerTheme: const DrawerThemeData(
@@ -72,6 +72,21 @@ class ThemeManager {
       ),
       snackBarTheme: const SnackBarThemeData(
         contentTextStyle: TextStyle(fontFamily: 'Poppins'),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: kPrimaryColor50,
+        unselectedItemColor: kPrimaryColor100,
+        selectedItemColor: kPrimaryColor,
+        elevation: 0,
+        unselectedLabelStyle: const TextStyle(
+          fontFamily: 'Montserrat',
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+        ),
+        selectedLabelStyle: const TextStyle(
+          fontFamily: 'Montserrat',
+          fontSize: 14,
+        ),
       ),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: kPrimaryColor,
