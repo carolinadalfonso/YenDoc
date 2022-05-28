@@ -4,8 +4,11 @@ abstract class LocalizationBase extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'es': {
+          'common.yes': 'Sí',
+          'common.no': 'No',
           'common.ok': 'Aceptar',
           'common.cancel': 'Cancelar',
+          'common.yearsOld': 'años',
           'login.signIn': 'Iniciar sesión',
           'login.username': 'Usuario',
           'login.password': 'Contraseña',
@@ -20,10 +23,19 @@ abstract class LocalizationBase extends Translations {
           'visit.signature': 'Firma',
           'visit.camera': 'Cámara',
           'visit.finish': 'Finalizar',
+          'visit.patient': 'Paciente:',
+          'visit.address': 'Dirección:',
+          'visit.age': 'Edad:',
+          'visit.symptoms': 'Síntomas:',
+          'visit.posibleCovid': 'Posible caso de COVID:',
+          'visit.diagnostic': 'Diagnóstico:',
         },
         'en': {
+          'common.yes': 'Yes',
+          'common.no': 'No',
           'common.ok': 'Ok',
           'common.cancel': 'Cancel',
+          'common.yearsOld': 'years old',
           'login.signIn': 'Sign in',
           'login.username': 'Username',
           'login.password': 'Password',
@@ -37,6 +49,12 @@ abstract class LocalizationBase extends Translations {
           'visit.signature': 'Signature',
           'visit.camera': 'Camera',
           'visit.finish': 'Finish',
+          'visit.patient': 'Patient:',
+          'visit.address': 'Address:',
+          'visit.age': 'Age:',
+          'visit.symptoms': 'Symptoms:',
+          'visit.posibleCovid': 'Posible COVID case:',
+          'visit.diagnostic': 'Diagnostic:',
         }
       };
 }

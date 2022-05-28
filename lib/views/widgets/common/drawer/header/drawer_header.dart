@@ -33,13 +33,19 @@ class _DrawerHeader extends StatelessWidget {
                 ),
               ),
             ),
-            const Text(
-              "Carolina D'Alfonso",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Montserrat',
+            const Flexible(
+              child: TextScroll(
+                "Carolina Andrea D'Alfonso",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                ),
+                mode: TextScrollMode.bouncing,
+                velocity: Velocity(pixelsPerSecond: Offset(15, 0)),
+                delayBefore: Duration(seconds: 2),
+                pauseBetween: Duration(seconds: 5),
               ),
             ),
           ],

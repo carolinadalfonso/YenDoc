@@ -74,10 +74,9 @@ class ThemeManager {
         contentTextStyle: TextStyle(fontFamily: 'Poppins'),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: kPrimaryColor50,
         unselectedItemColor: kPrimaryColor100,
         selectedItemColor: kPrimaryColor,
-        elevation: 0,
+        elevation: 2,
         unselectedLabelStyle: const TextStyle(
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.bold,

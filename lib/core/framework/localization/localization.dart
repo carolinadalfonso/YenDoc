@@ -2,10 +2,19 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:yendoc/core/framework/localization/base/localization_base.dart';
 
 class Localization extends LocalizationBase {
+  static _CommonLocalization xCommon = _CommonLocalization();
   static _LoginLocalization xLogin = _LoginLocalization();
   static _DrawerLocalization xDrawer = _DrawerLocalization();
   static _AboutLocalization xAbout = _AboutLocalization();
   static _VisitLocalization xVisit = _VisitLocalization();
+}
+
+class _CommonLocalization {
+  final yes = 'common.yes'.tr;
+  final no = 'common.no'.tr;
+  final ok = 'common.ok'.tr;
+  final cancel = 'common.cancel'.tr;
+  final yearsOld = 'common.yearsOld'.tr;
 }
 
 class _LoginLocalization {
@@ -32,4 +41,10 @@ class _VisitLocalization {
   final signature = 'visit.signature'.tr;
   final camera = 'visit.camera'.tr;
   final finish = 'visit.finish'.tr;
+  final patient = 'visit.patient'.tr;
+  final address = 'visit.address'.tr;
+  final age = 'visit.age'.tr;
+  final symptoms = 'visit.symptoms'.tr;
+  final diagnostic = 'visit.diagnostic'.tr;
+  final posibleCovid = 'visit.posibleCovid'.tr;
 }
