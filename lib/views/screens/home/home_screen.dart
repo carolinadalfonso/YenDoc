@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:yendoc/controllers/home_controller.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
+import 'package:yendoc/models/visit/visit_entity.dart';
+import 'package:yendoc/models/visit/visit_model.dart';
+import 'package:yendoc/models/visit_state/visit_state_model.dart';
 import 'package:yendoc/views/widgets/common/drawer/drawer_menu.dart';
 import 'package:yendoc/views/widgets/common/visit_card/visit_card.dart';
 
@@ -12,52 +14,76 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(Localization.xDrawer.visits),
-      ),
-      drawer: const DrawerMenu(),
-      drawerEdgeDragWidth: SizeConfig.screenWidth / 4.5,
-      body: Align(
-        alignment: Alignment.center,
-        child: SizedBox(
-          width: SizeConfig.screenWidth / 1.1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              VisitCard(icon: FontAwesomeIcons.circleCheck, iconColor: Colors.green, visitId: 4),
-              VisitCard(icon: FontAwesomeIcons.circleXmark, iconColor: Colors.red, visitId: 3),
-              VisitCard(icon: FontAwesomeIcons.circleRight, iconColor: Colors.black38, visitId: 2),
-              VisitCard(icon: FontAwesomeIcons.clock, iconColor: Colors.black26, visitId: 1),
-              // GetBuilder<HomeController>(
-              //   init: controller,
-              //   builder: (controller) {
-              //     return Text(
-              //       controller.counter.toString(),
-              //       style: Theme.of(context).textTheme.headline6,
-              //     );
-              //   },
-              // ),
-              // Container(
-              //   height: 100,
-              //   width: 100,
-              //   color: ThemeManager.kPrimaryColor,
-              // ),
-              // Container(
-              //   height: 100,
-              //   width: 100,
-              //   color: ThemeManager.kPrimaryColor100,
-              // ),
-              // Container(
-              //   height: 100,
-              //   width: 100,
-              //   color: ThemeManager.kPrimaryColor50,
-              // ),
-            ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(Localization.xDrawer.visits),
+        ),
+        drawer: const DrawerMenu(),
+        drawerEdgeDragWidth: SizeConfig.screenWidth / 4.5,
+        body: Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            width: SizeConfig.screenWidth / 1.1,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: ListView.builder(
+                itemCount: getVisits().length,
+                itemBuilder: (context, index) {
+                  VisitEntity visit = getVisits()[index];
+                  return VisitCard(
+                    visit: visit,
+                  );
+                },
+              ),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  List<VisitModel> getVisits() {
+    List<VisitModel> visits = [
+      VisitModel(
+        id: 1,
+        patient: "Wally Flecha",
+        address: "Hortiguera 630, CABA, Buenos Aires",
+        age: 22,
+        symptoms: "Fiebre y tos",
+        posibleCovid: true,
+        state: VisitStateModel(id: 1, code: "DONE", name: "Realizado"),
+      ),
+      VisitModel(
+        id: 2,
+        patient: "Luna Montgomery",
+        address: "Av. Juan Bautista Alberdi 1230, CABA, Buenos Aires",
+        age: 24,
+        symptoms: "Mucosidad",
+        posibleCovid: false,
+        state: VisitStateModel(id: 2, code: "NOT_DONE", name: "No Realizada"),
+      ),
+      VisitModel(
+        id: 3,
+        patient: "Bernie Gutierrez",
+        address: "Av. Directorio 2410, CABA, Buenos Aires",
+        age: 23,
+        symptoms: "Dolor de espalda",
+        posibleCovid: false,
+        state: VisitStateModel(id: 3, code: "IN_PROGRESS", name: "En curso"),
+      ),
+      VisitModel(
+        id: 4,
+        patient: "Juan Carlos Dominguez",
+        address: "Membrillar 80, CABA, Buenos Aires",
+        age: 21,
+        symptoms: "Dolores",
+        posibleCovid: false,
+        state: VisitStateModel(id: 4, code: "PENDING", name: "Pendiente"),
+      ),
+    ];
+    return visits;
   }
 }
