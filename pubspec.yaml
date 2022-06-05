@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -36,10 +36,11 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   get: ^4.6.3
   json_annotation: ^4.5.0
+  camera: ^0.9.7+1
   # url_launcher: ^6.1.2
   # intl: ^0.17.0
-  # google_maps_flutter: ^2.1.5
-  # location: ^4.3.0
+  google_maps_flutter: ^2.1.5
+  location: ^4.3.0
   # shared_preferences: ^2.0.15
   # shimmer: ^2.0.0
   text_scroll: ^0.0.4

@@ -57,6 +57,13 @@ class ThemeManager {
       drawerTheme: const DrawerThemeData(
         backgroundColor: Colors.white,
       ),
+      checkboxTheme: const CheckboxThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.elliptical(3, 3),
+          ),
+        ),
+      ),
       dialogTheme: const DialogTheme(
         titleTextStyle: TextStyle(
           fontFamily: 'Poppins',

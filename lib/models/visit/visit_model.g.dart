@@ -15,10 +15,11 @@ VisitModel _$VisitModelFromJson(Map<String, dynamic> json) => VisitModel(
       posibleCovid: json['posibleCovid'] as bool,
       state: VisitStateModel.fromJson(json['state'] as Map<String, dynamic>),
       diagnostic: json['diagnostic'] as String?,
+      latitude: json['latitude'] as double,
+      longitude: json['longitude'] as double,
     );
 
-Map<String, dynamic> _$VisitModelToJson(VisitModel instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$VisitModelToJson(VisitModel instance) => <String, dynamic>{
       'id': instance.id,
       'patient': instance.patient,
       'address': instance.address,
@@ -27,4 +28,6 @@ Map<String, dynamic> _$VisitModelToJson(VisitModel instance) =>
       'posibleCovid': instance.posibleCovid,
       'diagnostic': instance.diagnostic,
       'state': instance.state,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
     };

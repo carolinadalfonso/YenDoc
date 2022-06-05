@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:yendoc/controllers/login_controller.dart';
 import 'package:yendoc/controllers/visit_card_controller.dart';
-import 'package:yendoc/core/framework/size_config/size_config.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/models/visit/visit_entity.dart';
 

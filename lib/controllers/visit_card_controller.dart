@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:yendoc/models/visit/visit_entity.dart';
-import 'package:yendoc/views/screens/visit_screen.dart/visit_screen.dart';
+import 'package:yendoc/views/screens/visit_screen/visit_screen.dart';
 
 class VisitCardController extends GetxController {
   goToVisit(VisitEntity visitEntity) {

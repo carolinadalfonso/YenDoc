@@ -11,12 +11,14 @@ class TextFieldCustom extends StatefulWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final AutovalidateMode? autovalidateMode;
-  //final TextStyle? style;
   final String? initialValue;
   final bool enabled;
   final FormFieldSetter<String>? onSaved;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
+  final int? lines;
+  final int? maxLenght;
+  final TextStyle? style;
 
   const TextFieldCustom({
     Key? key,
@@ -28,12 +30,14 @@ class TextFieldCustom extends StatefulWidget {
     this.keyboardType,
     this.inputFormatters,
     this.autovalidateMode,
-    //this.style,
     this.initialValue,
     this.enabled = true,
     this.onSaved,
     this.validator,
     this.onChanged,
+    this.lines,
+    this.maxLenght,
+    this.style,
   }) : super(key: key);
 
   @override
@@ -83,10 +87,14 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
           initialValue: widget.initialValue,
           onChanged: widget.onChanged,
           validator: widget.validator,
+          style: widget.style,
+          minLines: widget.keyboardType == TextInputType.multiline ? widget.lines ?? 3 : 1,
+          maxLines: widget.keyboardType == TextInputType.multiline ? widget.lines ?? 3 : 1,
+          maxLength: widget.maxLenght,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+            contentPadding: widget.keyboardType == TextInputType.multiline ? const EdgeInsets.all(15) : const EdgeInsets.symmetric(horizontal: 15),
             hintText: widget.hint,
             hintStyle: TextStyle(color: Colors.grey[400]),
             prefixIconConstraints: BoxConstraints(minWidth: widget.prefixIcon != null ? 48 : 20),
@@ -126,7 +134,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
               borderRadius: BorderRadius.circular(8.0),
             ),
           ),
-          obscureText: _isPassword,
+          obscureText: widget.keyboardType == TextInputType.multiline ? false : _isPassword,
           inputFormatters: widget.inputFormatters,
         ),
       ],

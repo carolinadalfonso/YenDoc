@@ -55,15 +55,19 @@ class HomeScreen extends GetView<HomeController> {
         symptoms: "Fiebre y tos",
         posibleCovid: true,
         state: VisitStateModel(id: 1, code: "DONE", name: "Realizado"),
+        latitude: -34.62551330115694,
+        longitude: -58.44828866888042,
       ),
       VisitModel(
         id: 2,
         patient: "Luna Montgomery",
         address: "Av. Juan Bautista Alberdi 1230, CABA, Buenos Aires",
         age: 24,
-        symptoms: "Mucosidad",
+        symptoms: "Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad ",
         posibleCovid: false,
         state: VisitStateModel(id: 2, code: "NOT_DONE", name: "No Realizada"),
+        latitude: -34.62551330115694,
+        longitude: -58.44828866888042,
       ),
       VisitModel(
         id: 3,
@@ -73,6 +77,8 @@ class HomeScreen extends GetView<HomeController> {
         symptoms: "Dolor de espalda",
         posibleCovid: false,
         state: VisitStateModel(id: 3, code: "IN_PROGRESS", name: "En curso"),
+        latitude: -34.62551330115694,
+        longitude: -58.44828866888042,
       ),
       VisitModel(
         id: 4,
@@ -82,6 +88,8 @@ class HomeScreen extends GetView<HomeController> {
         symptoms: "Dolores",
         posibleCovid: false,
         state: VisitStateModel(id: 4, code: "PENDING", name: "Pendiente"),
+        latitude: -34.62551330115694,
+        longitude: -58.44828866888042,
       ),
     ];
     return visits;

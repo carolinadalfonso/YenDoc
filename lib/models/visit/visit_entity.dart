@@ -9,6 +9,8 @@ abstract class VisitEntity {
   final bool posibleCovid;
   final VisitStateEntity state;
   final String? diagnostic;
+  final double latitude;
+  final double longitude;
 
   const VisitEntity(
     this.id,
@@ -19,5 +21,7 @@ abstract class VisitEntity {
     this.posibleCovid,
     this.state,
     this.diagnostic,
+    this.latitude,
+    this.longitude,
   );
 }
