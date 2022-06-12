@@ -6,7 +6,7 @@ import 'package:yendoc/views/screens/take_picture/take_picture_screen.dart';
 
 class VisitController extends GetxController {
   final TextEditingController textDiagnosticController = TextEditingController();
-  late final VisitEntity visit;
+  late VisitEntity visit;
   late CameraDescription firstCamera;
   late bool possibleCovid;
   int selectedIndex = 0;

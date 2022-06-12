@@ -81,12 +81,11 @@ class ThemeManager {
         contentTextStyle: TextStyle(fontFamily: 'Poppins'),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        unselectedItemColor: kPrimaryColor100,
+        unselectedItemColor: kPrimaryColor,
         selectedItemColor: kPrimaryColor,
         elevation: 2,
         unselectedLabelStyle: const TextStyle(
           fontFamily: 'Montserrat',
-          fontWeight: FontWeight.bold,
           fontSize: 14,
         ),
         selectedLabelStyle: const TextStyle(

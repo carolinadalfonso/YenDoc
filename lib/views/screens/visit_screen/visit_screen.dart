@@ -145,7 +145,6 @@ class VisitScreen extends GetView<VisitController> {
                       label: Localization.xVisit.finish,
                     ),
                   ],
-                  currentIndex: controller.selectedIndex,
                   onTap: (index) => controller.onItemTapped(index),
                 ),
               ),
