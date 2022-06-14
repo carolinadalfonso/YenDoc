@@ -109,9 +109,11 @@ class VisitScreen extends GetView<VisitController> {
                     alignment: Alignment.center,
                     child: Text("hola1"),
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.center,
-                    child: GalleryScreen(),
+                    child: GalleryScreen(
+                      visit: controller.visit,
+                    ),
                   ),
                 ],
               ),

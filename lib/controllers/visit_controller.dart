@@ -24,6 +24,7 @@ class VisitController extends GetxController {
     Get.to(
       () => TakePictureScreen(
         camera: firstCamera,
+        visitId: visit.id,
       ),
     );
   }
