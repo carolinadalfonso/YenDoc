@@ -29,6 +29,10 @@ abstract class LocalizationBase extends Translations {
           'visit.symptoms': 'Síntomas:',
           'visit.posibleCovid': 'Posible caso de COVID:',
           'visit.diagnostic': 'Diagnóstico:',
+          'gallery.photo': 'Foto',
+          'gallery.noPhotos': 'No hay fotos para esta visita',
+          'gallery.deletedPhoto': 'Se ha eliminado la foto',
+          'gallery.deletedPhotoError': 'Error al eliminar la foto',
         },
         'en': {
           'common.yes': 'Yes',
@@ -55,6 +59,10 @@ abstract class LocalizationBase extends Translations {
           'visit.symptoms': 'Symptoms:',
           'visit.posibleCovid': 'Posible COVID case:',
           'visit.diagnostic': 'Diagnostic:',
+          'gallery.photo': 'Photo',
+          'gallery.noPhotos': 'There are no photos for this visit',
+          'gallery.deletedPhoto': 'Photo has been deleted',
+          'gallery.deletedPhotoError': 'Error deleting photo',
         }
       };
 }

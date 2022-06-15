@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:yendoc/core/framework/localization/localization.dart';
+import 'package:yendoc/core/framework/util/cool_snack_bar.dart';
 import 'package:yendoc/models/visit/visit_entity.dart';
 
 class GalleryController extends GetxController {
@@ -24,8 +27,9 @@ class GalleryController extends GetxController {
     update();
   }
 
-  void deleteImage(File image) async {
+  void deleteImage(File image, BuildContext context) async {
     await image.delete();
+    CoolSnackBar.of(context).success(Localization.xGallery.deletedPhoto);
     getVisitImages();
   }
 

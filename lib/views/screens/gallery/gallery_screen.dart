@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:yendoc/controllers/gallery_controller.dart';
+import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/models/visit/visit_entity.dart';
 
@@ -50,7 +51,7 @@ class GalleryScreen extends GetView<GalleryController> {
                                 splashColor: Colors.grey[200],
                                 icon: const Icon(FontAwesomeIcons.solidTrashCan),
                                 color: Colors.grey[400],
-                                onPressed: () async => controller.deleteImage(controller.images[index]),
+                                onPressed: () async => controller.deleteImage(controller.images[index], context),
                               ),
                             ),
                           ),
@@ -69,7 +70,7 @@ class GalleryScreen extends GetView<GalleryController> {
                         color: ThemeManager.kPrimaryColor50,
                       ),
                       Text(
-                        "No hay fotos para esta visita",
+                        Localization.xGallery.noPhotos,
                         style: TextStyle(
                           color: ThemeManager.kPrimaryColor100,
                         ),

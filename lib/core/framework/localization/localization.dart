@@ -7,6 +7,7 @@ class Localization extends LocalizationBase {
   static _DrawerLocalization xDrawer = _DrawerLocalization();
   static _AboutLocalization xAbout = _AboutLocalization();
   static _VisitLocalization xVisit = _VisitLocalization();
+  static _GalleryLocalization xGallery = _GalleryLocalization();
 }
 
 class _CommonLocalization {
@@ -47,4 +48,11 @@ class _VisitLocalization {
   final symptoms = 'visit.symptoms'.tr;
   final diagnostic = 'visit.diagnostic'.tr;
   final posibleCovid = 'visit.posibleCovid'.tr;
+}
+
+class _GalleryLocalization {
+  final noPhotos = 'gallery.noPhotos'.tr;
+  final deletedPhoto = 'gallery.deletedPhoto'.tr;
+  final deletedPhotoError = 'gallery.deletedPhotoError'.tr;
+  final photo = 'gallery.photo'.tr;
 }
