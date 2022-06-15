@@ -29,6 +29,7 @@ class _DrawerLocalization {
   final about = 'drawer.about'.tr;
   final signOut = 'drawer.signOut'.tr;
   final visit = 'drawer.visit'.tr;
+  final questionSignOut = 'drawer.questionSignOut'.tr;
 }
 
 class _AboutLocalization {
@@ -55,4 +56,6 @@ class _GalleryLocalization {
   final deletedPhoto = 'gallery.deletedPhoto'.tr;
   final deletedPhotoError = 'gallery.deletedPhotoError'.tr;
   final photo = 'gallery.photo'.tr;
+  final questionDeletePhoto = 'gallery.questionDeletePhoto'.tr;
+  final deletePhoto = 'gallery.deletePhoto'.tr;
 }

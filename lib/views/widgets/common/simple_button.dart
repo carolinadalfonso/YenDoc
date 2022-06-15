@@ -6,6 +6,9 @@ class SimpleButton extends StatelessWidget {
   final IconData? icon;
   final bool isLoading;
   final bool enabled;
+  final double? width;
+  final bool isSmall;
+  final bool isSecondary;
   final VoidCallback? onPressed;
 
   const SimpleButton({
@@ -14,27 +17,36 @@ class SimpleButton extends StatelessWidget {
     this.icon,
     this.isLoading = false,
     this.enabled = true,
+    this.width,
+    this.isSmall = false,
+    this.isSecondary = false,
     required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      height: 50,
+      width: width ?? double.infinity,
+      height: isSmall ? 36 : 50,
       child: TextButton(
         style: TextButton.styleFrom(
           shadowColor: Colors.white30,
           padding: const EdgeInsets.all(5),
-          backgroundColor: enabled || isLoading ? ThemeManager.kPrimaryColor : ThemeManager.kPrimaryColor50,
-          primary: Colors.white,
-          textStyle: const TextStyle(
+          backgroundColor: enabled || isLoading
+              ? isSecondary
+                  ? Colors.white
+                  : ThemeManager.kPrimaryColor
+              : ThemeManager.kPrimaryColor50,
+          primary: isSecondary ? ThemeManager.kPrimaryColor : Colors.white,
+          textStyle: TextStyle(
             fontFamily: 'Poppins',
-            fontSize: 16,
+            fontSize: isSmall ? 14 : 16,
           ),
-          shape: const RoundedRectangleBorder(
-            side: BorderSide(color: Colors.transparent, width: 0, style: BorderStyle.none),
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+          shape: RoundedRectangleBorder(
+            side: isSecondary
+                ? BorderSide(color: ThemeManager.kPrimaryColor, width: 2, style: BorderStyle.solid)
+                : const BorderSide(color: Colors.transparent, width: 0, style: BorderStyle.none),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
         ),
         onPressed: !isLoading && enabled ? onPressed : null,

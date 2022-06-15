@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
 
+import '../../../core/framework/util/cool_dialog.dart';
 import '../../../core/framework/util/cool_snack_bar.dart';
 
 class DisplayPictureScreen extends StatelessWidget {
@@ -38,17 +40,27 @@ class DisplayPictureScreen extends StatelessWidget {
               FloatingActionButton(
                 backgroundColor: Colors.red[700],
                 onPressed: () async {
-                  try {
-                    final file = File(imagePath);
-                    await file.delete();
-                    CoolSnackBar.of(context)
-                        .success(Localization.xGallery.deletedPhoto, margin: const EdgeInsets.symmetric(vertical: 90, horizontal: 15));
-                    Navigator.of(context).pop();
-                  } catch (e) {
-                    CoolSnackBar.of(context)
-                        .error(Localization.xGallery.deletedPhotoError, margin: const EdgeInsets.symmetric(vertical: 90, horizontal: 15));
-                    rethrow;
-                  }
+                  CoolDialog.of(context).show(
+                    textButton1: Localization.xCommon.yes,
+                    textButton2: Localization.xCommon.no,
+                    question: Localization.xGallery.questionDeletePhoto,
+                    title: Localization.xGallery.deletePhoto,
+                    onPressed1: () async {
+                      try {
+                        final file = File(imagePath);
+                        await file.delete();
+                        CoolSnackBar.of(context)
+                            .success(Localization.xGallery.deletedPhoto, margin: const EdgeInsets.symmetric(vertical: 90, horizontal: 15));
+                        Get.back();
+                        Get.back();
+                      } catch (e) {
+                        CoolSnackBar.of(context)
+                            .error(Localization.xGallery.deletedPhotoError, margin: const EdgeInsets.symmetric(vertical: 90, horizontal: 15));
+                        rethrow;
+                      }
+                    },
+                    onPressed2: () => Get.back(),
+                  );
                 },
                 child: const Icon(FontAwesomeIcons.trashCan),
               ),

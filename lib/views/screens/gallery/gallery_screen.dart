@@ -6,6 +6,8 @@ import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/models/visit/visit_entity.dart';
 
+import '../../../core/framework/util/cool_dialog.dart';
+
 class GalleryScreen extends GetView<GalleryController> {
   final VisitEntity visit;
 
@@ -51,7 +53,19 @@ class GalleryScreen extends GetView<GalleryController> {
                                 splashColor: Colors.grey[200],
                                 icon: const Icon(FontAwesomeIcons.solidTrashCan),
                                 color: Colors.grey[400],
-                                onPressed: () async => controller.deleteImage(controller.images[index], context),
+                                onPressed: () async {
+                                  CoolDialog.of(context).show(
+                                    textButton1: Localization.xCommon.yes,
+                                    textButton2: Localization.xCommon.no,
+                                    question: Localization.xGallery.questionDeletePhoto,
+                                    title: Localization.xGallery.deletePhoto,
+                                    onPressed1: () {
+                                      controller.deleteImage(controller.images[index], context);
+                                      Get.back();
+                                    },
+                                    onPressed2: () => Get.back(),
+                                  );
+                                },
                               ),
                             ),
                           ),

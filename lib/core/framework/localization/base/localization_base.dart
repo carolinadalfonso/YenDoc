@@ -16,6 +16,7 @@ abstract class LocalizationBase extends Translations {
           'drawer.about': 'Acerca de',
           'drawer.signOut': 'Cerrar Sesión',
           'drawer.visit': 'Visita',
+          'drawer.questionSignOut': '¿Está seguro que desea cerrar sesión?',
           'about.developedBy': 'Desarrollado por:',
           'visit.detail': 'Detalle',
           'visit.map': 'Mapa',
@@ -33,6 +34,8 @@ abstract class LocalizationBase extends Translations {
           'gallery.noPhotos': 'No hay fotos para esta visita',
           'gallery.deletedPhoto': 'Se ha eliminado la foto',
           'gallery.deletedPhotoError': 'Error al eliminar la foto',
+          'gallery.questionDeletePhoto': '¿Está seguro que desea eliminar esta foto?',
+          'gallery.deletePhoto': 'Borrar foto',
         },
         'en': {
           'common.yes': 'Yes',
@@ -46,6 +49,7 @@ abstract class LocalizationBase extends Translations {
           'drawer.about': 'About',
           'drawer.signOut': 'Sign out',
           'drawer.visit': 'Visit',
+          'drawer.questionSignOut': 'Are you sure you want to log out?',
           'about.developedBy': 'Developed by:',
           'visit.detail': 'Detail',
           'visit.map': 'Map',
@@ -63,6 +67,8 @@ abstract class LocalizationBase extends Translations {
           'gallery.noPhotos': 'There are no photos for this visit',
           'gallery.deletedPhoto': 'Photo has been deleted',
           'gallery.deletedPhotoError': 'Error deleting photo',
+          'gallery.questionDeletePhoto': 'Are you sure you want to delete this photo?',
+          'gallery.deletePhoto': 'Delete photo',
         }
       };
 }
