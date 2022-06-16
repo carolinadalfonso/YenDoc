@@ -31,7 +31,7 @@ class VisitScreen extends GetView<VisitController> {
           return Scaffold(
             backgroundColor: Colors.white,
             drawer: const DrawerMenu(),
-            drawerEdgeDragWidth: SizeConfig.screenWidth / 4.5,
+            drawerEdgeDragWidth: SizeConfig.screenWidth / 5,
             appBar: AppBar(
               centerTitle: true,
               elevation: 0,
@@ -147,7 +147,7 @@ class VisitScreen extends GetView<VisitController> {
                       label: Localization.xVisit.finish,
                     ),
                   ],
-                  onTap: (index) => controller.onItemTapped(index),
+                  onTap: (index) => controller.onItemTapped(index, context),
                 ),
               ),
             ),

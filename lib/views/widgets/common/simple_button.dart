@@ -10,6 +10,7 @@ class SimpleButton extends StatelessWidget {
   final bool isSmall;
   final bool isSecondary;
   final VoidCallback? onPressed;
+  final MainAxisAlignment? mainAxisAlignmentBody;
 
   const SimpleButton({
     Key? key,
@@ -21,6 +22,7 @@ class SimpleButton extends StatelessWidget {
     this.isSmall = false,
     this.isSecondary = false,
     required this.onPressed,
+    this.mainAxisAlignmentBody,
   }) : super(key: key);
 
   @override
@@ -52,13 +54,13 @@ class SimpleButton extends StatelessWidget {
         onPressed: !isLoading && enabled ? onPressed : null,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: mainAxisAlignmentBody ?? MainAxisAlignment.center,
           children: [
             icon != null
                 ? !isLoading
                     ? Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Icon(icon),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Icon(icon, size: isSmall ? 22 : 24),
                       )
                     : const SizedBox.shrink()
                 : const SizedBox.shrink(),

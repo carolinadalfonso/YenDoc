@@ -8,6 +8,7 @@ class Localization extends LocalizationBase {
   static _AboutLocalization xAbout = _AboutLocalization();
   static _VisitLocalization xVisit = _VisitLocalization();
   static _GalleryLocalization xGallery = _GalleryLocalization();
+  static _FinishLocalization xFinish = _FinishLocalization();
 }
 
 class _CommonLocalization {
@@ -58,4 +59,11 @@ class _GalleryLocalization {
   final photo = 'gallery.photo'.tr;
   final questionDeletePhoto = 'gallery.questionDeletePhoto'.tr;
   final deletePhoto = 'gallery.deletePhoto'.tr;
+}
+
+class _FinishLocalization {
+  final visit = 'finish.visit'.tr;
+  final ok = 'finish.ok'.tr;
+  final notOk = 'finish.notOk'.tr;
+  final question = 'finish.question'.tr;
 }

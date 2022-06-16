@@ -11,8 +11,6 @@ import 'package:yendoc/views/screens/about/about_screen.dart';
 import 'package:yendoc/views/screens/home/home_screen.dart';
 import 'package:yendoc/views/widgets/common/list_item.dart';
 
-import '../simple_button.dart';
-
 part 'header/drawer_header.dart';
 part 'body/drawer_body.dart';
 part 'footer/drawer_footer.dart';

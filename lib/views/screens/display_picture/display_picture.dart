@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
 
 import '../../../core/framework/util/cool_dialog.dart';
 import '../../../core/framework/util/cool_snack_bar.dart';

@@ -36,6 +36,10 @@ abstract class LocalizationBase extends Translations {
           'gallery.deletedPhotoError': 'Error al eliminar la foto',
           'gallery.questionDeletePhoto': '¿Está seguro que desea eliminar esta foto?',
           'gallery.deletePhoto': 'Borrar foto',
+          'finish.visit': 'Finalizar Visita',
+          'finish.ok': 'Correctamente',
+          'finish.notOk': 'No Realizada',
+          'finish.question': '¿Cómo desea finalizar la visita?',
         },
         'en': {
           'common.yes': 'Yes',
@@ -69,6 +73,10 @@ abstract class LocalizationBase extends Translations {
           'gallery.deletedPhotoError': 'Error deleting photo',
           'gallery.questionDeletePhoto': 'Are you sure you want to delete this photo?',
           'gallery.deletePhoto': 'Delete photo',
+          'finish.visit': 'Finish Visit',
+          'finish.ok': 'Correctly',
+          'finish.notOk': 'Unrealized',
+          'finish.question': 'How do you want to end the visit?',
         }
       };
 }
