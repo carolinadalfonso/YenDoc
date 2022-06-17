@@ -45,6 +45,7 @@ dependencies:
   # shimmer: ^2.0.0
   text_scroll: ^0.0.4
   path_provider: ^2.0.11
+  hand_signature: ^2.2.0
   # global_configuration: ^2.0.0-nullsafety.1
 
 dev_dependencies:

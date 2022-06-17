@@ -2,9 +2,12 @@ import 'dart:ui';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hand_signature/signature.dart';
 import 'package:yendoc/models/visit/visit_entity.dart';
+import 'package:yendoc/views/screens/signature/signature_screen.dart';
 import 'package:yendoc/views/screens/take_picture/take_picture_screen.dart';
 
 import '../core/framework/localization/localization.dart';
@@ -16,6 +19,13 @@ class VisitController extends GetxController {
   late CameraDescription firstCamera;
   late bool possibleCovid;
   int selectedIndex = 0;
+  ValueNotifier<ByteData?> patientSignature = ValueNotifier<ByteData?>(null);
+
+  final HandSignatureControl patientHandSignatureControl = HandSignatureControl(
+    threshold: 0.001,
+    smoothRatio: 0.35,
+    velocityRange: 2.0,
+  );
 
   Future<void> init(VisitEntity visit) async {
     this.visit = visit;
@@ -35,11 +45,23 @@ class VisitController extends GetxController {
     );
   }
 
+  void goToSign() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]).then((_) async {
+      final bool? result = await Get.to(() => SignatureScreen());
+      if (result != null && result) {
+        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      }
+    });
+  }
+
   void onItemTapped(int index, BuildContext context) {
     selectedIndex = index;
     update();
 
     switch (index) {
+      case 0:
+        goToSign();
+        break;
       case 1:
         goToCamera();
         break;
@@ -104,14 +126,25 @@ class VisitController extends GetxController {
   }
 
   getFirstCamera() async {
-    // Ensure that plugin services are initialized so that `availableCameras()`
-    // can be called before `runApp()`
     WidgetsFlutterBinding.ensureInitialized();
-
-    // Obtain a list of the available cameras on the device.
     final cameras = await availableCameras();
-
-    // Get a specific camera from the list of available cameras.
     firstCamera = cameras.first;
+  }
+
+  void clearSignature() {
+    patientHandSignatureControl.clear();
+    patientSignature.value = null;
+  }
+
+  bool checkSignaturesEmpty() {
+    return patientSignature.value == null;
+  }
+
+  void confirmSignature() async {
+    patientSignature.value = await patientHandSignatureControl.toImage();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
+      Get.back();
+    });
+    //TODO: Hacer el guardado de la firma, levantado y limpieza de variable
   }
 }

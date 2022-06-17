@@ -10,6 +10,7 @@ import 'package:yendoc/views/screens/gallery/gallery_screen.dart';
 import 'package:yendoc/views/widgets/common/checkbox_custom.dart';
 import 'package:yendoc/views/widgets/common/drawer/drawer_menu.dart';
 import 'package:yendoc/views/widgets/common/row_item_info.dart';
+import 'package:yendoc/views/widgets/common/simple_scroll.dart';
 import 'package:yendoc/views/widgets/common/text_field_custom.dart';
 
 class VisitScreen extends GetView<VisitController> {
@@ -22,138 +23,141 @@ class VisitScreen extends GetView<VisitController> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: GetBuilder<VisitController>(
-        initState: (state) async => await controller.init(visit),
-        init: controller,
-        builder: (controller) {
-          return Scaffold(
-            backgroundColor: Colors.white,
-            drawer: const DrawerMenu(),
-            drawerEdgeDragWidth: SizeConfig.screenWidth / 5,
-            appBar: AppBar(
-              centerTitle: true,
-              elevation: 0,
-              // foregroundColor: ThemeManager.kPrimaryColor,
-              // backgroundColor: Colors.white,
-              title: Text(
-                Localization.xDrawer.visit,
-                //style: TextStyle(color: ThemeManager.kPrimaryColor),
-              ),
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(45),
-                child: Container(
-                  height: 45,
-                  color: Colors.white,
-                  child: TabBar(
-                    padding: const EdgeInsets.all(3),
-                    tabs: [
-                      Tab(
-                        child: Text(Localization.xVisit.detail),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return DefaultTabController(
+          length: 3,
+          child: GetBuilder<VisitController>(
+            initState: (state) async => await controller.init(visit),
+            init: controller,
+            builder: (controller) {
+              return Scaffold(
+                backgroundColor: Colors.white,
+                drawer: const DrawerMenu(),
+                drawerEdgeDragWidth: SizeConfig.screenWidth / 5,
+                appBar: AppBar(
+                  centerTitle: true,
+                  elevation: 0,
+                  title: Text(
+                    Localization.xDrawer.visit,
+                  ),
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(45),
+                    child: Container(
+                      height: 45,
+                      color: Colors.white,
+                      child: TabBar(
+                        padding: const EdgeInsets.all(3),
+                        tabs: [
+                          Tab(
+                            child: Text(Localization.xVisit.detail),
+                          ),
+                          Tab(
+                            child: Text(Localization.xVisit.map),
+                          ),
+                          Tab(
+                            child: Text(Localization.xVisit.photos),
+                          ),
+                        ],
                       ),
-                      Tab(
-                        child: Text(Localization.xVisit.map),
+                    ),
+                  ),
+                ),
+                body: Align(
+                  alignment: Alignment.topCenter,
+                  child: TabBarView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: SimpleScroll(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RowItemInfo(
+                                title: Localization.xVisit.patient,
+                                value: visit.patient,
+                              ),
+                              RowItemInfo(
+                                title: Localization.xVisit.address,
+                                value: visit.address,
+                              ),
+                              RowItemInfo(
+                                title: Localization.xVisit.age,
+                                value: "${visit.age} ${Localization.xCommon.yearsOld}",
+                              ),
+                              RowItemInfo(
+                                title: Localization.xVisit.symptoms,
+                                value: visit.symptoms,
+                              ),
+                              CheckboxCustom(
+                                  text: Localization.xVisit.posibleCovid,
+                                  checked: controller.possibleCovid,
+                                  onChanged: (value) => controller.onCheckboxCovidTapped(value!)),
+                              RowItemInfo(
+                                title: Localization.xVisit.diagnostic,
+                              ),
+                              TextFieldCustom(
+                                controller: controller.textDiagnosticController,
+                                keyboardType: TextInputType.multiline,
+                                maxLenght: 500,
+                                lines: 8,
+                                style: const TextStyle(fontSize: 14),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
-                      Tab(
-                        child: Text(Localization.xVisit.photos),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Text("hola1"),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: GalleryScreen(
+                          visit: controller.visit,
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            ),
-            body: Align(
-              alignment: Alignment.topCenter,
-              child: TabBarView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RowItemInfo(
-                          title: Localization.xVisit.patient,
-                          value: visit.patient,
+                bottomNavigationBar: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      boxShadow: [
+                        BoxShadow(blurRadius: 7, spreadRadius: 0, color: ThemeManager.kPrimaryColor100),
+                      ]),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    child: BottomNavigationBar(
+                      items: <BottomNavigationBarItem>[
+                        BottomNavigationBarItem(
+                          icon: const Icon(FontAwesomeIcons.signature),
+                          label: Localization.xVisit.signature,
                         ),
-                        RowItemInfo(
-                          title: Localization.xVisit.address,
-                          value: visit.address,
+                        BottomNavigationBarItem(
+                          icon: const Icon(FontAwesomeIcons.camera),
+                          label: Localization.xVisit.camera,
                         ),
-                        RowItemInfo(
-                          title: Localization.xVisit.age,
-                          value: "${visit.age} ${Localization.xCommon.yearsOld}",
+                        BottomNavigationBarItem(
+                          icon: const Icon(FontAwesomeIcons.flagCheckered),
+                          label: Localization.xVisit.finish,
                         ),
-                        RowItemInfo(
-                          title: Localization.xVisit.symptoms,
-                          value: visit.symptoms,
-                        ),
-                        CheckboxCustom(
-                            text: Localization.xVisit.posibleCovid,
-                            checked: controller.possibleCovid,
-                            onChanged: (value) => controller.onCheckboxCovidTapped(value!)),
-                        RowItemInfo(
-                          title: Localization.xVisit.diagnostic,
-                        ),
-                        TextFieldCustom(
-                          controller: controller.textDiagnosticController,
-                          keyboardType: TextInputType.multiline,
-                          maxLenght: 500,
-                          lines: 8,
-                          style: const TextStyle(fontSize: 14),
-                        )
                       ],
+                      onTap: (index) => controller.onItemTapped(index, context),
                     ),
                   ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text("hola1"),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: GalleryScreen(
-                      visit: controller.visit,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            bottomNavigationBar: Container(
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                  boxShadow: [
-                    BoxShadow(blurRadius: 7, spreadRadius: 0, color: ThemeManager.kPrimaryColor100),
-                  ]),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
                 ),
-                child: BottomNavigationBar(
-                  items: <BottomNavigationBarItem>[
-                    BottomNavigationBarItem(
-                      icon: const Icon(FontAwesomeIcons.signature),
-                      label: Localization.xVisit.signature,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(FontAwesomeIcons.camera),
-                      label: Localization.xVisit.camera,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(FontAwesomeIcons.flagCheckered),
-                      label: Localization.xVisit.finish,
-                    ),
-                  ],
-                  onTap: (index) => controller.onItemTapped(index, context),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
