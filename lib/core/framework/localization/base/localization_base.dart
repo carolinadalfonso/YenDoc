@@ -12,10 +12,12 @@ abstract class LocalizationBase extends Translations {
           'login.signIn': 'Iniciar sesión',
           'login.username': 'Usuario',
           'login.password': 'Contraseña',
-          'drawer.visits': 'Visitas',
+          'drawer.visits': 'Visitas de hoy',
           'drawer.about': 'Acerca de',
           'drawer.signOut': 'Cerrar Sesión',
           'drawer.visit': 'Visita',
+          'drawer.report': 'Reporte',
+          'drawer.changePassword': 'Cambiar contraseña',
           'drawer.questionSignOut': '¿Está seguro que desea cerrar sesión?',
           'about.developedBy': 'Desarrollado por:',
           'visit.detail': 'Detalle',
@@ -41,6 +43,8 @@ abstract class LocalizationBase extends Translations {
           'finish.notOk': 'No Realizada',
           'finish.question': '¿Cómo desea finalizar la visita?',
           'signature.clean': 'Limpiar firma',
+          'map.patient': 'Paciente',
+          'map.you': 'Tú',
         },
         'en': {
           'common.yes': 'Yes',
@@ -54,6 +58,8 @@ abstract class LocalizationBase extends Translations {
           'drawer.about': 'About',
           'drawer.signOut': 'Sign out',
           'drawer.visit': 'Visit',
+          'drawer.report': 'Report',
+          'drawer.changePassword': 'Change password',
           'drawer.questionSignOut': 'Are you sure you want to log out?',
           'about.developedBy': 'Developed by:',
           'visit.detail': 'Detail',
@@ -79,6 +85,8 @@ abstract class LocalizationBase extends Translations {
           'finish.notOk': 'Unrealized',
           'finish.question': 'How do you want to end the visit?',
           'signature.clean': 'Clean signature',
+          'map.patient': 'Patient',
+          'map.you': 'You',
         }
       };
 }

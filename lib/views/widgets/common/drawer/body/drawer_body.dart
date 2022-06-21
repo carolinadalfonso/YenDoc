@@ -13,6 +13,16 @@ class _DrawerBody extends StatelessWidget {
           onTap: () => Get.to(() => const HomeScreen()),
         ),
         ListItem(
+          title: Localization.xDrawer.report,
+          icon: FontAwesomeIcons.chartColumn,
+          onTap: () => {},
+        ),
+        ListItem(
+          title: Localization.xDrawer.changePassword,
+          icon: FontAwesomeIcons.key,
+          onTap: () => {},
+        ),
+        ListItem(
           title: Localization.xDrawer.about,
           icon: FontAwesomeIcons.circleInfo,
           onTap: () => Get.to(() => const AboutScreen()),

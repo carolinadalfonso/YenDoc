@@ -7,6 +7,7 @@ import 'package:yendoc/core/framework/size_config/size_config.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/models/visit/visit_entity.dart';
 import 'package:yendoc/views/screens/gallery/gallery_screen.dart';
+import 'package:yendoc/views/screens/map/map_screen.dart';
 import 'package:yendoc/views/widgets/common/checkbox_custom.dart';
 import 'package:yendoc/views/widgets/common/drawer/drawer_menu.dart';
 import 'package:yendoc/views/widgets/common/row_item_info.dart';
@@ -66,6 +67,7 @@ class VisitScreen extends GetView<VisitController> {
                 body: Align(
                   alignment: Alignment.topCenter,
                   child: TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20),
@@ -107,9 +109,11 @@ class VisitScreen extends GetView<VisitController> {
                           ),
                         ),
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.center,
-                        child: Text("hola1"),
+                        child: MapScreen(
+                          visit: controller.visit,
+                        ),
                       ),
                       Align(
                         alignment: Alignment.center,

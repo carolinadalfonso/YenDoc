@@ -10,6 +10,7 @@ class Localization extends LocalizationBase {
   static _GalleryLocalization xGallery = _GalleryLocalization();
   static _FinishLocalization xFinish = _FinishLocalization();
   static _SignatureLocalization xSignature = _SignatureLocalization();
+  static _MapLocalization xMap = _MapLocalization();
 }
 
 class _CommonLocalization {
@@ -31,6 +32,8 @@ class _DrawerLocalization {
   final about = 'drawer.about'.tr;
   final signOut = 'drawer.signOut'.tr;
   final visit = 'drawer.visit'.tr;
+  final report = 'drawer.report'.tr;
+  final changePassword = 'drawer.changePassword'.tr;
   final questionSignOut = 'drawer.questionSignOut'.tr;
 }
 
@@ -71,4 +74,9 @@ class _FinishLocalization {
 
 class _SignatureLocalization {
   final clean = 'signature.clean'.tr;
+}
+
+class _MapLocalization {
+  final you = 'signature.you'.tr;
+  final patient = 'signature.patient'.tr;
 }
