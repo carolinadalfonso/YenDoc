@@ -40,6 +40,7 @@ abstract class LocalizationBase extends Translations {
           'finish.ok': 'Correctamente',
           'finish.notOk': 'No Realizada',
           'finish.question': '¿Cómo desea finalizar la visita?',
+          'signature.clean': 'Limpiar firma',
         },
         'en': {
           'common.yes': 'Yes',
@@ -77,6 +78,7 @@ abstract class LocalizationBase extends Translations {
           'finish.ok': 'Correctly',
           'finish.notOk': 'Unrealized',
           'finish.question': 'How do you want to end the visit?',
+          'signature.clean': 'Clean signature',
         }
       };
 }

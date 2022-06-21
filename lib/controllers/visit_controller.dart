@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:camera/camera.dart';
@@ -11,6 +13,7 @@ import 'package:yendoc/views/screens/signature/signature_screen.dart';
 import 'package:yendoc/views/screens/take_picture/take_picture_screen.dart';
 
 import '../core/framework/localization/localization.dart';
+import '../core/framework/util/util.dart';
 import '../views/widgets/common/simple_button.dart';
 
 class VisitController extends GetxController {
@@ -34,6 +37,8 @@ class VisitController extends GetxController {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     firstCamera = cameras.first;
+
+    loadSignature();
   }
 
   void goToCamera() {
@@ -47,7 +52,7 @@ class VisitController extends GetxController {
 
   void goToSign() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]).then((_) async {
-      final bool? result = await Get.to(() => SignatureScreen());
+      final bool? result = await Get.to(() => const SignatureScreen());
       if (result != null && result) {
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       }
@@ -142,9 +147,26 @@ class VisitController extends GetxController {
 
   void confirmSignature() async {
     patientSignature.value = await patientHandSignatureControl.toImage();
+    if (!checkSignaturesEmpty()) {
+      String fullPath = await Util().getAndCreateSignaturePath(visit.id);
+      File(fullPath).writeAsBytesSync(patientSignature.value!.buffer.asInt8List());
+    }
+
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
       Get.back();
     });
-    //TODO: Hacer el guardado de la firma, levantado y limpieza de variable
+  }
+
+  void loadSignature() async {
+    String fullPath = await Util().getAndCreateSignaturePath(visit.id);
+    File file = File(fullPath);
+    if (await file.exists()) {
+      Uint8List bytes = file.readAsBytesSync();
+      ByteData signatureBytes = ByteData.view(bytes.buffer);
+      patientSignature.value = signatureBytes;
+      //TODO: Revisar el levantado de la firma
+    } else {
+      clearSignature();
+    }
   }
 }

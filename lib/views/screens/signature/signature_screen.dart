@@ -71,7 +71,7 @@ class SignatureScreen extends GetView<VisitController> {
                         Flexible(
                           child: SimpleButton(
                             isSecondary: true,
-                            text: "Limpiar firma",
+                            text: Localization.xSignature.clean,
                             onPressed: () => controller.clearSignature(),
                           ),
                         ),

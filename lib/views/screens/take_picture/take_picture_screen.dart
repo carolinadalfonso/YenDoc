@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/views/screens/display_picture/display_picture.dart';
+
+import '../../../core/framework/util/util.dart';
 
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
@@ -94,20 +95,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                   await _initializeControllerFuture;
 
                                   await _controller.takePicture().then((image) async {
-                                    final directortPath = Directory(await _localPath);
-                                    //Creación de carpeta Visitas
-                                    String folderVisits = "/visits";
-                                    final pathVisits = Directory("${directortPath.path}$folderVisits");
-                                    if (!await pathVisits.exists()) {
-                                      await pathVisits.create();
-                                    }
-                                    //Creación de carpeta con el Id de la Visita
-                                    String folderVisitId = "/$_visitId";
-                                    final pathVisitId = Directory("${directortPath.path}$folderVisits$folderVisitId");
+                                    final pathVisitId = await Util().getPhotosPath(_visitId);
                                     if (!await pathVisitId.exists()) {
-                                      await pathVisitId.create();
+                                      await pathVisitId.create(recursive: true);
                                     }
-                                    // Ruta final del archivo
                                     String fullPath = "${pathVisitId.path}/${image.name}";
                                     //Guardado y borrado del archivo automático
                                     await image.saveTo(fullPath);
@@ -143,10 +134,5 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         },
       ),
     );
-  }
-
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
   }
 }

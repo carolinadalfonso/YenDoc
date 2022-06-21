@@ -9,6 +9,7 @@ class Localization extends LocalizationBase {
   static _VisitLocalization xVisit = _VisitLocalization();
   static _GalleryLocalization xGallery = _GalleryLocalization();
   static _FinishLocalization xFinish = _FinishLocalization();
+  static _SignatureLocalization xSignature = _SignatureLocalization();
 }
 
 class _CommonLocalization {
@@ -66,4 +67,8 @@ class _FinishLocalization {
   final ok = 'finish.ok'.tr;
   final notOk = 'finish.notOk'.tr;
   final question = 'finish.question'.tr;
+}
+
+class _SignatureLocalization {
+  final clean = 'signature.clean'.tr;
 }
