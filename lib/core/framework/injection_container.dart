@@ -1,4 +1,5 @@
 import 'package:yendoc/controllers/about_controller.dart';
+import 'package:yendoc/controllers/change_password_controller.dart';
 import 'package:yendoc/controllers/gallery_controller.dart';
 import 'package:yendoc/controllers/home_controller.dart';
 import 'package:yendoc/controllers/login_controller.dart';
@@ -16,5 +17,6 @@ class InjectionContainer extends Bindings {
     Get.put<VisitController>(VisitController());
     Get.put<GalleryController>(GalleryController());
     Get.put<MapController>(MapController());
+    Get.put<ChangePasswordController>(ChangePasswordController());
   }
 }

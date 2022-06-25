@@ -45,6 +45,9 @@ abstract class LocalizationBase extends Translations {
           'signature.clean': 'Limpiar firma',
           'map.patient': 'Paciente',
           'map.you': 'Tú',
+          'password.current': 'Contraseña actual:',
+          'password.new': 'Nueva contraseña:',
+          'password.repeatNew': 'Repetir contraseña nueva:',
         },
         'en': {
           'common.yes': 'Yes',
@@ -87,6 +90,9 @@ abstract class LocalizationBase extends Translations {
           'signature.clean': 'Clean signature',
           'map.patient': 'Patient',
           'map.you': 'You',
+          'password.current': 'Current password:',
+          'password.new': 'New password:',
+          'password.repeatNew': 'Repeat new password:',
         }
       };
 }

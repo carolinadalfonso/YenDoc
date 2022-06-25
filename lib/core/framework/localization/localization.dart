@@ -11,6 +11,7 @@ class Localization extends LocalizationBase {
   static _FinishLocalization xFinish = _FinishLocalization();
   static _SignatureLocalization xSignature = _SignatureLocalization();
   static _MapLocalization xMap = _MapLocalization();
+  static _PasswordLocalization xPassword = _PasswordLocalization();
 }
 
 class _CommonLocalization {
@@ -79,4 +80,10 @@ class _SignatureLocalization {
 class _MapLocalization {
   final you = 'signature.you'.tr;
   final patient = 'signature.patient'.tr;
+}
+
+class _PasswordLocalization {
+  final current = 'password.current'.tr;
+  final newPassword = 'password.new'.tr;
+  final repeatNew = 'password.repeatNew'.tr;
 }
