@@ -10,6 +10,7 @@ import 'package:yendoc/core/framework/util/cool_dialog.dart';
 import 'package:yendoc/views/screens/about/about_screen.dart';
 import 'package:yendoc/views/screens/change_password/change_password.dart';
 import 'package:yendoc/views/screens/home/home_screen.dart';
+import 'package:yendoc/views/screens/report/report_screen.dart';
 import 'package:yendoc/views/widgets/common/list_item.dart';
 
 part 'header/drawer_header.dart';

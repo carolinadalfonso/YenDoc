@@ -15,7 +15,7 @@ class _DrawerBody extends StatelessWidget {
         ListItem(
           title: Localization.xDrawer.report,
           icon: FontAwesomeIcons.chartColumn,
-          onTap: () => {},
+          onTap: () => Get.to(() => const ReportScreen()),
         ),
         ListItem(
           title: Localization.xDrawer.changePassword,
