@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -10,16 +11,18 @@ import '../../../core/framework/util/cool_dialog.dart';
 
 class GalleryScreen extends GetView<GalleryController> {
   final VisitEntity visit;
+  final CameraDescription? camera;
 
   const GalleryScreen({
     Key? key,
     required this.visit,
+    this.camera,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GalleryController>(
-      initState: (state) async => await controller.init(visit),
+      initState: (state) async => await controller.init(visit, null),
       init: controller,
       builder: (controller) {
         return Center(

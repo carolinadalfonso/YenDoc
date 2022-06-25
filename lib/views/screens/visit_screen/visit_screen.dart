@@ -67,7 +67,7 @@ class VisitScreen extends GetView<VisitController> {
                 body: Align(
                   alignment: Alignment.topCenter,
                   child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20),
