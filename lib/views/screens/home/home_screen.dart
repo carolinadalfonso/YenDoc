@@ -10,7 +10,10 @@ import 'package:yendoc/views/widgets/common/drawer/drawer_menu.dart';
 import 'package:yendoc/views/widgets/common/visit_card/visit_card.dart';
 
 class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({Key? key}) : super(key: key);
+  final DateTime datePick;
+  final bool? readOnly;
+
+  const HomeScreen({Key? key, required this.datePick, this.readOnly = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,29 +26,36 @@ class HomeScreen extends GetView<HomeController> {
         ),
         drawer: const DrawerMenu(),
         drawerEdgeDragWidth: SizeConfig.screenWidth / 4.5,
-        body: Align(
-          alignment: Alignment.center,
-          child: SizedBox(
-            width: SizeConfig.screenWidth / 1.1,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: ListView.builder(
-                itemCount: getVisits().length,
-                itemBuilder: (context, index) {
-                  VisitEntity visit = getVisits()[index];
-                  return VisitCard(
-                    visit: visit,
-                  );
-                },
+        body: GetBuilder<HomeController>(
+          initState: (state) async => await controller.init(),
+          init: controller,
+          builder: (controller) {
+            return Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: SizeConfig.screenWidth / 1.1,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: ListView.builder(
+                    itemCount: getVisits(datePick).length,
+                    itemBuilder: (context, index) {
+                      VisitEntity visit = getVisits(datePick)[index];
+                      return VisitCard(
+                        visit: visit,
+                        readOnly: readOnly,
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
   }
 
-  List<VisitModel> getVisits() {
+  List<VisitModel> getVisits(DateTime date) {
     List<VisitModel> visits = [
       VisitModel(
         id: 1,

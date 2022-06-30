@@ -9,6 +9,6 @@ class LoginController extends GetxController {
   final TextEditingController textPasswordController = TextEditingController();
 
   login() {
-    Get.to(() => const HomeScreen());
+    Get.to(() => HomeScreen(datePick: DateTime.now()));
   }
 }

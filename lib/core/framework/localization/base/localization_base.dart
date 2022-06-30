@@ -48,6 +48,7 @@ abstract class LocalizationBase extends Translations {
           'password.current': 'Contraseña actual:',
           'password.new': 'Nueva contraseña:',
           'password.repeatNew': 'Repetir contraseña nueva:',
+          'report.date': 'Seleccione una fecha:',
         },
         'en': {
           'common.yes': 'Yes',
@@ -93,6 +94,7 @@ abstract class LocalizationBase extends Translations {
           'password.current': 'Current password:',
           'password.new': 'New password:',
           'password.repeatNew': 'Repeat new password:',
+          'report.date': 'Pick a date:',
         }
       };
 }

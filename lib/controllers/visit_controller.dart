@@ -79,7 +79,7 @@ class VisitController extends GetxController {
               Column(
                 children: [
                   SimpleButton(
-                    onPressed: () => {},
+                    onPressed: () => {}, //TODO: Cambio de estado y cooldialog de que se hizo correctamente
                     text: Localization.xFinish.ok,
                     isSmall: true,
                     isSecondary: true,
@@ -90,7 +90,7 @@ class VisitController extends GetxController {
                     height: 15,
                   ),
                   SimpleButton(
-                    onPressed: () => {},
+                    onPressed: () => {}, //TODO: Cambio de estado y cooldialog de que se hizo correctamente
                     text: Localization.xFinish.notOk,
                     isSmall: true,
                     isSecondary: true,

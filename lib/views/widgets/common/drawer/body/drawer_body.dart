@@ -10,7 +10,7 @@ class _DrawerBody extends StatelessWidget {
         ListItem(
           title: Localization.xDrawer.visits,
           icon: FontAwesomeIcons.houseChimney,
-          onTap: () => Get.to(() => const HomeScreen()),
+          onTap: () => Get.to(() => HomeScreen(datePick: DateTime.now())),
         ),
         ListItem(
           title: Localization.xDrawer.report,

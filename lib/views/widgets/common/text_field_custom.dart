@@ -19,6 +19,7 @@ class TextFieldCustom extends StatefulWidget {
   final int? lines;
   final int? maxLenght;
   final TextStyle? style;
+  final bool? isDate;
 
   const TextFieldCustom({
     Key? key,
@@ -38,6 +39,7 @@ class TextFieldCustom extends StatefulWidget {
     this.lines,
     this.maxLenght,
     this.style,
+    this.isDate = false,
   }) : super(key: key);
 
   @override
@@ -136,6 +138,31 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
           ),
           obscureText: widget.keyboardType == TextInputType.multiline ? false : _isPassword,
           inputFormatters: widget.inputFormatters,
+          onTap: (widget.isDate != null && widget.isDate!)
+              ? () async {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  DateTime? date = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime.now(),
+                    locale: const Locale('es', 'ES'),
+                    builder: (context, child) {
+                      return Theme(
+                        data: ThemeData.light().copyWith(
+                          primaryColor: ThemeManager.kPrimaryColor,
+                          colorScheme: ColorScheme.light(primary: ThemeManager.kPrimaryColor),
+                          buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
+                  if (date != null) {
+                    widget.controller.text = "${date.day}/${date.month}/${date.year}";
+                  }
+                }
+              : null,
         ),
       ],
     );

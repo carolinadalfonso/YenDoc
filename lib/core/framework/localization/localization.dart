@@ -12,6 +12,7 @@ class Localization extends LocalizationBase {
   static _SignatureLocalization xSignature = _SignatureLocalization();
   static _MapLocalization xMap = _MapLocalization();
   static _PasswordLocalization xPassword = _PasswordLocalization();
+  static _ReportLocalization xReport = _ReportLocalization();
 }
 
 class _CommonLocalization {
@@ -86,4 +87,8 @@ class _PasswordLocalization {
   final current = 'password.current'.tr;
   final newPassword = 'password.new'.tr;
   final repeatNew = 'password.repeatNew'.tr;
+}
+
+class _ReportLocalization {
+  final date = 'report.date'.tr;
 }

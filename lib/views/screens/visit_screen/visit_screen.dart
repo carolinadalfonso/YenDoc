@@ -16,10 +16,12 @@ import 'package:yendoc/views/widgets/common/text_field_custom.dart';
 
 class VisitScreen extends GetView<VisitController> {
   final VisitEntity visit;
+  final bool? readOnly;
 
   const VisitScreen({
     Key? key,
     required this.visit,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
