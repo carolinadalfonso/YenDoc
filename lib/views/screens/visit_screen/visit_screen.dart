@@ -94,9 +94,11 @@ class VisitScreen extends GetView<VisitController> {
                                 value: visit.symptoms,
                               ),
                               CheckboxCustom(
-                                  text: Localization.xVisit.posibleCovid,
-                                  checked: controller.possibleCovid,
-                                  onChanged: (value) => controller.onCheckboxCovidTapped(value!)),
+                                text: Localization.xVisit.posibleCovid,
+                                checked: controller.possibleCovid,
+                                onChanged: (value) => controller.onCheckboxCovidTapped(value!),
+                                enabled: !readOnly!,
+                              ),
                               RowItemInfo(
                                 title: Localization.xVisit.diagnostic,
                               ),
@@ -106,6 +108,7 @@ class VisitScreen extends GetView<VisitController> {
                                 maxLenght: 500,
                                 lines: 8,
                                 style: const TextStyle(fontSize: 14),
+                                enabled: !readOnly!,
                               )
                             ],
                           ),
@@ -121,6 +124,7 @@ class VisitScreen extends GetView<VisitController> {
                         alignment: Alignment.center,
                         child: GalleryScreen(
                           visit: controller.visit,
+                          readOnly: readOnly,
                         ),
                       ),
                     ],
@@ -155,7 +159,7 @@ class VisitScreen extends GetView<VisitController> {
                           label: Localization.xVisit.finish,
                         ),
                       ],
-                      onTap: (index) => controller.onItemTapped(index, context),
+                      onTap: (index) => controller.onItemTapped(index, context, readOnly!),
                     ),
                   ),
                 ),

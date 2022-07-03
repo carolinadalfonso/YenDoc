@@ -30,21 +30,23 @@ class ReportScreen extends GetView<ReportController> {
           height: SizeConfig.screenHeight,
           width: SizeConfig.screenWidth / 1.2,
           child: Form(
+            key: controller.formKey,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextFieldCustom(
+                    autovalidateMode: AutovalidateMode.disabled,
                     controller: controller.textDatePickController,
                     description: Localization.xReport.date,
                     isDate: true,
-                    //validator: controller.validateDate(),
+                    validator: (date) {
+                      return controller.validateDate(date);
+                    },
                   ),
                   SimpleButton(
-                    onPressed: () {
-                      controller.goToVisits();
-                    },
+                    onPressed: () => controller.validateForm(),
                     text: Localization.xCommon.ok,
                   ),
                 ],

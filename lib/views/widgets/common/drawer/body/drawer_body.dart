@@ -20,7 +20,10 @@ class _DrawerBody extends StatelessWidget {
         ListItem(
           title: Localization.xDrawer.changePassword,
           icon: FontAwesomeIcons.key,
-          onTap: () => Get.to(() => const ChangePasswordScreen()),
+          onTap: () {
+            Scaffold.of(context).closeDrawer();
+            Get.to(() => const ChangePasswordScreen());
+          },
         ),
         ListItem(
           title: Localization.xDrawer.about,

@@ -9,6 +9,7 @@ abstract class LocalizationBase extends Translations {
           'common.ok': 'Aceptar',
           'common.cancel': 'Cancelar',
           'common.yearsOld': 'años',
+          'common.requiredField': 'Campo obligatorio',
           'login.signIn': 'Iniciar sesión',
           'login.username': 'Usuario',
           'login.password': 'Contraseña',
@@ -48,7 +49,11 @@ abstract class LocalizationBase extends Translations {
           'password.current': 'Contraseña actual:',
           'password.new': 'Nueva contraseña:',
           'password.repeatNew': 'Repetir contraseña nueva:',
+          'password.changeOk': 'Se cambió la contraseña correctamente',
+          'password.changeNotOk': 'Hubo en error en el cambio de contraseña',
+          'password.match': 'Deben coincidir las contraseñas nuevas',
           'report.date': 'Seleccione una fecha:',
+          'report.visits': 'Visitas del ',
         },
         'en': {
           'common.yes': 'Yes',
@@ -56,6 +61,7 @@ abstract class LocalizationBase extends Translations {
           'common.ok': 'Ok',
           'common.cancel': 'Cancel',
           'common.yearsOld': 'years old',
+          'common.requiredField': 'Required field',
           'login.signIn': 'Sign in',
           'login.username': 'Username',
           'login.password': 'Password',
@@ -94,7 +100,11 @@ abstract class LocalizationBase extends Translations {
           'password.current': 'Current password:',
           'password.new': 'New password:',
           'password.repeatNew': 'Repeat new password:',
+          'password.changeOk': 'Password changed successfully',
+          'password.changeNotOk': 'There was an error changing the password',
+          'password.match': 'New passwords must match',
           'report.date': 'Pick a date:',
+          'report.visits': 'Visits of ',
         }
       };
 }

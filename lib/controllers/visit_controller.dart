@@ -59,69 +59,70 @@ class VisitController extends GetxController {
     });
   }
 
-  void onItemTapped(int index, BuildContext context) {
+  void onItemTapped(int index, BuildContext context, bool readOnly) {
     selectedIndex = index;
     update();
+    if (!readOnly) {
+      switch (index) {
+        case 0:
+          goToSign();
+          break;
+        case 1:
+          goToCamera();
+          break;
+        case 2:
+          final BackdropFilter coolDialog = BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            child: AlertDialog(
+              actionsPadding: const EdgeInsets.all(10),
+              actions: [
+                Column(
+                  children: [
+                    SimpleButton(
+                      onPressed: () => {}, //TODO: Cambio de estado y cooldialog de que se hizo correctamente
+                      text: Localization.xFinish.ok,
+                      isSmall: true,
+                      isSecondary: true,
+                      icon: FontAwesomeIcons.circleCheck,
+                      mainAxisAlignmentBody: MainAxisAlignment.start,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    SimpleButton(
+                      onPressed: () => {}, //TODO: Cambio de estado y cooldialog de que se hizo correctamente
+                      text: Localization.xFinish.notOk,
+                      isSmall: true,
+                      isSecondary: true,
+                      icon: FontAwesomeIcons.circleXmark,
+                      mainAxisAlignmentBody: MainAxisAlignment.start,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    SimpleButton(
+                      onPressed: () => Get.back(),
+                      text: Localization.xCommon.cancel,
+                      isSmall: true,
+                    ),
+                  ],
+                ),
+              ],
+              alignment: Alignment.center,
+              content: Text(Localization.xFinish.question),
+              title: Text(Localization.xFinish.visit),
+            ),
+          );
 
-    switch (index) {
-      case 0:
-        goToSign();
-        break;
-      case 1:
-        goToCamera();
-        break;
-      case 2:
-        final BackdropFilter coolDialog = BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-          child: AlertDialog(
-            actionsPadding: const EdgeInsets.all(10),
-            actions: [
-              Column(
-                children: [
-                  SimpleButton(
-                    onPressed: () => {}, //TODO: Cambio de estado y cooldialog de que se hizo correctamente
-                    text: Localization.xFinish.ok,
-                    isSmall: true,
-                    isSecondary: true,
-                    icon: FontAwesomeIcons.circleCheck,
-                    mainAxisAlignmentBody: MainAxisAlignment.start,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  SimpleButton(
-                    onPressed: () => {}, //TODO: Cambio de estado y cooldialog de que se hizo correctamente
-                    text: Localization.xFinish.notOk,
-                    isSmall: true,
-                    isSecondary: true,
-                    icon: FontAwesomeIcons.circleXmark,
-                    mainAxisAlignmentBody: MainAxisAlignment.start,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  SimpleButton(
-                    onPressed: () => Get.back(),
-                    text: Localization.xCommon.cancel,
-                    isSmall: true,
-                  ),
-                ],
-              ),
-            ],
-            alignment: Alignment.center,
-            content: Text(Localization.xFinish.question),
-            title: Text(Localization.xFinish.visit),
-          ),
-        );
-
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return coolDialog;
-          },
-        );
-        break;
-      default:
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return coolDialog;
+            },
+          );
+          break;
+        default:
+      }
     }
   }
 

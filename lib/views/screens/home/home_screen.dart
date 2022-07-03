@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:yendoc/controllers/home_controller.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
@@ -22,7 +23,9 @@ class HomeScreen extends GetView<HomeController> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text(Localization.xDrawer.visits),
+          title: DateTime.now().difference(datePick).inDays == 0
+              ? Text(Localization.xDrawer.visits)
+              : Text("${Localization.xReport.visits}${DateFormat("dd/MM/yyyy").format(datePick)}"),
         ),
         drawer: const DrawerMenu(),
         drawerEdgeDragWidth: SizeConfig.screenWidth / 4.5,

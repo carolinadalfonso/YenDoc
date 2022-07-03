@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
 
 class TextFieldCustom extends StatefulWidget {
@@ -82,7 +83,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
         TextFormField(
           controller: widget.controller,
           enabled: widget.enabled,
-          autovalidateMode: AutovalidateMode.always,
+          autovalidateMode: widget.autovalidateMode,
           autocorrect: false,
           keyboardType: widget.keyboardType ?? TextInputType.text,
           onSaved: widget.onSaved,
@@ -127,7 +128,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             disabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ThemeManager.kPrimaryColor50, width: 2),
+              borderSide: BorderSide(color: Colors.grey.shade300, width: 2),
               borderRadius: BorderRadius.circular(8.0),
             ),
             focusColor: ThemeManager.kPrimaryColor,
@@ -143,9 +144,9 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                   FocusScope.of(context).requestFocus(FocusNode());
                   DateTime? date = await showDatePicker(
                     context: context,
-                    initialDate: DateTime.now(),
+                    initialDate: DateTime.now().add(const Duration(days: -1)),
                     firstDate: DateTime(2020),
-                    lastDate: DateTime.now(),
+                    lastDate: DateTime.now().add(const Duration(days: -1)),
                     locale: const Locale('es', 'ES'),
                     builder: (context, child) {
                       return Theme(
@@ -159,7 +160,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                     },
                   );
                   if (date != null) {
-                    widget.controller.text = "${date.day}/${date.month}/${date.year}";
+                    widget.controller.text = DateFormat("dd/MM/yyyy").format(date);
                   }
                 }
               : null,

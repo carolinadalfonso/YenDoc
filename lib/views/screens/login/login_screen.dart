@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:yendoc/controllers/login_controller.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
@@ -31,24 +32,40 @@ class LoginScreen extends GetView<LoginController> {
                 child: Image.asset("assets/images/logo.png"),
               ),
               Form(
+                key: controller.formKey,
                 child: Column(
                   children: [
                     const SizedBox(height: 50),
                     TextFieldCustom(
+                      autovalidateMode: AutovalidateMode.disabled,
                       controller: controller.textUserController,
                       prefixIcon: FontAwesomeIcons.userDoctor,
                       hint: Localization.xLogin.username,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
+                        LengthLimitingTextInputFormatter(32),
+                      ],
+                      validator: (user) {
+                        return controller.validateField(user);
+                      },
                     ),
                     const SizedBox(height: 20),
                     TextFieldCustom(
+                      autovalidateMode: AutovalidateMode.disabled,
                       controller: controller.textPasswordController,
                       isPassword: true,
                       prefixIcon: Icons.lock,
                       hint: Localization.xLogin.password,
+                      validator: (password) {
+                        return controller.validateField(password);
+                      },
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(32),
+                      ],
                     ),
                     const SizedBox(height: 20),
                     SimpleButton(
-                      onPressed: () => controller.login(),
+                      onPressed: () => controller.validateForm(),
                       text: Localization.xLogin.signIn,
                     )
                   ],

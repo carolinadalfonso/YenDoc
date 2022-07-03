@@ -6,6 +6,7 @@ class CheckboxCustom extends StatelessWidget {
   final bool checked;
   final ValueChanged<bool?> onChanged;
   final double? size;
+  final bool? enabled;
 
   const CheckboxCustom({
     Key? key,
@@ -13,6 +14,7 @@ class CheckboxCustom extends StatelessWidget {
     required this.checked,
     required this.onChanged,
     this.size,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -28,7 +30,7 @@ class CheckboxCustom extends StatelessWidget {
               child: Checkbox(
                 activeColor: ThemeManager.kPrimaryColor,
                 value: checked,
-                onChanged: (value) => onChanged(value),
+                onChanged: enabled! ? (value) => onChanged(value) : null,
               ),
             ),
             Transform.translate(

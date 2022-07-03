@@ -21,6 +21,7 @@ class _CommonLocalization {
   final ok = 'common.ok'.tr;
   final cancel = 'common.cancel'.tr;
   final yearsOld = 'common.yearsOld'.tr;
+  final requiredField = 'common.requiredField'.tr;
 }
 
 class _LoginLocalization {
@@ -87,8 +88,12 @@ class _PasswordLocalization {
   final current = 'password.current'.tr;
   final newPassword = 'password.new'.tr;
   final repeatNew = 'password.repeatNew'.tr;
+  final changeOk = 'password.changeOk'.tr;
+  final changeNotOk = 'password.changeNotOk'.tr;
+  final match = 'password.match'.tr;
 }
 
 class _ReportLocalization {
   final date = 'report.date'.tr;
+  final visits = 'report.visits'.tr;
 }

@@ -12,11 +12,13 @@ import '../../../core/framework/util/cool_dialog.dart';
 class GalleryScreen extends GetView<GalleryController> {
   final VisitEntity visit;
   final CameraDescription? camera;
+  final bool? readOnly;
 
   const GalleryScreen({
     Key? key,
     required this.visit,
     this.camera,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -56,19 +58,21 @@ class GalleryScreen extends GetView<GalleryController> {
                                 splashColor: Colors.grey[200],
                                 icon: const Icon(FontAwesomeIcons.solidTrashCan),
                                 color: Colors.grey[400],
-                                onPressed: () async {
-                                  CoolDialog.of(context).show(
-                                    textButton1: Localization.xCommon.yes,
-                                    textButton2: Localization.xCommon.no,
-                                    question: Localization.xGallery.questionDeletePhoto,
-                                    title: Localization.xGallery.deletePhoto,
-                                    onPressed1: () {
-                                      controller.deleteImage(controller.images[index], context);
-                                      Get.back();
-                                    },
-                                    onPressed2: () => Get.back(),
-                                  );
-                                },
+                                onPressed: readOnly!
+                                    ? null
+                                    : () async {
+                                        CoolDialog.of(context).show(
+                                          textButton1: Localization.xCommon.yes,
+                                          textButton2: Localization.xCommon.no,
+                                          question: Localization.xGallery.questionDeletePhoto,
+                                          title: Localization.xGallery.deletePhoto,
+                                          onPressed1: () {
+                                            controller.deleteImage(controller.images[index], context);
+                                            Get.back();
+                                          },
+                                          onPressed2: () => Get.back(),
+                                        );
+                                      },
                               ),
                             ),
                           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:yendoc/controllers/change_password_controller.dart';
 import 'package:yendoc/controllers/login_controller.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
@@ -24,42 +25,70 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
           style: TextStyle(color: ThemeManager.kPrimaryColor),
         ),
       ),
-      body: Align(
-        alignment: Alignment.center,
-        child: SizedBox(
-          height: SizeConfig.screenHeight,
-          width: SizeConfig.screenWidth / 1.2,
-          child: Form(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextFieldCustom(
-                  controller: controller.textActualPasswordController,
-                  description: Localization.xPassword.current,
-                  isPassword: true,
+      body: GetBuilder<ChangePasswordController>(
+        initState: (state) async => await controller.init(),
+        init: controller,
+        builder: (controller) {
+          return Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              height: SizeConfig.screenHeight,
+              width: SizeConfig.screenWidth / 1.2,
+              child: Form(
+                key: controller.formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFieldCustom(
+                      controller: controller.textActualPasswordController,
+                      description: Localization.xPassword.current,
+                      isPassword: true,
+                      autovalidateMode: AutovalidateMode.disabled,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(32),
+                      ],
+                      validator: (currentPassword) {
+                        return controller.validateField(currentPassword);
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 50),
+                      child: TextFieldCustom(
+                        controller: controller.textNewPasswordController,
+                        description: Localization.xPassword.newPassword,
+                        isPassword: true,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(32),
+                        ],
+                        validator: (newPassword) {
+                          return controller.validateField(newPassword);
+                        },
+                      ),
+                    ),
+                    TextFieldCustom(
+                      controller: controller.textRepeatNewPasswordController,
+                      description: Localization.xPassword.repeatNew,
+                      isPassword: true,
+                      autovalidateMode: AutovalidateMode.disabled,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(32),
+                      ],
+                      validator: (repeatNewPassword) {
+                        return controller.validateRepeatPassword(repeatNewPassword);
+                      },
+                    ),
+                    const SizedBox(height: 50),
+                    SimpleButton(
+                      onPressed: () => controller.validateForm(context),
+                      text: Localization.xDrawer.changePassword,
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 50),
-                  child: TextFieldCustom(
-                    controller: controller.textNewPasswordController,
-                    description: Localization.xPassword.newPassword,
-                    isPassword: true,
-                  ),
-                ),
-                TextFieldCustom(
-                  controller: controller.textRepeatNewPasswordController,
-                  description: Localization.xPassword.repeatNew,
-                  isPassword: true,
-                ),
-                const SizedBox(height: 50),
-                SimpleButton(
-                  onPressed: () => {},
-                  text: Localization.xDrawer.changePassword,
-                )
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
