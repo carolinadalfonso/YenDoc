@@ -1,4 +1,4 @@
-import 'package:yendoc/controllers/login_controller.dart';
+import 'package:get/get_navigation/src/root/internacionalization.dart';
 
 abstract class LocalizationBase extends Translations {
   @override
