@@ -9,10 +9,22 @@ class ChangePasswordController extends GetxController {
   final TextEditingController textRepeatNewPasswordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  init() {
+  @override
+  void onInit() {
+    super.onInit();
+
     textActualPasswordController.text = "";
     textNewPasswordController.text = "";
     textRepeatNewPasswordController.text = "";
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+
+    textActualPasswordController.dispose();
+    textNewPasswordController.dispose();
+    textRepeatNewPasswordController.dispose();
   }
 
   validateForm(BuildContext context) {

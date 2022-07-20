@@ -105,6 +105,7 @@ class VisitScreen extends GetView<VisitController> {
                               TextFieldCustom(
                                 controller: controller.textDiagnosticController,
                                 keyboardType: TextInputType.multiline,
+                                initialValue: visit.diagnostic,
                                 maxLenght: 500,
                                 lines: 8,
                                 style: const TextStyle(fontSize: 14),

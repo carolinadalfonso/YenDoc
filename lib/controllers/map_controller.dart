@@ -1,46 +1,54 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/models/visit/visit_entity.dart';
 
+import '../core/framework/util/map.dart';
+
 class MapController extends GetxController {
   late VisitEntity visit;
-  late GoogleMapController mapController;
-  late LatLng _medicLocationData;
   List<Marker> markers = <Marker>[];
+  Completer<GoogleMapController> completerMapController = Completer();
 
-  init(VisitEntity visit) async {
+  init(VisitEntity visit) {
     this.visit = visit;
     markers.clear();
+    setMedicLocationData();
   }
 
-  setMedicLocationData(double latitude, double longitude) async {
-    _medicLocationData = LatLng(latitude, longitude);
+  onDispose() {
+    completerMapController = Completer();
+  }
 
-    if (markers.isEmpty) {
-      markers.add(
-        Marker(
-          markerId: const MarkerId("medicLocation"),
-          position: _medicLocationData,
-          infoWindow: InfoWindow(title: Localization.xMap.you),
+  void onMapCreated(GoogleMapController googleMapController) async {
+    if (completerMapController.isCompleted) {
+      GoogleMapController controller = await completerMapController.future;
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(visit.latitude, visit.longitude),
+            zoom: 14.5,
+          ),
         ),
       );
     }
+  }
 
-    BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(devicePixelRatio: 400),
-      "assets/images/pin.png",
-    );
-
+  setMedicLocationData() {
     markers.add(
       Marker(
-          markerId: const MarkerId("patientLocation"),
-          position: LatLng(visit.latitude, visit.longitude),
-          infoWindow: InfoWindow(title: Localization.xMap.patient),
-          icon: markerbitmap),
+        markerId: const MarkerId("patientLocation"),
+        position: LatLng(visit.latitude, visit.longitude),
+        infoWindow: InfoWindow(title: Localization.xMap.patient),
+      ),
     );
 
     update();
+  }
+
+  goToGoogleMap() {
+    MapUtils.openMap(visit.latitude, visit.longitude);
   }
 }

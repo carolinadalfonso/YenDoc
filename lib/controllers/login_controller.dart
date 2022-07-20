@@ -10,6 +10,22 @@ class LoginController extends GetxController {
   final TextEditingController textPasswordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  @override
+  void onInit() {
+    super.onInit();
+
+    textUserController.text = "";
+    textPasswordController.text = "";
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+
+    textUserController.dispose();
+    textPasswordController.dispose();
+  }
+
   login() {
     Get.to(() => HomeScreen(datePick: DateTime.now()));
   }

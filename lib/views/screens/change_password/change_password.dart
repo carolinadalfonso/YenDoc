@@ -26,7 +26,6 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
         ),
       ),
       body: GetBuilder<ChangePasswordController>(
-        initState: (state) async => await controller.init(),
         init: controller,
         builder: (controller) {
           return Align(

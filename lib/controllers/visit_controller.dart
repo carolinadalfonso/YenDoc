@@ -41,6 +41,12 @@ class VisitController extends GetxController {
     loadSignature();
   }
 
+  @override
+  void onClose() {
+    super.onClose();
+    textDiagnosticController.dispose();
+  }
+
   void goToCamera() {
     Get.to(
       () => TakePictureScreen(

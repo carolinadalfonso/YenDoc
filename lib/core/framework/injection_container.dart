@@ -11,14 +11,14 @@ import 'package:yendoc/controllers/visit_controller.dart';
 class InjectionContainer extends Bindings {
   @override
   void dependencies() {
-    Get.put<HomeController>(HomeController());
-    Get.put<LoginController>(LoginController());
-    Get.put<AboutController>(AboutController());
-    Get.put<VisitCardController>(VisitCardController());
-    Get.put<VisitController>(VisitController());
-    Get.put<GalleryController>(GalleryController());
-    Get.put<MapController>(MapController());
-    Get.put<ChangePasswordController>(ChangePasswordController());
-    Get.put<ReportController>(ReportController());
+    Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
+    Get.lazyPut<LoginController>(() => LoginController(), fenix: true);
+    Get.lazyPut<AboutController>(() => AboutController(), fenix: true);
+    Get.lazyPut<VisitCardController>(() => VisitCardController(), fenix: true);
+    Get.lazyPut<VisitController>(() => VisitController(), fenix: true);
+    Get.lazyPut<GalleryController>(() => GalleryController(), fenix: true);
+    Get.lazyPut<MapController>(() => MapController(), fenix: true);
+    Get.lazyPut<ChangePasswordController>(() => ChangePasswordController(), fenix: true);
+    Get.lazyPut<ReportController>(() => ReportController(), fenix: true);
   }
 }
