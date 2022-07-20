@@ -9,30 +9,29 @@ import '../core/framework/util/map.dart';
 
 class MapController extends GetxController {
   late VisitEntity visit;
-  List<Marker> markers = <Marker>[];
+  Set<Marker> markers = <Marker>{};
   Completer<GoogleMapController> completerMapController = Completer();
 
   init(VisitEntity visit) {
+    completerMapController = Completer();
     this.visit = visit;
     markers.clear();
     setMedicLocationData();
   }
 
-  onDispose() {
-    completerMapController = Completer();
-  }
-
   void onMapCreated(GoogleMapController googleMapController) async {
     if (completerMapController.isCompleted) {
-      GoogleMapController controller = await completerMapController.future;
-      controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target: LatLng(visit.latitude, visit.longitude),
-            zoom: 14.5,
+      final GoogleMapController controller = await completerMapController.future;
+      Timer(const Duration(milliseconds: 500), () async {
+        await controller.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              target: LatLng(visit.latitude, visit.longitude),
+              zoom: 14.5,
+            ),
           ),
-        ),
-      );
+        );
+      });
     }
   }
 
@@ -44,8 +43,6 @@ class MapController extends GetxController {
         infoWindow: InfoWindow(title: Localization.xMap.patient),
       ),
     );
-
-    update();
   }
 
   goToGoogleMap() {

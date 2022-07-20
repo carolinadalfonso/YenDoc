@@ -18,8 +18,6 @@ class MapScreen extends GetView<MapController> {
   Widget build(BuildContext context) {
     return GetBuilder<MapController>(
       initState: (state) => controller.init(visit),
-      dispose: (state) => controller.onDispose(),
-      init: controller,
       builder: (controller) {
         return Stack(
           children: <Widget>[
@@ -30,7 +28,7 @@ class MapScreen extends GetView<MapController> {
                 }
                 controller.onMapCreated(googleMapController);
               },
-              markers: Set<Marker>.of(controller.markers),
+              markers: controller.markers,
               myLocationEnabled: false,
               initialCameraPosition: const CameraPosition(
                 target: LatLng(0, 0),
