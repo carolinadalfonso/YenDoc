@@ -314,7 +314,7 @@ packages:
       name: hand_signature
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0+1"
   http_multi_server:
     dependency: transitive
     description:

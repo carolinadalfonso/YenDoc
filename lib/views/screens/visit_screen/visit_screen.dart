@@ -32,7 +32,6 @@ class VisitScreen extends GetView<VisitController> {
           length: 3,
           child: GetBuilder<VisitController>(
             initState: (state) async => await controller.init(visit),
-            init: controller,
             builder: (controller) {
               return Scaffold(
                 backgroundColor: Colors.white,

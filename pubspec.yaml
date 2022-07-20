@@ -43,7 +43,7 @@ dependencies:
   shimmer: ^2.0.0
   text_scroll: ^0.0.5
   path_provider: ^2.0.11
-  hand_signature: ^2.2.0
+  hand_signature: ^2.3.0+1
   url_launcher: ^6.1.5
   # shared_preferences: ^2.0.15
   # global_configuration: ^2.0.0-nullsafety.1

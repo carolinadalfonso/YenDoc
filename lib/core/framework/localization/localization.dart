@@ -77,6 +77,7 @@ class _FinishLocalization {
 
 class _SignatureLocalization {
   final clean = 'signature.clean'.tr;
+  final cleanAndSign = 'signature.cleanAndSign'.tr;
 }
 
 class _MapLocalization {
