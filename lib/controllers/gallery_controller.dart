@@ -35,7 +35,7 @@ class GalleryController extends GetxController {
   }
 
   void getVisitImages() async {
-    final Directory fullPath = await Util().getPhotosPath(visit.id);
+    final Directory fullPath = await Util.getPhotosPath(visit.id);
     images.clear();
     if (await fullPath.exists()) {
       images = fullPath.listSync();
@@ -61,7 +61,7 @@ class GalleryController extends GetxController {
       try {
         await initializeControllerFuture;
         await cameraController.takePicture().then((image) async {
-          final pathVisitId = await Util().getPhotosPath(visitId);
+          final pathVisitId = await Util.getPhotosPath(visitId);
           if (!await pathVisitId.exists()) {
             await pathVisitId.create(recursive: true);
           }

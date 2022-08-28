@@ -37,7 +37,7 @@ class SignatureController extends GetxController {
   void confirmSignature() async {
     patientSignature.value = await patientHandSignatureControl.toImage();
     if (!checkSignaturesEmpty()) {
-      fullPathSign = await Util().getAndCreateSignaturePath(visit.id);
+      fullPathSign = await Util.getAndCreateSignaturePath(visit.id);
       File(fullPathSign).writeAsBytesSync(patientSignature.value!.buffer.asInt8List());
     }
 
@@ -47,7 +47,7 @@ class SignatureController extends GetxController {
   }
 
   void loadSignature() async {
-    fullPathSign = await Util().getAndCreateSignaturePath(visit.id);
+    fullPathSign = await Util.getAndCreateSignaturePath(visit.id);
     File file = File(fullPathSign);
     if (await file.exists()) {
       Uint8List bytes = file.readAsBytesSync();

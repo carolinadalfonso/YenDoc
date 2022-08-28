@@ -46,7 +46,7 @@ class LoginScreen extends GetView<LoginController> {
                         LengthLimitingTextInputFormatter(32),
                       ],
                       validator: (user) {
-                        return controller.validateField(user);
+                        return controller.validateUser(user);
                       },
                     ),
                     const SizedBox(height: 20),
@@ -57,7 +57,7 @@ class LoginScreen extends GetView<LoginController> {
                       prefixIcon: Icons.lock,
                       hint: Localization.xLogin.password,
                       validator: (password) {
-                        return controller.validateField(password);
+                        return controller.validatePassword(password);
                       },
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(32),

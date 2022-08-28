@@ -12,7 +12,7 @@ class ReportController extends GetxController {
 
   validateDate(date) {
     if (date == null || date == "") {
-      return Localization.xCommon.requiredField;
+      return Localization.xValidation.requiredField;
     } else {
       return null;
     }

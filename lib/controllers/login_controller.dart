@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/views/screens/home/home_screen.dart';
 
+import '../core/framework/util/util.dart';
+
 export 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -39,11 +41,19 @@ class LoginController extends GetxController {
     }
   }
 
-  String? validateField(String? value) {
-    if (value != null && value != "" && value.length > 8) {
-      return null;
-    } else {
-      return Localization.xCommon.requiredField;
-    }
+  String? validateUser(String? user) {
+    return Util.isEmpty(user)
+        ? Localization.xValidation.requiredField
+        : user!.length < 8
+            ? "Mayor a 8"
+            : null;
+  }
+
+  String? validatePassword(String? password) {
+    return Util.isEmpty(password)
+        ? Localization.xValidation.requiredField
+        : !Util.passwordRegExp.hasMatch(password!)
+            ? Localization.xValidation.passwordRequisits
+            : null;
   }
 }

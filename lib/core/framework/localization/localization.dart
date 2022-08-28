@@ -13,6 +13,7 @@ class Localization extends LocalizationBase {
   static _MapLocalization xMap = _MapLocalization();
   static _PasswordLocalization xPassword = _PasswordLocalization();
   static _ReportLocalization xReport = _ReportLocalization();
+  static _ValidationLocalization xValidation = _ValidationLocalization();
 }
 
 class _CommonLocalization {
@@ -21,7 +22,6 @@ class _CommonLocalization {
   final ok = 'common.ok'.tr;
   final cancel = 'common.cancel'.tr;
   final yearsOld = 'common.yearsOld'.tr;
-  final requiredField = 'common.requiredField'.tr;
 }
 
 class _LoginLocalization {
@@ -91,10 +91,15 @@ class _PasswordLocalization {
   final repeatNew = 'password.repeatNew'.tr;
   final changeOk = 'password.changeOk'.tr;
   final changeNotOk = 'password.changeNotOk'.tr;
-  final match = 'password.match'.tr;
 }
 
 class _ReportLocalization {
   final date = 'report.date'.tr;
   final visits = 'report.visits'.tr;
+}
+
+class _ValidationLocalization {
+  final requiredField = 'validation.requiredField'.tr;
+  final passwordDontMatch = 'validation.passwordDontMatch'.tr;
+  final passwordRequisits = 'validation.passwordRequisits'.tr;
 }

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/util/cool_snack_bar.dart';
 
+import '../core/framework/util/util.dart';
+
 class ChangePasswordController extends GetxController {
   final TextEditingController textActualPasswordController = TextEditingController();
   final TextEditingController textNewPasswordController = TextEditingController();
@@ -41,21 +43,20 @@ class ChangePasswordController extends GetxController {
     }
   }
 
-  String? validateField(String? value) {
-    if (value != null && value != "" && value.length > 8) {
-      return null;
-    } else {
-      return Localization.xCommon.requiredField;
-    }
+  String? validatePassword(String? password) {
+    return Util.isEmpty(password)
+        ? Localization.xValidation.requiredField
+        : !Util.passwordRegExp.hasMatch(password!)
+            ? Localization.xValidation.passwordRequisits
+            : null;
   }
 
   String? validateRepeatPassword(String? repeatPassword) {
-    if (validateField(repeatPassword) == null) {
-      if (repeatPassword != textNewPasswordController.text) {
-        return Localization.xPassword.match;
-      } else {
-        return null;
-      }
+    final String? isValidPassword = validatePassword(repeatPassword);
+
+    if (isValidPassword != null) return isValidPassword;
+    if (repeatPassword != textNewPasswordController.text) {
+      return Localization.xValidation.passwordDontMatch;
     } else {
       return null;
     }

@@ -9,7 +9,6 @@ abstract class LocalizationBase extends Translations {
           'common.ok': 'Aceptar',
           'common.cancel': 'Cancelar',
           'common.yearsOld': 'años',
-          'common.requiredField': 'Campo obligatorio',
           'login.signIn': 'Iniciar sesión',
           'login.username': 'Usuario',
           'login.password': 'Contraseña',
@@ -52,9 +51,12 @@ abstract class LocalizationBase extends Translations {
           'password.repeatNew': 'Repetir contraseña nueva:',
           'password.changeOk': 'Se cambió la contraseña correctamente',
           'password.changeNotOk': 'Hubo en error en el cambio de contraseña',
-          'password.match': 'Deben coincidir las contraseñas nuevas',
           'report.date': 'Seleccione una fecha:',
           'report.visits': 'Visitas del ',
+          'validation.requiredField': 'Campo obligatorio',
+          'validation.passwordDontMatch': 'Las contraseñas no coinciden',
+          'validation.passwordRequisits':
+              'La contraseña debe de tener al menos:\n- 8 caracteres\n- Una letra mayúscula\n- Una letra minúscula\n- Un número',
         },
         'en': {
           'common.yes': 'Yes',
@@ -62,7 +64,6 @@ abstract class LocalizationBase extends Translations {
           'common.ok': 'Ok',
           'common.cancel': 'Cancel',
           'common.yearsOld': 'years old',
-          'common.requiredField': 'Required field',
           'login.signIn': 'Sign in',
           'login.username': 'Username',
           'login.password': 'Password',
@@ -104,9 +105,12 @@ abstract class LocalizationBase extends Translations {
           'password.repeatNew': 'Repeat new password:',
           'password.changeOk': 'Password changed successfully',
           'password.changeNotOk': 'There was an error changing the password',
-          'password.match': 'New passwords must match',
           'report.date': 'Pick a date:',
           'report.visits': 'Visits of ',
+          'validation.requiredField': 'Required field',
+          'validation.passwordDontMatch': 'Passwords do not match',
+          'validation.passwordRequisits':
+              'The password must have, at least:\n- 8 characters\n- One uppercase letter\n- One lowercase letter\n- One number',
         }
       };
 }
