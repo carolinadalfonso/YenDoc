@@ -96,6 +96,7 @@ class _PasswordLocalization {
 class _ReportLocalization {
   final date = 'report.date'.tr;
   final visits = 'report.visits'.tr;
+  final visit = 'report.visit'.tr;
 }
 
 class _ValidationLocalization {

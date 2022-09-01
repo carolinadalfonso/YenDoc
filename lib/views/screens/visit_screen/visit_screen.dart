@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:yendoc/controllers/visit_controller.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
@@ -16,11 +17,13 @@ import 'package:yendoc/views/widgets/common/text_field_custom.dart';
 
 class VisitScreen extends GetView<VisitController> {
   final VisitEntity visit;
+  final DateTime datePick;
   final bool? readOnly;
 
   const VisitScreen({
     Key? key,
     required this.visit,
+    required this.datePick,
     this.readOnly = false,
   }) : super(key: key);
 
@@ -40,9 +43,9 @@ class VisitScreen extends GetView<VisitController> {
                 appBar: AppBar(
                   centerTitle: true,
                   elevation: 0,
-                  title: Text(
-                    Localization.xDrawer.visit,
-                  ),
+                  title: DateTime.now().difference(datePick).inDays == 0
+                      ? Text(Localization.xDrawer.visit)
+                      : Text("${Localization.xReport.visit}${DateFormat("dd/MM/yyyy").format(datePick)}"),
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(45),
                     child: Container(

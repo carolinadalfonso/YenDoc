@@ -8,11 +8,13 @@ import 'package:yendoc/models/visit/visit_entity.dart';
 
 class VisitCard extends GetView<VisitCardController> {
   final VisitEntity visit;
+  final DateTime datePick;
   final bool? readOnly;
 
   const VisitCard({
     Key? key,
     required this.visit,
+    required this.datePick,
     this.readOnly = false,
   }) : super(key: key);
 
@@ -23,7 +25,7 @@ class VisitCard extends GetView<VisitCardController> {
       child: InkWell(
         highlightColor: ThemeManager.kPrimaryColor100,
         borderRadius: BorderRadius.circular(8),
-        onTap: () => controller.goToVisit(visit, readOnly),
+        onTap: () => controller.goToVisit(visit, datePick, readOnly),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),

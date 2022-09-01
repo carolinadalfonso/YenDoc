@@ -5,8 +5,8 @@ import 'package:yendoc/models/visit/visit_entity.dart';
 import 'package:yendoc/views/screens/visit_screen/visit_screen.dart';
 
 class VisitCardController extends GetxController {
-  goToVisit(VisitEntity visitEntity, bool? readOnly) {
-    Get.to(() => VisitScreen(visit: visitEntity, readOnly: readOnly));
+  goToVisit(VisitEntity visitEntity, DateTime datePick, bool? readOnly) {
+    Get.to(() => VisitScreen(visit: visitEntity, datePick: datePick, readOnly: readOnly));
   }
 
   getStateColor(String visitCode) {

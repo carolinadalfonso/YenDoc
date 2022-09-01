@@ -53,6 +53,7 @@ abstract class LocalizationBase extends Translations {
           'password.changeNotOk': 'Hubo en error en el cambio de contraseña',
           'report.date': 'Seleccione una fecha:',
           'report.visits': 'Visitas del ',
+          'report.visit': 'Visita del ',
           'validation.requiredField': 'Campo obligatorio',
           'validation.passwordDontMatch': 'Las contraseñas no coinciden',
           'validation.passwordRequisits':
@@ -107,6 +108,7 @@ abstract class LocalizationBase extends Translations {
           'password.changeNotOk': 'There was an error changing the password',
           'report.date': 'Pick a date:',
           'report.visits': 'Visits of ',
+          'report.visit': 'Visit of ',
           'validation.requiredField': 'Required field',
           'validation.passwordDontMatch': 'Passwords do not match',
           'validation.passwordRequisits':

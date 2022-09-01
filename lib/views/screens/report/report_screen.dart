@@ -41,8 +41,8 @@ class ReportScreen extends GetView<ReportController> {
                     controller: controller.textDatePickController,
                     description: Localization.xReport.date,
                     isDate: true,
-                    validator: (date) {
-                      return controller.validateDate(date);
+                    validator: (_) {
+                      return controller.validateDate();
                     },
                   ),
                   SimpleButton(

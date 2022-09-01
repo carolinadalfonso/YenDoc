@@ -14,7 +14,11 @@ class HomeScreen extends GetView<HomeController> {
   final DateTime datePick;
   final bool? readOnly;
 
-  const HomeScreen({Key? key, required this.datePick, this.readOnly = false}) : super(key: key);
+  const HomeScreen({
+    Key? key,
+    required this.datePick,
+    this.readOnly = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +49,7 @@ class HomeScreen extends GetView<HomeController> {
                       VisitEntity visit = getVisits(datePick)[index];
                       return VisitCard(
                         visit: visit,
+                        datePick: datePick,
                         readOnly: readOnly,
                       );
                     },

@@ -10,8 +10,8 @@ class ReportController extends GetxController {
 
   DateTime datePick = DateTime.now();
 
-  validateDate(date) {
-    if (date == null || date == "") {
+  validateDate() {
+    if (textDatePickController.text == "") {
       return Localization.xValidation.requiredField;
     } else {
       return null;
