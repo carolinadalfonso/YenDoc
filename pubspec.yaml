@@ -35,7 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.1.0
-  get: ^4.6.3
+  get: ^4.6.5
   json_annotation: ^4.5.0
   camera: ^0.9.7+1
   intl: ^0.17.0
@@ -45,6 +45,7 @@ dependencies:
   path_provider: ^2.0.11
   hand_signature: ^2.3.0+1
   url_launcher: ^6.1.5
+  location: ^4.4.0
   # shared_preferences: ^2.0.15
   # global_configuration: ^2.0.0-nullsafety.1
 

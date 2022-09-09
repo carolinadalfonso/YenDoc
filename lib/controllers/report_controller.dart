@@ -6,9 +6,19 @@ import 'package:yendoc/views/screens/home/home_screen.dart';
 
 class ReportController extends GetxController {
   final TextEditingController textDatePickController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   DateTime datePick = DateTime.now();
+
+  @override
+  void onInit() {
+    super.onInit();
+    textDatePickController.clear();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    textDatePickController.dispose();
+  }
 
   validateDate() {
     if (textDatePickController.text == "") {
@@ -18,7 +28,7 @@ class ReportController extends GetxController {
     }
   }
 
-  validateForm() {
+  validateForm(GlobalKey<FormState> formKey) {
     FormState form = formKey.currentState!;
     form.save();
     if (form.validate()) {
@@ -29,5 +39,6 @@ class ReportController extends GetxController {
 
   goToVisits() {
     Get.to(() => HomeScreen(datePick: datePick, readOnly: true));
+    textDatePickController.clear();
   }
 }

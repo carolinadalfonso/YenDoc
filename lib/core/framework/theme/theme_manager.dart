@@ -80,15 +80,13 @@ class ThemeManager {
       snackBarTheme: const SnackBarThemeData(
         contentTextStyle: TextStyle(fontFamily: 'Poppins'),
       ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        unselectedItemColor: kPrimaryColor,
-        selectedItemColor: kPrimaryColor,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         elevation: 2,
-        unselectedLabelStyle: const TextStyle(
+        unselectedLabelStyle: TextStyle(
           fontFamily: 'Montserrat',
           fontSize: 14,
         ),
-        selectedLabelStyle: const TextStyle(
+        selectedLabelStyle: TextStyle(
           fontFamily: 'Montserrat',
           fontSize: 14,
         ),

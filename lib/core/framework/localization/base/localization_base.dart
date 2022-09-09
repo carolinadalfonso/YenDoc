@@ -55,6 +55,7 @@ abstract class LocalizationBase extends Translations {
           'report.visits': 'Visitas del ',
           'report.visit': 'Visita del ',
           'validation.requiredField': 'Campo obligatorio',
+          'validation.userLenght': 'El usuario debe tener al menos de 8 caracteres',
           'validation.passwordDontMatch': 'Las contraseñas no coinciden',
           'validation.passwordRequisits':
               'La contraseña debe de tener al menos:\n- 8 caracteres\n- Una letra mayúscula\n- Una letra minúscula\n- Un número',
@@ -110,6 +111,7 @@ abstract class LocalizationBase extends Translations {
           'report.visits': 'Visits of ',
           'report.visit': 'Visit of ',
           'validation.requiredField': 'Required field',
+          'validation.userLenght': 'Username must be at least 8 characters long',
           'validation.passwordDontMatch': 'Passwords do not match',
           'validation.passwordRequisits':
               'The password must have, at least:\n- 8 characters\n- One uppercase letter\n- One lowercase letter\n- One number',

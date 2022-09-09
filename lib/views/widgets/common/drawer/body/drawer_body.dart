@@ -10,12 +10,14 @@ class _DrawerBody extends StatelessWidget {
         ListItem(
           title: Localization.xDrawer.visits,
           icon: FontAwesomeIcons.houseChimney,
-          onTap: () => Get.to(() => HomeScreen(datePick: DateTime.now())),
+          //onTap: () => Get.to(() => HomeScreen(datePick: DateTime.now()), preventDuplicates: false),
+          onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(datePick: DateTime.now()))),
         ),
         ListItem(
           title: Localization.xDrawer.report,
           icon: FontAwesomeIcons.chartColumn,
           onTap: () => Get.to(() => const ReportScreen()),
+          //onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ReportScreen())),
         ),
         ListItem(
           title: Localization.xDrawer.changePassword,

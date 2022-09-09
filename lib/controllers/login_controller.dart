@@ -16,8 +16,8 @@ class LoginController extends GetxController {
   void onInit() {
     super.onInit();
 
-    textUserController.text = "";
-    textPasswordController.text = "";
+    textUserController.text = "usuarioAAA";
+    textPasswordController.text = "Prueba1234";
   }
 
   @override
@@ -41,18 +41,18 @@ class LoginController extends GetxController {
     }
   }
 
-  String? validateUser(String? user) {
-    return Util.isEmpty(user)
+  String? validateUser() {
+    return Util.isEmpty(textUserController.text)
         ? Localization.xValidation.requiredField
-        : user!.length < 8
-            ? "Mayor a 8"
+        : textUserController.text.length < 8
+            ? Localization.xValidation.userLenght
             : null;
   }
 
-  String? validatePassword(String? password) {
-    return Util.isEmpty(password)
+  String? validatePassword() {
+    return Util.isEmpty(textPasswordController.text)
         ? Localization.xValidation.requiredField
-        : !Util.passwordRegExp.hasMatch(password!)
+        : !Util.passwordRegExp.hasMatch(textPasswordController.text)
             ? Localization.xValidation.passwordRequisits
             : null;
   }

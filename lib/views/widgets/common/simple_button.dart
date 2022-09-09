@@ -39,7 +39,7 @@ class SimpleButton extends StatelessWidget {
                   ? Colors.white
                   : ThemeManager.kPrimaryColor
               : ThemeManager.kPrimaryColor50,
-          primary: isSecondary ? ThemeManager.kPrimaryColor : Colors.white,
+          foregroundColor: isSecondary ? ThemeManager.kPrimaryColor : Colors.white,
           textStyle: TextStyle(
             fontFamily: 'Poppins',
             fontSize: isSmall ? 14 : 16,

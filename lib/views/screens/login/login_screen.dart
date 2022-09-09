@@ -45,8 +45,8 @@ class LoginScreen extends GetView<LoginController> {
                         FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
                         LengthLimitingTextInputFormatter(32),
                       ],
-                      validator: (user) {
-                        return controller.validateUser(user);
+                      validator: (_) {
+                        return controller.validateUser();
                       },
                     ),
                     const SizedBox(height: 20),
@@ -56,8 +56,8 @@ class LoginScreen extends GetView<LoginController> {
                       isPassword: true,
                       prefixIcon: Icons.lock,
                       hint: Localization.xLogin.password,
-                      validator: (password) {
-                        return controller.validatePassword(password);
+                      validator: (_) {
+                        return controller.validatePassword();
                       },
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(32),

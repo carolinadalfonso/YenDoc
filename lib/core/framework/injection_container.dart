@@ -20,7 +20,7 @@ class InjectionContainer extends Bindings {
     Get.lazyPut<GalleryController>(() => GalleryController(), fenix: true);
     Get.lazyPut<MapController>(() => MapController(), fenix: true);
     Get.lazyPut<ChangePasswordController>(() => ChangePasswordController(), fenix: true);
-    Get.lazyPut<ReportController>(() => ReportController(), fenix: true);
+    Get.lazyPut<ReportController>(() => ReportController());
     Get.lazyPut<SignatureController>(() => SignatureController(), fenix: true);
   }
 }

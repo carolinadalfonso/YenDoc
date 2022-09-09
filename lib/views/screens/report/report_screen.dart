@@ -12,6 +12,8 @@ class ReportScreen extends GetView<ReportController> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -24,36 +26,41 @@ class ReportScreen extends GetView<ReportController> {
           style: TextStyle(color: ThemeManager.kPrimaryColor),
         ),
       ),
-      body: Align(
-        alignment: Alignment.center,
-        child: SizedBox(
-          height: SizeConfig.screenHeight,
-          width: SizeConfig.screenWidth / 1.2,
-          child: Form(
-            key: controller.formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextFieldCustom(
-                    autovalidateMode: AutovalidateMode.disabled,
-                    controller: controller.textDatePickController,
-                    description: Localization.xReport.date,
-                    isDate: true,
-                    validator: (_) {
-                      return controller.validateDate();
-                    },
+      body: GetBuilder<ReportController>(
+        builder: (controller) {
+          return Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              height: SizeConfig.screenHeight,
+              width: SizeConfig.screenWidth / 1.2,
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextFieldCustom(
+                        readOnly: true,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        controller: controller.textDatePickController,
+                        description: Localization.xReport.date,
+                        isDate: true,
+                        validator: (_) {
+                          return controller.validateDate();
+                        },
+                      ),
+                      SimpleButton(
+                        onPressed: () => controller.validateForm(_formKey),
+                        text: Localization.xCommon.ok,
+                      ),
+                    ],
                   ),
-                  SimpleButton(
-                    onPressed: () => controller.validateForm(),
-                    text: Localization.xCommon.ok,
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

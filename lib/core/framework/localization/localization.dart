@@ -103,4 +103,5 @@ class _ValidationLocalization {
   final requiredField = 'validation.requiredField'.tr;
   final passwordDontMatch = 'validation.passwordDontMatch'.tr;
   final passwordRequisits = 'validation.passwordRequisits'.tr;
+  final userLenght = 'validation.userLenght'.tr;
 }

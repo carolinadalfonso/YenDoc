@@ -147,22 +147,33 @@ class VisitScreen extends GetView<VisitController> {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
-                    child: BottomNavigationBar(
-                      items: <BottomNavigationBarItem>[
-                        BottomNavigationBarItem(
-                          icon: const Icon(FontAwesomeIcons.signature),
-                          label: Localization.xVisit.signature,
-                        ),
-                        BottomNavigationBarItem(
-                          icon: const Icon(FontAwesomeIcons.camera),
-                          label: Localization.xVisit.camera,
-                        ),
-                        BottomNavigationBarItem(
-                          icon: const Icon(FontAwesomeIcons.flagCheckered),
-                          label: Localization.xVisit.finish,
-                        ),
-                      ],
-                      onTap: (index) => controller.onItemTapped(index, context, readOnly!),
+                    child: Theme(
+                      data: ThemeManager.getTheme().copyWith(
+                        splashFactory: readOnly! ? NoSplash.splashFactory : InkSplash.splashFactory,
+                      ),
+                      child: BottomNavigationBar(
+                        selectedIconTheme:
+                            readOnly! ? IconThemeData(color: ThemeManager.kPrimaryColor100) : IconThemeData(color: ThemeManager.kPrimaryColor),
+                        selectedItemColor: readOnly! ? ThemeManager.kPrimaryColor100 : ThemeManager.kPrimaryColor,
+                        unselectedIconTheme:
+                            readOnly! ? IconThemeData(color: ThemeManager.kPrimaryColor100) : IconThemeData(color: ThemeManager.kPrimaryColor),
+                        unselectedItemColor: readOnly! ? ThemeManager.kPrimaryColor100 : ThemeManager.kPrimaryColor,
+                        items: <BottomNavigationBarItem>[
+                          BottomNavigationBarItem(
+                            icon: const Icon(FontAwesomeIcons.signature),
+                            label: Localization.xVisit.signature,
+                          ),
+                          BottomNavigationBarItem(
+                            icon: const Icon(FontAwesomeIcons.camera),
+                            label: Localization.xVisit.camera,
+                          ),
+                          BottomNavigationBarItem(
+                            icon: const Icon(FontAwesomeIcons.flagCheckered),
+                            label: Localization.xVisit.finish,
+                          ),
+                        ],
+                        onTap: (index) => controller.onItemTapped(index, context, readOnly!),
+                      ),
                     ),
                   ),
                 ),

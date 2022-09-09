@@ -27,6 +27,7 @@ class HomeScreen extends GetView<HomeController> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          centerTitle: true,
           title: DateTime.now().difference(datePick).inDays == 0
               ? Text(Localization.xDrawer.visits)
               : Text("${Localization.xReport.visits}${DateFormat("dd/MM/yyyy").format(datePick)}"),

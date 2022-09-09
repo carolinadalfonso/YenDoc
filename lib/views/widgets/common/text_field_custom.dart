@@ -22,6 +22,7 @@ class TextFieldCustom extends StatefulWidget {
   final int? maxLenght;
   final TextStyle? style;
   final bool? isDate;
+  final bool? readOnly;
 
   const TextFieldCustom({
     Key? key,
@@ -42,6 +43,7 @@ class TextFieldCustom extends StatefulWidget {
     this.maxLenght,
     this.style,
     this.isDate = false,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -92,6 +94,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  readOnly: widget.readOnly!,
                   controller: widget.controller,
                   enabled: widget.enabled,
                   autocorrect: false,
@@ -160,7 +163,9 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                           FocusScope.of(context).requestFocus(FocusNode());
                           DateTime? date = await showDatePicker(
                             context: context,
-                            initialDate: DateTime.now().add(const Duration(days: -1)),
+                            initialDate: widget.controller.text != ""
+                                ? DateFormat("dd/MM/yyyy").parse(widget.controller.text)
+                                : DateTime.now().add(const Duration(days: -1)),
                             firstDate: DateTime(2020),
                             lastDate: DateTime.now().add(const Duration(days: -1)),
                             locale: const Locale('es', 'ES'),
