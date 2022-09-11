@@ -81,8 +81,8 @@ class _SignatureLocalization {
 }
 
 class _MapLocalization {
-  final you = 'signature.you'.tr;
-  final patient = 'signature.patient'.tr;
+  final you = 'map.you'.tr;
+  final patient = 'map.patient'.tr;
 }
 
 class _PasswordLocalization {

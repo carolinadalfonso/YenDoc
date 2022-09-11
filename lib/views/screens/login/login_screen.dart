@@ -42,7 +42,7 @@ class LoginScreen extends GetView<LoginController> {
                       prefixIcon: FontAwesomeIcons.userDoctor,
                       hint: Localization.xLogin.username,
                       inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
+                        FilteringTextInputFormatter.allow(RegExp('[a-z0-9]')),
                         LengthLimitingTextInputFormatter(32),
                       ],
                       validator: (_) {

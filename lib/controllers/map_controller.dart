@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
@@ -45,7 +46,7 @@ class MapController extends GetxController {
     );
   }
 
-  goToGoogleMap() {
-    MapUtils.openMap(visit.latitude, visit.longitude);
+  goToGoogleMap(BuildContext context) {
+    MapUtils.openMaps(context, visit.latitude, visit.longitude);
   }
 }

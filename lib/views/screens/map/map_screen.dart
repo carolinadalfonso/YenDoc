@@ -42,7 +42,7 @@ class MapScreen extends GetView<MapController> {
                 child: FloatingActionButton(
                   backgroundColor: ThemeManager.kPrimaryColor,
                   onPressed: () {
-                    controller.goToGoogleMap();
+                    controller.goToGoogleMap(context);
                   },
                   child: const Icon(FontAwesomeIcons.locationArrow),
                 ),
