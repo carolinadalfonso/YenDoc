@@ -280,6 +280,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  global_configuration:
+    dependency: "direct main"
+    description:
+      name: global_configuration
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0-nullsafety.1"
   google_maps_flutter:
     dependency: "direct main"
     description:
@@ -308,6 +315,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.0+1"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.5"
   http_multi_server:
     dependency: transitive
     description:
@@ -322,6 +336,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
+  internet_connection_checker:
+    dependency: "direct main"
+    description:
+      name: internet_connection_checker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1+4"
   intl:
     dependency: "direct main"
     description:
