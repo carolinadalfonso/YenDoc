@@ -5,9 +5,10 @@ import 'package:yendoc/core/framework/injection_container.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
-import 'package:yendoc/views/screens/login/login_screen.dart';
+import 'package:yendoc/presentation/screens/login/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -24,6 +25,7 @@ class YenDocApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       initialBinding: InjectionContainer(),
       localizationsDelegates: const [

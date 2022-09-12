@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:yendoc/core/network/network_info.dart';
 
-import '../framework/util/util.dart';
-
 typedef HttpRequestDelegate = Future<http.Response> Function();
 
 class HttpClient {

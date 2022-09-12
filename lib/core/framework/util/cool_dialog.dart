@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
-import '../../../views/widgets/common/simple_button.dart';
+import '../../../presentation/widgets/common/simple_button.dart';
 
 class CoolDialog {
   final BuildContext _context;
