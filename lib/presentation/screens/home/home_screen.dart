@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
-import 'package:yendoc/domain/entities/visit_entity.dart';
-import 'package:yendoc/data/models/visit/visit_model.dart';
-import 'package:yendoc/data/models/visit_state/visit_state_model.dart';
+import 'package:yendoc/domain/entities/responses/visit_entity.dart';
 import 'package:yendoc/presentation/widgets/common/visit_card/visit_card.dart';
 
+import '../../../data/models/responses/visit/visit_model.dart';
+import '../../../data/models/responses/visit_state/visit_state_model.dart';
 import '../../widgets/common/drawer/drawer_menu.dart';
 
 class HomeScreen extends StatefulWidget {

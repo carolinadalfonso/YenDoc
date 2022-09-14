@@ -7,7 +7,7 @@ import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'controller/signature_controller.dart';
 import '../../../core/framework/localization/localization.dart';
 import '../../../core/framework/size_config/size_config.dart';
-import '../../../domain/entities/visit_entity.dart';
+import '../../../domain/entities/responses/visit_entity.dart';
 import '../../widgets/common/simple_button.dart';
 
 class SignatureScreen extends StatefulWidget {

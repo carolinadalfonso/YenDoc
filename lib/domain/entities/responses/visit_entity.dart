@@ -1,4 +1,4 @@
-import 'package:yendoc/domain/entities/visit_state_entity.dart';
+import 'package:yendoc/domain/entities/responses/visit_state_entity.dart';
 
 abstract class VisitEntity {
   final int id;

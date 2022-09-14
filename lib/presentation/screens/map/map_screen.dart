@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yendoc/presentation/screens/map/controller/map_controller.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
-import 'package:yendoc/domain/entities/visit_entity.dart';
+import 'package:yendoc/domain/entities/responses/visit_entity.dart';
 
 class MapScreen extends StatefulWidget {
   final VisitEntity visit;

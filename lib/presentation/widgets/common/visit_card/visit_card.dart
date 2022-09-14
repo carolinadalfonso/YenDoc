@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:yendoc/presentation/widgets/common/visit_card/controller/visit_card_controller.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
-import 'package:yendoc/domain/entities/visit_entity.dart';
+import 'package:yendoc/domain/entities/responses/visit_entity.dart';
 
 class VisitCard extends StatelessWidget {
   final VisitEntity visit;

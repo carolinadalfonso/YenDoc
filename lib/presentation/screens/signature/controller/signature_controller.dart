@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hand_signature/signature.dart';
 import 'package:yendoc/core/framework/util/general_navigator.dart';
-import 'package:yendoc/domain/entities/visit_entity.dart';
+import 'package:yendoc/domain/entities/responses/visit_entity.dart';
 
 import '../../../../core/framework/util/util.dart';
 

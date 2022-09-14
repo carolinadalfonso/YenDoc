@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/domain/entities/visit_entity.dart';
+import 'package:yendoc/domain/entities/responses/visit_entity.dart';
 
 import '../../../../core/framework/util/map.dart';
 

@@ -5,7 +5,7 @@ import 'package:yendoc/presentation/screens/gallery/controller/gallery_controlle
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/core/framework/util/general_navigator.dart';
-import 'package:yendoc/domain/entities/visit_entity.dart';
+import 'package:yendoc/domain/entities/responses/visit_entity.dart';
 
 import '../../../core/framework/util/cool_dialog.dart';
 

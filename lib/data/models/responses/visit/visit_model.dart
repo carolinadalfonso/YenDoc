@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yendoc/domain/entities/visit_entity.dart';
-import 'package:yendoc/data/models/visit_state/visit_state_model.dart';
+import 'package:yendoc/domain/entities/responses/visit_entity.dart';
+import '../visit_state/visit_state_model.dart';
 
 part 'visit_model.g.dart';
 

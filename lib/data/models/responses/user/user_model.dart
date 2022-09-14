@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yendoc/domain/entities/user_entity.dart';
+import 'package:yendoc/domain/entities/responses/user_entity.dart';
 
 part 'user_model.g.dart';
 
@@ -7,13 +7,13 @@ part 'user_model.g.dart';
 class UserModel extends UserEntity {
   UserModel({
     required String username,
-    required String password,
+    required String mail,
     required String fullName,
     required String avatar,
     required String token,
   }) : super(
           username,
-          password,
+          mail,
           fullName,
           avatar,
           token,

@@ -5,7 +5,7 @@ import 'package:yendoc/presentation/screens/visit_screen/controller/visit_contro
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
-import 'package:yendoc/domain/entities/visit_entity.dart';
+import 'package:yendoc/domain/entities/responses/visit_entity.dart';
 import 'package:yendoc/presentation/screens/gallery/gallery_screen.dart';
 import 'package:yendoc/presentation/screens/map/map_screen.dart';
 import 'package:yendoc/presentation/widgets/common/checkbox_custom.dart';

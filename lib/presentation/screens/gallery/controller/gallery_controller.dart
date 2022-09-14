@@ -6,7 +6,7 @@ import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/util/cool_snack_bar.dart';
 import 'package:yendoc/core/framework/util/general_navigator.dart';
 import 'package:yendoc/core/framework/util/util.dart';
-import 'package:yendoc/domain/entities/visit_entity.dart';
+import 'package:yendoc/domain/entities/responses/visit_entity.dart';
 import 'package:yendoc/presentation/screens/display_picture/display_picture.dart';
 
 class GalleryController extends ChangeNotifier {
