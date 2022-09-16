@@ -16,7 +16,7 @@ Cuenta con una API para conectarse a una base de datos de donde obtiene los dato
 
 ## API
 
-- [api-yendoc](https://github.com/carolinadalfonso/YenDoc)
+- [api-yendoc](https://github.com/tedyfrba/YenDoc)
 
 ## Autores
 
