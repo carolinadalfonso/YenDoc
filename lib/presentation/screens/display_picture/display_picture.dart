@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
+import 'package:yendoc/core/framework/util/general_navigator.dart';
 import 'package:yendoc/presentation/screens/gallery/controller/gallery_controller.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 
@@ -51,7 +51,7 @@ class DisplayPictureScreen extends StatelessWidget {
                     onPressed1: () async {
                       await galleryController.deletePictureDisplay(context, imagePath);
                     },
-                    onPressed2: () => Get.back(),
+                    onPressed2: () => GeneralNavigator.pop(),
                   );
                 },
                 child: const Icon(FontAwesomeIcons.trashCan),

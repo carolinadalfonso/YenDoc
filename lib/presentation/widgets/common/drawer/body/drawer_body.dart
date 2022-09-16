@@ -10,27 +10,25 @@ class _DrawerBody extends StatelessWidget {
         ListItem(
           title: Localization.xDrawer.visits,
           icon: FontAwesomeIcons.houseChimney,
-          //onTap: () => Get.to(() => HomeScreen(datePick: DateTime.now()), preventDuplicates: false),
           onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(datePick: DateTime.now()))),
         ),
         ListItem(
           title: Localization.xDrawer.report,
           icon: FontAwesomeIcons.chartColumn,
-          onTap: () => Get.to(() => const ReportScreen()),
-          //onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ReportScreen())),
+          onTap: () => GeneralNavigator.push(const ReportScreen()),
         ),
         ListItem(
           title: Localization.xDrawer.changePassword,
           icon: FontAwesomeIcons.key,
           onTap: () {
             Scaffold.of(context).closeDrawer();
-            Get.to(() => const ChangePasswordScreen());
+            GeneralNavigator.push(const ChangePasswordScreen());
           },
         ),
         ListItem(
           title: Localization.xDrawer.about,
           icon: FontAwesomeIcons.circleInfo,
-          onTap: () => Get.to(() => const AboutScreen()),
+          onTap: () => GeneralNavigator.push(const AboutScreen()),
         ),
       ],
     );

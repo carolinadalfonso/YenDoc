@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'visit_state_model.dart';
+part of 'exception.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-VisitStateModel _$VisitStateModelFromJson(Map<String, dynamic> json) =>
-    VisitStateModel(
-      id: json['id'] as int,
-      code: json['code'] as String,
-      name: json['name'] as String,
+ServerException _$ServerExceptionFromJson(Map<String, dynamic> json) =>
+    ServerException(
+      code: json['code'] as int,
+      message: json['message'] as String,
     );

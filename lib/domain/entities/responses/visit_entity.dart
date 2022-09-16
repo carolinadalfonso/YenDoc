@@ -4,10 +4,10 @@ abstract class VisitEntity {
   final int id;
   final String patient;
   final String address;
+  final VisitStateEntity state;
   final int age;
   final String symptoms;
   final bool posibleCovid;
-  final VisitStateEntity state;
   final String? diagnostic;
   final double latitude;
   final double longitude;

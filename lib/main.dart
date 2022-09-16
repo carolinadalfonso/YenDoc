@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:yendoc/core/framework/injection_container.dart';
+import 'package:global_configuration/global_configuration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
+import 'package:yendoc/core/framework/util/util_preferences.dart';
 import 'package:yendoc/presentation/screens/login/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:yendoc/core/framework/bloc/injection_container.dart' as injection;
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) => {runApp(const YenDocApp())});
+  UtilPreferences.prefs = await SharedPreferences.getInstance();
+  await GlobalConfiguration().loadFromPath("assets/cfg/app_settings.json");
+  await injection.init();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+    (_) => {
+      runApp(
+        const YenDocApp(),
+      )
+    },
+  );
 }
 
 class YenDocApp extends StatelessWidget {
@@ -27,7 +41,6 @@ class YenDocApp extends StatelessWidget {
     return GetMaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      initialBinding: InjectionContainer(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

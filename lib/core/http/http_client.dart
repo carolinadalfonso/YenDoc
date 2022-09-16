@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:yendoc/core/framework/util/util_preferences.dart';
 import 'package:yendoc/core/network/network_info.dart';
+
+import '../errors/exceptions/exception.dart';
 
 typedef HttpRequestDelegate = Future<http.Response> Function();
 
@@ -20,14 +23,18 @@ class HttpClient {
       response = await delegate();
 
       if (response.statusCode == 200) {
+        if (response.headers['set-cookie'] != null) {
+          String token = response.headers['set-cookie'].toString();
+          UtilPreferences.prefs.setString(UtilPreferences.token, token);
+        }
         return utf8.decode(response.bodyBytes);
       } else if (response.statusCode == 503) {
-        throw Exception("Servicio no disponible");
+        throw const ServerException(code: 503, message: "Servicio no disponible");
       } else {
-        throw Exception(json.decode(response.body));
+        throw ServerException.fromJson(json.decode(response.body));
       }
     } else {
-      throw Exception("No hay conexión a internet");
+      throw const NoInternetConnectionException(message: "No hay conexión a internet");
     }
   }
 
@@ -58,10 +65,11 @@ class HttpClient {
   }
 
   Map<String, String> _getHeaders(bool requireToken) {
+    var token = UtilPreferences.prefs.getString(UtilPreferences.token);
     return requireToken
         ? {
             "Content-Type": "application/json",
-            "Authorization": "Bearer xxx",
+            "Authorization": "$token",
           }
         : {
             "Content-Type": "application/json",

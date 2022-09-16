@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
 import '../../../presentation/widgets/common/simple_button.dart';
 
@@ -17,8 +16,8 @@ class CoolDialog {
     required String textButton2,
     required String question,
     required String title,
-    required Callback onPressed1,
-    required Callback onPressed2,
+    required VoidCallback onPressed1,
+    required VoidCallback onPressed2,
     EdgeInsets? margin,
   }) {
     final BackdropFilter coolDialog = BackdropFilter(

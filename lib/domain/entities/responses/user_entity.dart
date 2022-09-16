@@ -1,15 +1,13 @@
 abstract class UserEntity {
   final String username;
-  final String fullName;
   final String mail;
+  final String? fullName;
   final String avatar;
-  final String token;
 
-  const UserEntity(
-    this.username,
+  const UserEntity({
+    required this.username,
+    required this.mail,
     this.fullName,
-    this.mail,
-    this.avatar,
-    this.token,
-  );
+    required this.avatar,
+  });
 }

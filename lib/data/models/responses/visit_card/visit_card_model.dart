@@ -4,7 +4,7 @@ import '../visit_state/visit_state_model.dart';
 
 part 'visit_card_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class VisitCardModel extends VisitCardEntity {
   VisitCardModel({
     required int id,
@@ -23,9 +23,5 @@ class VisitCardModel extends VisitCardEntity {
 
   factory VisitCardModel.fromJson(Map<String, dynamic> json) {
     return _$VisitCardModelFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$VisitCardModelToJson(this);
   }
 }

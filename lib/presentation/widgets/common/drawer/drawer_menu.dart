@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:text_scroll/text_scroll.dart';
-import 'package:yendoc/presentation/screens/login/controller/login_controller.dart';
+import 'package:yendoc/core/framework/util/general_navigator.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/core/framework/util/cool_dialog.dart';

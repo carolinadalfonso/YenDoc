@@ -1,8 +1,8 @@
-abstract class LoginEntity {
+abstract class LoginBodyEntity {
   final String username;
   final String password;
 
-  const LoginEntity(
+  const LoginBodyEntity(
     this.username,
     this.password,
   );

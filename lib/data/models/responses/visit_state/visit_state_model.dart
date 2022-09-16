@@ -3,7 +3,7 @@ import 'package:yendoc/domain/entities/responses/visit_state_entity.dart';
 
 part 'visit_state_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class VisitStateModel extends VisitStateEntity {
   VisitStateModel({
     required int id,
@@ -17,9 +17,5 @@ class VisitStateModel extends VisitStateEntity {
 
   factory VisitStateModel.fromJson(Map<String, dynamic> json) {
     return _$VisitStateModelFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$VisitStateModelToJson(this);
   }
 }
