@@ -3,5 +3,9 @@ abstract class VisitStateEntity {
   final String code;
   final String name;
 
-  VisitStateEntity(this.id, this.code, this.name);
+  VisitStateEntity({
+    required this.id,
+    required this.code,
+    required this.name,
+  });
 }

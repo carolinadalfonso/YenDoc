@@ -26,26 +26,24 @@ class _DrawerHeader extends StatelessWidget {
                   padding: const EdgeInsets.all(1.5),
                   child: CircleAvatar(
                     backgroundColor: ThemeManager.kPrimaryColor,
-                    backgroundImage: const NetworkImage(
-                      'https://avatars.githubusercontent.com/u/7302044?v=4',
-                    ),
+                    backgroundImage: Image.memory(base64.decode(UtilPreferences.prefs.getString(UtilPreferences.userAvatar)!)).image,
                   ),
                 ),
               ),
             ),
-            const Flexible(
+            Flexible(
               child: TextScroll(
-                "Carolina Andrea D'Alfonso",
-                style: TextStyle(
+                UtilPreferences.prefs.getString(UtilPreferences.userFullName)!,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Montserrat',
                 ),
                 mode: TextScrollMode.bouncing,
-                velocity: Velocity(pixelsPerSecond: Offset(15, 0)),
-                delayBefore: Duration(seconds: 2),
-                pauseBetween: Duration(seconds: 5),
+                velocity: const Velocity(pixelsPerSecond: Offset(15, 0)),
+                delayBefore: const Duration(seconds: 2),
+                pauseBetween: const Duration(seconds: 5),
               ),
             ),
           ],

@@ -10,9 +10,9 @@ class VisitStateModel extends VisitStateEntity {
     required String code,
     required String name,
   }) : super(
-          id,
-          code,
-          name,
+          id: id,
+          code: code,
+          name: name,
         );
 
   factory VisitStateModel.fromJson(Map<String, dynamic> json) {

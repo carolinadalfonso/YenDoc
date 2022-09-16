@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: BlocConsumer<LoginCubit, LoginState>(
                   listener: (bloc, state) {
                     if (state is LoginSuccess) {
-                      controller.login();
+                      controller.login(state.user);
                     } else if (state is LoginError) {
                       CoolSnackBar.of(context).error(state.failure.message);
                     }

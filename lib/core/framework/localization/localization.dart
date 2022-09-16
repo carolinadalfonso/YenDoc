@@ -3,6 +3,7 @@ import 'package:yendoc/core/framework/localization/base/localization_base.dart';
 
 class Localization extends LocalizationBase {
   static _CommonLocalization xCommon = _CommonLocalization();
+  static _CoreLocalization xCore = _CoreLocalization();
   static _LoginLocalization xLogin = _LoginLocalization();
   static _DrawerLocalization xDrawer = _DrawerLocalization();
   static _AboutLocalization xAbout = _AboutLocalization();
@@ -22,6 +23,12 @@ class _CommonLocalization {
   final ok = 'common.ok'.tr;
   final cancel = 'common.cancel'.tr;
   final yearsOld = 'common.yearsOld'.tr;
+}
+
+class _CoreLocalization {
+  final unexceptedError = 'core.unexceptedError'.tr;
+  final serviceUnavailable = 'core.serviceUnavailable'.tr;
+  final noInternet = 'core.noInternet'.tr;
 }
 
 class _LoginLocalization {

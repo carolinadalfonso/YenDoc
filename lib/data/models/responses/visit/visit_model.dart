@@ -18,16 +18,16 @@ class VisitModel extends VisitEntity {
     required double latitude,
     required double longitude,
   }) : super(
-          id,
-          patient,
-          address,
-          age,
-          symptoms,
-          posibleCovid,
-          state,
-          diagnostic,
-          latitude,
-          longitude,
+          id: id,
+          patient: patient,
+          address: address,
+          age: age,
+          symptoms: symptoms,
+          posibleCovid: posibleCovid,
+          state: state,
+          diagnostic: diagnostic,
+          latitude: latitude,
+          longitude: longitude,
         );
 
   @override

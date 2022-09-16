@@ -1,3 +1,5 @@
+import 'package:yendoc/core/framework/localization/localization.dart';
+
 abstract class Failure {
   final int code;
   final String message;
@@ -9,7 +11,7 @@ abstract class Failure {
 }
 
 class UnexpectedFailure extends Failure {
-  const UnexpectedFailure() : super(code: 500, message: "Unexpected error");
+  UnexpectedFailure() : super(code: 500, message: Localization.xCore.unexceptedError);
 
   @override
   String toString() => super.message;

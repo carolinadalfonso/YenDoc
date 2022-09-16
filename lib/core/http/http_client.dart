@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/util/util_preferences.dart';
 import 'package:yendoc/core/network/network_info.dart';
 
@@ -29,12 +30,12 @@ class HttpClient {
         }
         return utf8.decode(response.bodyBytes);
       } else if (response.statusCode == 503) {
-        throw const ServerException(code: 503, message: "Servicio no disponible");
+        throw ServerException(code: 503, message: Localization.xCore.serviceUnavailable);
       } else {
         throw ServerException.fromJson(json.decode(response.body));
       }
     } else {
-      throw const NoInternetConnectionException(message: "No hay conexión a internet");
+      throw NoInternetConnectionException(message: Localization.xCore.noInternet);
     }
   }
 

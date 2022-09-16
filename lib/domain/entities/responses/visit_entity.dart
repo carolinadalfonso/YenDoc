@@ -12,16 +12,16 @@ abstract class VisitEntity {
   final double latitude;
   final double longitude;
 
-  const VisitEntity(
-    this.id,
-    this.patient,
-    this.address,
-    this.age,
-    this.symptoms,
-    this.posibleCovid,
-    this.state,
+  const VisitEntity({
+    required this.id,
+    required this.patient,
+    required this.address,
+    required this.age,
+    required this.symptoms,
+    required this.posibleCovid,
+    required this.state,
     this.diagnostic,
-    this.latitude,
-    this.longitude,
-  );
+    required this.latitude,
+    required this.longitude,
+  });
 }

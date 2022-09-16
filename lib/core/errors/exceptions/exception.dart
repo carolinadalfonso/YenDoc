@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../framework/localization/localization.dart';
+
 part 'exception.g.dart';
 
 abstract class Exception {
@@ -13,7 +15,7 @@ abstract class Exception {
 }
 
 class UnexpectedException extends Exception {
-  const UnexpectedException() : super(code: 500, message: "Unexpected error");
+  UnexpectedException() : super(code: 500, message: Localization.xCore.unexceptedError);
 
   @override
   String toString() => super.message;

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yendoc/presentation/cubit/change_password/change_password_cubit.dart';
 import 'package:yendoc/presentation/screens/change_password/controller/change_password_controller.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
@@ -7,6 +9,10 @@ import 'package:yendoc/core/framework/theme/theme_manager.dart';
 import 'package:yendoc/presentation/widgets/common/simple_button.dart';
 import 'package:yendoc/presentation/widgets/common/simple_scroll.dart';
 import 'package:yendoc/presentation/widgets/common/text_field_custom.dart';
+
+import '../../../core/framework/bloc/injection_container.dart';
+import '../../../core/framework/util/cool_snack_bar.dart';
+import '../../../core/framework/util/general_navigator.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
@@ -49,58 +55,77 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
       ),
       body: SimpleScroll(
-        child: Align(
-          alignment: Alignment.center,
-          child: SizedBox(
-            height: SizeConfig.screenHeight,
-            width: SizeConfig.screenWidth / 1.2,
-            child: Form(
-              key: controller.formKey,
-              child: Column(
-                children: [
-                  TextFieldCustom(
-                    controller: controller.textActualPasswordController,
-                    description: Localization.xPassword.current,
-                    isPassword: true,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(32),
-                    ],
-                    validator: controller.formValidator.validatePassword,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: TextFieldCustom(
-                      controller: controller.textNewPasswordController,
-                      description: Localization.xPassword.newPassword,
-                      isPassword: true,
-                      autovalidateMode: AutovalidateMode.disabled,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(32),
-                      ],
-                      validator: controller.formValidator.validatePassword,
+        child: BlocProvider<ChangePasswordCubit>(
+          create: (context) => sl<ChangePasswordCubit>(),
+          child: BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
+            listener: (bloc, state) {
+              if (state is ChangePasswordSuccess) {
+                CoolSnackBar.of(context).success(Localization.xPassword.changeOk);
+                GeneralNavigator.pop();
+              } else if (state is ChangePasswordError) {
+                CoolSnackBar.of(context).error(state.failure.message);
+              }
+            },
+            builder: (blocContext, state) {
+              return AbsorbPointer(
+                absorbing: state is ChangePasswordLoading,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    height: SizeConfig.screenHeight,
+                    width: SizeConfig.screenWidth / 1.2,
+                    child: Form(
+                      key: controller.formKey,
+                      child: Column(
+                        children: [
+                          TextFieldCustom(
+                            controller: controller.textActualPasswordController,
+                            description: Localization.xPassword.current,
+                            isPassword: true,
+                            autovalidateMode: AutovalidateMode.disabled,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(32),
+                            ],
+                            validator: controller.formValidator.validatePassword,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: TextFieldCustom(
+                              controller: controller.textNewPasswordController,
+                              description: Localization.xPassword.newPassword,
+                              isPassword: true,
+                              autovalidateMode: AutovalidateMode.disabled,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(32),
+                              ],
+                              validator: controller.formValidator.validatePassword,
+                            ),
+                          ),
+                          TextFieldCustom(
+                            controller: controller.textRepeatNewPasswordController,
+                            description: Localization.xPassword.repeatNew,
+                            isPassword: true,
+                            autovalidateMode: AutovalidateMode.disabled,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(32),
+                            ],
+                            validator: (repeatNewPassword) {
+                              return controller.formValidator.validateRepeatPassword(controller.textNewPasswordController.text, repeatNewPassword);
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          SimpleButton(
+                            onPressed: () => controller.validateForm(blocContext),
+                            text: Localization.xDrawer.changePassword,
+                            isLoading: state is ChangePasswordLoading,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                  TextFieldCustom(
-                    controller: controller.textRepeatNewPasswordController,
-                    description: Localization.xPassword.repeatNew,
-                    isPassword: true,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(32),
-                    ],
-                    validator: (repeatNewPassword) {
-                      return controller.formValidator.validateRepeatPassword(controller.textNewPasswordController.text, repeatNewPassword);
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  SimpleButton(
-                    onPressed: () => controller.validateForm(context),
-                    text: Localization.xDrawer.changePassword,
-                  )
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),
