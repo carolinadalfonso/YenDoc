@@ -1,0 +1,17 @@
+{
+    "api": "http://test.yendoc.ml:8080",
+    "endpoints": {
+        "auth": {
+            "login": "authentication/login"
+        },
+        "user": {
+            "changePassword": "users/password",
+            "byUser": "users"
+        },
+        "visits": {
+            "byId": "visits/{id}",
+            "today": "visits",
+            "byDate": "visits?date={date}"
+        }
+    }
+}

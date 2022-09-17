@@ -66,14 +66,17 @@ class HttpClient {
   }
 
   Map<String, String> _getHeaders(bool requireToken) {
-    var token = UtilPreferences.prefs.getString(UtilPreferences.token);
-    return requireToken
-        ? {
-            "Content-Type": "application/json",
-            "Authorization": "$token",
-          }
-        : {
-            "Content-Type": "application/json",
-          };
+    if (requireToken) {
+      var token = UtilPreferences.prefs.getString(UtilPreferences.token)!;
+      token = token.substring(token.lastIndexOf('=') + 1); //TODO: Sacar cuando se cambie el token que recibo
+      return {
+        "Content-Type": "application/json",
+        "Authorization": token,
+      };
+    } else {
+      return {
+        "Content-Type": "application/json",
+      };
+    }
   }
 }
