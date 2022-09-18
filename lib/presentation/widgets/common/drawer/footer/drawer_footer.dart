@@ -23,7 +23,10 @@ class _DrawerFooter extends StatelessWidget {
                     textButton2: Localization.xCommon.no,
                     question: Localization.xDrawer.questionSignOut,
                     title: Localization.xDrawer.signOut,
-                    onPressed1: () => exit(0), //TODO: Revisar la función de cerrado de sesión una vez que maneje usuario
+                    onPressed1: () {
+                      UtilPreferences.prefs.clear();
+                      GeneralNavigator.pushAndRemoveUntil(const LoginScreen());
+                    },
                     onPressed2: () => GeneralNavigator.pop(),
                   );
                 },

@@ -7,16 +7,10 @@ part 'patient_model.g.dart';
 class PatientModel extends PatientEntity {
   PatientModel({
     required String name,
-    required String street,
-    required int number,
-    required String location,
-    required String province,
+    required String address,
   }) : super(
           name: name,
-          street: street,
-          number: number,
-          location: location,
-          province: province,
+          address: address,
         );
 
   factory PatientModel.fromJson(Map<String, dynamic> json) {

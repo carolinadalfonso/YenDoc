@@ -8,7 +8,7 @@ class UserModel extends UserEntity {
   UserModel({
     required String username,
     required String mail,
-    String? fullName,
+    required String fullName,
     required String avatar,
   }) : super(
           username: username,

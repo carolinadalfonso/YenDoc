@@ -25,8 +25,7 @@ class LoginController extends ChangeNotifier {
   }
 
   saveUserData(UserEntity user) {
-    UtilPreferences.prefs
-        .setString(UtilPreferences.userFullName, user.username); //TODO: Cambier username por fullname cuando esté modificado el resultado de user
+    UtilPreferences.prefs.setString(UtilPreferences.userFullName, user.fullName);
     UtilPreferences.prefs.setString(UtilPreferences.userAvatar, user.avatar.substring(user.avatar.lastIndexOf(',') + 1));
   }
 
