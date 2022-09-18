@@ -9,6 +9,6 @@ part of 'visit_card_model.dart';
 VisitCardModel _$VisitCardModelFromJson(Map<String, dynamic> json) =>
     VisitCardModel(
       id: json['id'] as int,
-      patient: PatientModel.fromJson(json['patient'] as Map<String, dynamic>),
+      patient: PatientModel.fromJson(json['pacient'] as Map<String, dynamic>),
       state: VisitStateModel.fromJson(json['state'] as Map<String, dynamic>),
     );

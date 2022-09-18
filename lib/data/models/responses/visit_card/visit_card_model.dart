@@ -21,6 +21,7 @@ class VisitCardModel extends VisitCardEntity {
   VisitStateModel get state => super.state as VisitStateModel;
 
   @override
+  @JsonKey(name: "pacient")
   PatientModel get patient => super.patient as PatientModel;
 
   factory VisitCardModel.fromJson(Map<String, dynamic> json) {

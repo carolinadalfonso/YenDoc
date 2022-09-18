@@ -3,16 +3,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:yendoc/presentation/widgets/common/visit_card/controller/visit_card_controller.dart';
 import 'package:yendoc/core/framework/theme/theme_manager.dart';
-import 'package:yendoc/domain/entities/responses/visit_entity.dart';
+
+import '../../../../domain/entities/responses/visit_card_entity.dart';
 
 class VisitCard extends StatelessWidget {
-  final VisitEntity visit;
+  final VisitCardEntity visitCard;
   final DateTime datePick;
   final bool? readOnly;
 
   const VisitCard({
     Key? key,
-    required this.visit,
+    required this.visitCard,
     required this.datePick,
     this.readOnly = false,
   }) : super(key: key);
@@ -26,7 +27,7 @@ class VisitCard extends StatelessWidget {
       child: InkWell(
         highlightColor: ThemeManager.kPrimaryColor100,
         borderRadius: BorderRadius.circular(8),
-        onTap: () => controller.goToVisit(visit, datePick, readOnly),
+        onTap: () => {}, //TODO: controller.goToVisit(visit, datePick, readOnly)
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -38,7 +39,7 @@ class VisitCard extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: controller.getStateColor(visit.state.code),
+                  color: controller.getStateColor(visitCard.state.code),
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8),
@@ -47,7 +48,7 @@ class VisitCard extends StatelessWidget {
                 height: 58,
                 width: 50,
                 child: Icon(
-                  controller.getStateIcon(visit.state.code),
+                  controller.getStateIcon(visitCard.state.code),
                   color: Colors.white,
                 ),
               ),
@@ -58,7 +59,7 @@ class VisitCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextScroll(
-                        visit.patient,
+                        visitCard.patient.name,
                         mode: TextScrollMode.bouncing,
                         velocity: const Velocity(pixelsPerSecond: Offset(15, 0)),
                         delayBefore: const Duration(seconds: 2),
@@ -76,7 +77,7 @@ class VisitCard extends StatelessWidget {
                           ),
                           Flexible(
                             child: TextScroll(
-                              visit.address,
+                              visitCard.patient.address,
                               style: TextStyle(color: Colors.grey[500], fontSize: 12),
                               mode: TextScrollMode.bouncing,
                               velocity: const Velocity(pixelsPerSecond: Offset(15, 0)),

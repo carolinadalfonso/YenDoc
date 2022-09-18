@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:yendoc/core/framework/localization/localization.dart';
 import 'package:yendoc/core/framework/size_config/size_config.dart';
-import 'package:yendoc/domain/entities/responses/visit_entity.dart';
 import 'package:yendoc/presentation/widgets/common/visit_card/visit_card.dart';
+import 'package:shimmer/shimmer.dart';
 
-import '../../../data/models/responses/visit/visit_model.dart';
-import '../../../data/models/responses/visit_state/visit_state_model.dart';
+import '../../../core/framework/bloc/injection_container.dart';
+import '../../../core/framework/util/cool_snack_bar.dart';
+import '../../../domain/entities/responses/visit_card_entity.dart';
+import '../../cubit/visits_list/visits_list_cubit.dart';
 import '../../widgets/common/drawer/drawer_menu.dart';
+import 'controller/home_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   final DateTime datePick;
@@ -24,6 +28,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final HomeController controller = HomeController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller.addListener(() => setState(() => {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -38,77 +51,131 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         drawer: const DrawerMenu(),
         drawerEdgeDragWidth: SizeConfig.screenWidth / 4.5,
-        body: Align(
-          alignment: Alignment.center,
-          child: SizedBox(
-            width: SizeConfig.screenWidth / 1.1,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: ListView.builder(
-                itemCount: getVisits(widget.datePick).length,
-                itemBuilder: (context, index) {
-                  VisitEntity visit = getVisits(widget.datePick)[index];
-                  return VisitCard(
-                    visit: visit,
-                    datePick: widget.datePick,
-                    readOnly: widget.readOnly,
-                  );
-                },
-              ),
-            ),
+        body: BlocProvider<VisitsListCubit>(
+          create: (context) => sl<VisitsListCubit>(),
+          child: BlocConsumer<VisitsListCubit, VisitsListState>(
+            listener: (bloc, state) {
+              if (state is VisitsListError) {
+                CoolSnackBar.of(context).error(state.failure.message);
+              }
+            },
+            builder: (blocContext, state) {
+              if (state is VisitsListInitial) {
+                controller.init(blocContext);
+                return _buildShimmer();
+              } else if (state is VisitsListLoading) {
+                return _buildShimmer();
+              } else if (state is VisitsListSuccess) {
+                return Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: SizeConfig.screenWidth / 1.1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: ListView.builder(
+                        itemCount: state.visits.length,
+                        itemBuilder: (context, index) {
+                          VisitCardEntity visitCard = state.visits[index];
+                          return VisitCard(
+                            visitCard: visitCard,
+                            datePick: widget.datePick,
+                            readOnly: widget.readOnly,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Image.asset("assets/images/error.png", width: SizeConfig.screenWidth / 1.6),
+                        ),
+                        Container(
+                          height: 50,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Text(
+                            Localization.xVisit.error,
+                            style: const TextStyle(fontSize: 20),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+            },
           ),
         ),
       ),
     );
   }
 
-  List<VisitModel> getVisits(DateTime date) {
-    List<VisitModel> visits = [
-      VisitModel(
-        id: 1,
-        patient: "Wally Flecha",
-        address: "Hortiguera 630, CABA, Buenos Aires",
-        age: 22,
-        symptoms: "Fiebre y tos",
-        posibleCovid: true,
-        state: VisitStateModel(id: 1, code: "DONE", name: "Realizado"),
-        latitude: -34.62447794860064,
-        longitude: -58.44468894799918,
+  Padding _buildShimmer() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (_, __) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: SizedBox(
+            width: 500,
+            height: 60,
+            child: Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[50]!,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Container(
+                      width: 60,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 22,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Container(
+                          width: 150,
+                          height: 22,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
-      VisitModel(
-        id: 2,
-        patient: "Luna Montgomery",
-        address: "Av. Juan Bautista Alberdi 1230, CABA, Buenos Aires",
-        age: 24,
-        symptoms: "Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad Mucosidad ",
-        posibleCovid: false,
-        state: VisitStateModel(id: 2, code: "NOT_DONE", name: "No Realizada"),
-        latitude: -34.62551330115694,
-        longitude: -58.44828866888042,
-      ),
-      VisitModel(
-        id: 3,
-        patient: "Bernie Gutierrez",
-        address: "Av. Directorio 2410, CABA, Buenos Aires",
-        age: 23,
-        symptoms: "Dolor de espalda",
-        posibleCovid: false,
-        state: VisitStateModel(id: 3, code: "IN_PROGRESS", name: "En curso"),
-        latitude: -34.629956690759094,
-        longitude: -58.44717897548767,
-      ),
-      VisitModel(
-        id: 4,
-        patient: "Juan Carlos Dominguez",
-        address: "Membrillar 80, CABA, Buenos Aires",
-        age: 21,
-        symptoms: "Dolores",
-        posibleCovid: false,
-        state: VisitStateModel(id: 4, code: "PENDING", name: "Pendiente"),
-        latitude: -34.630357560127365,
-        longitude: -58.450120094912464,
-      ),
-    ];
-    return visits;
+    );
   }
 }

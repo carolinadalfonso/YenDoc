@@ -52,6 +52,7 @@ class _AboutLocalization {
 }
 
 class _VisitLocalization {
+  final error = 'visit.error'.tr;
   final detail = 'visit.detail'.tr;
   final map = 'visit.map'.tr;
   final photos = 'visit.photos'.tr;

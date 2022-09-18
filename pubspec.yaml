@@ -44,7 +44,6 @@ dependencies:
   text_scroll: ^0.0.5
   path_provider: ^2.0.11
   hand_signature: ^2.3.0+1
-  location: ^4.4.0
   shared_preferences: ^2.0.15
   map_launcher: ^2.3.0+1
   flutter_svg: ^1.1.5
@@ -55,6 +54,7 @@ dependencies:
   get_it: ^7.2.0
   flutter_bloc: ^8.1.1
   provider: ^6.0.3
+  location: ^4.4.0
 
 dev_dependencies:
   flutter_test:
