@@ -41,7 +41,6 @@ class SignatureController extends ChangeNotifier {
       fullPathSign = await Util.getAndCreateSignaturePath(visit.id);
       File(fullPathSign).writeAsBytesSync(patientSignature.value!.buffer.asInt8List());
     }
-
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
       GeneralNavigator.pop();
     });
@@ -59,6 +58,7 @@ class SignatureController extends ChangeNotifier {
       clearSignature();
       signatureOK = false;
     }
+    notifyListeners();
   }
 
   void clearSignatureAndSign() {

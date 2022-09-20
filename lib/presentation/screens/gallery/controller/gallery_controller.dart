@@ -7,7 +7,7 @@ import '../../../../core/framework/util/cool_snack_bar.dart';
 import '../../../../core/framework/util/general_navigator.dart';
 import '../../../../core/framework/util/util.dart';
 import '../../../../domain/entities/responses/visit_entity.dart';
-import '../../display_picture/display_picture.dart';
+import '../../display_picture/display_picture_screen.dart';
 
 class GalleryController extends ChangeNotifier {
   late CameraController _cameraController;

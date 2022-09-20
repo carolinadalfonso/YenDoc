@@ -23,6 +23,9 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
   void initState() {
     super.initState();
 
+    widget.controller.addListener(() {
+      if (mounted) setState(() => {});
+    });
     widget.controller.initializeControllerFuture = widget.controller.cameraController.initialize();
     widget.controller.getVisitImages();
   }

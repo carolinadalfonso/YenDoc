@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hand_signature/signature.dart';
 import '../../../core/framework/theme/theme_manager.dart';
 
@@ -39,6 +40,7 @@ class _SignatureScreenState extends State<SignatureScreen> {
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pop(true);
+        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
         return false;
       },
       child: Scaffold(
