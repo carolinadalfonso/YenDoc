@@ -24,6 +24,7 @@ class TextFieldCustom extends StatefulWidget {
   final TextStyle? style;
   final bool? isDate;
   final bool? readOnly;
+  final TextInputAction? inputAction;
 
   const TextFieldCustom({
     Key? key,
@@ -45,6 +46,7 @@ class TextFieldCustom extends StatefulWidget {
     this.style,
     this.isDate = false,
     this.readOnly = false,
+    this.inputAction,
   }) : super(key: key);
 
   @override
@@ -96,6 +98,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  textInputAction: widget.inputAction ?? TextInputAction.next,
                   readOnly: widget.readOnly!,
                   controller: widget.controller,
                   enabled: widget.enabled,

@@ -78,6 +78,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       padding: const EdgeInsets.only(top: 20),
                       child: Form(
                         key: controller.formKey,
+                        autovalidateMode: AutovalidateMode.disabled,
                         child: Column(
                           children: [
                             TextFieldCustom(
@@ -114,6 +115,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               validator: (repeatNewPassword) {
                                 return controller.formValidator.validateRepeatPassword(controller.textNewPasswordController.text, repeatNewPassword);
                               },
+                              inputAction: TextInputAction.done,
                             ),
                             const SizedBox(height: 20),
                             Expanded(

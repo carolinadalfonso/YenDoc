@@ -99,7 +99,6 @@ class _VisitScreenState extends State<VisitScreen> {
               child: BlocConsumer<VisitCubit, VisitState>(
                 listener: (bloc, state) {
                   if (state is VisitSuccess) {
-                    controller.setPossibleCovid(state.visit.posibleCovid);
                     controller.setVisit(state.visit);
                   } else if (state is VisitError) {
                     CoolSnackBar.of(context).error(state.failure.message);
@@ -141,7 +140,7 @@ class _VisitScreenState extends State<VisitScreen> {
                                     value: state.visit.symptoms,
                                   ),
                                   CheckboxCustom(
-                                    text: Localization.xVisit.posibleCovid,
+                                    text: Localization.xVisit.possibleCovid,
                                     checked: controller.possibleCovid,
                                     onChanged: (value) => controller.onCheckboxCovidTapped(value!),
                                     enabled: !widget.readOnly!,

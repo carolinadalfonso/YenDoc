@@ -64,7 +64,7 @@ class _VisitLocalization {
   final age = 'visit.age'.tr;
   final symptoms = 'visit.symptoms'.tr;
   final diagnostic = 'visit.diagnostic'.tr;
-  final posibleCovid = 'visit.posibleCovid'.tr;
+  final possibleCovid = 'visit.possibleCovid'.tr;
 }
 
 class _GalleryLocalization {

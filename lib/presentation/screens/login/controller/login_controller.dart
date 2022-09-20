@@ -33,6 +33,7 @@ class LoginController extends ChangeNotifier {
     FormState form = formKey.currentState!;
     form.save();
     if (form.validate()) {
+      FocusScope.of(blocContext).unfocus();
       blocContext.read<LoginCubit>().login(LoginBodyModel(
             username: textUserController.text,
             password: textPasswordController.text,

@@ -49,6 +49,10 @@ class VisitController extends ChangeNotifier {
 
   void setVisit(VisitEntity visit) {
     _visit = visit;
+    if (_visit.diagnostic != null) {
+      textDiagnosticController.text = _visit.diagnostic!;
+    }
+    _possibleCovid = _visit.posibleCovid;
     notifyListeners();
   }
 

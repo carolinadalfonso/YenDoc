@@ -33,7 +33,7 @@ class ServerException extends Exception {
       return _$ServerExceptionFromJson(json);
     } catch (e) {
       int status = json["status"];
-      String error = json["error"];
+      String error = json["message"] ?? json["error"];
       return ServerException(code: status, message: error);
     }
   }

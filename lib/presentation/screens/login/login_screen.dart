@@ -98,6 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(32),
                               ],
+                              inputAction: TextInputAction.done,
                             ),
                             const SizedBox(height: 20),
                             SimpleButton(
