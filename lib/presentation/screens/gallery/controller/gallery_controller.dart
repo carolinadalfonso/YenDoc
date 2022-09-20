@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/core/framework/util/cool_snack_bar.dart';
-import 'package:yendoc/core/framework/util/general_navigator.dart';
-import 'package:yendoc/core/framework/util/util.dart';
-import 'package:yendoc/domain/entities/responses/visit_entity.dart';
-import 'package:yendoc/presentation/screens/display_picture/display_picture.dart';
+import '../../../../core/framework/localization/localization.dart';
+import '../../../../core/framework/util/cool_snack_bar.dart';
+import '../../../../core/framework/util/general_navigator.dart';
+import '../../../../core/framework/util/util.dart';
+import '../../../../domain/entities/responses/visit_entity.dart';
+import '../../display_picture/display_picture.dart';
 
 class GalleryController extends ChangeNotifier {
   late CameraController _cameraController;

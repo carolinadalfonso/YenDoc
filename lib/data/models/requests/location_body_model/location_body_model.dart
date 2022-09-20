@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yendoc/domain/entities/requests/location_body_entity.dart';
+import '../../../../domain/entities/requests/location_body_entity.dart';
 
 part 'location_body_model.g.dart';
 

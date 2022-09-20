@@ -1,8 +1,8 @@
-import 'package:yendoc/core/errors/failures/failure.dart';
+import '../../../core/errors/failures/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:yendoc/core/framework/bloc/cubit/cubit_base.dart';
-import 'package:yendoc/data/models/requests/login_body_model/login_body_model.dart';
-import 'package:yendoc/domain/usecases/login/post/post_login.dart';
+import '../../../core/framework/bloc/cubit/cubit_base.dart';
+import '../../../data/models/requests/login_body_model/login_body_model.dart';
+import '../../../domain/usecases/login/post/post_login.dart';
 
 import '../../../domain/entities/responses/user_entity.dart';
 

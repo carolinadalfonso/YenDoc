@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yendoc/core/framework/util/form_validator.dart';
-import 'package:yendoc/core/framework/util/general_navigator.dart';
-import 'package:yendoc/core/framework/util/util_preferences.dart';
-import 'package:yendoc/data/models/requests/login_body_model/login_body_model.dart';
-import 'package:yendoc/domain/entities/responses/user_entity.dart';
-import 'package:yendoc/presentation/cubit/login/login_cubit.dart';
+import '../../../../core/framework/util/form_validator.dart';
+import '../../../../core/framework/util/general_navigator.dart';
+import '../../../../core/framework/util/util_preferences.dart';
+import '../../../../data/models/requests/login_body_model/login_body_model.dart';
+import '../../../../domain/entities/responses/user_entity.dart';
+import '../../../cubit/login/login_cubit.dart';
 
 import '../../home/home_screen.dart';
 

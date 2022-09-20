@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yendoc/core/framework/util/general_navigator.dart';
-import 'package:yendoc/presentation/screens/home/home_screen.dart';
+import '../../../../core/framework/util/general_navigator.dart';
+import '../../home/home_screen.dart';
 
 import '../../../../core/framework/util/form_validator.dart';
 

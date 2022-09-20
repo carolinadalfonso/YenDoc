@@ -1,6 +1,6 @@
-import 'package:yendoc/data/models/requests/change_password_body_model/change_password_body_model.dart';
-import 'package:yendoc/domain/entities/responses/user_entity.dart';
-import 'package:yendoc/core/errors/failures/failure.dart';
+import '../models/requests/change_password_body_model/change_password_body_model.dart';
+import '../../domain/entities/responses/user_entity.dart';
+import '../../core/errors/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../core/errors/exceptions/exception.dart';

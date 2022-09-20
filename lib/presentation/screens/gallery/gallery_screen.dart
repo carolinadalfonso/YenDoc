@@ -1,11 +1,11 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:yendoc/presentation/screens/gallery/controller/gallery_controller.dart';
-import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
-import 'package:yendoc/core/framework/util/general_navigator.dart';
-import 'package:yendoc/domain/entities/responses/visit_entity.dart';
+import 'controller/gallery_controller.dart';
+import '../../../core/framework/localization/localization.dart';
+import '../../../core/framework/theme/theme_manager.dart';
+import '../../../core/framework/util/general_navigator.dart';
+import '../../../domain/entities/responses/visit_entity.dart';
 
 import '../../../core/framework/util/cool_dialog.dart';
 

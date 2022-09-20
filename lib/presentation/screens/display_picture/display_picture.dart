@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:yendoc/core/framework/util/general_navigator.dart';
-import 'package:yendoc/presentation/screens/gallery/controller/gallery_controller.dart';
-import 'package:yendoc/core/framework/localization/localization.dart';
+import '../../../core/framework/util/general_navigator.dart';
+import '../gallery/controller/gallery_controller.dart';
+import '../../../core/framework/localization/localization.dart';
 
 import '../../../core/framework/util/cool_dialog.dart';
 

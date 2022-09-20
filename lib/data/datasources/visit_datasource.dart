@@ -1,14 +1,13 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:global_configuration/global_configuration.dart';
-import 'package:yendoc/data/datasources/base/datasource.dart';
-import 'package:yendoc/data/models/requests/location_body_model/location_body_model.dart';
-import 'package:yendoc/domain/entities/responses/visit_entity.dart';
-import 'package:yendoc/domain/entities/responses/visit_card_entity.dart';
 
+import '../../domain/entities/responses/visit_card_entity.dart';
+import '../../domain/entities/responses/visit_entity.dart';
+import '../models/requests/location_body_model/location_body_model.dart';
 import '../models/responses/visit/visit_model.dart';
 import '../models/responses/visit_card/visit_card_model.dart';
+import 'base/datasource.dart';
 import 'interfaces/ivisit_datasource.dart';
 
 class VisitDatasource extends DataSource implements IVisitDatasource {
@@ -22,9 +21,10 @@ class VisitDatasource extends DataSource implements IVisitDatasource {
   final String _endpointGetVisitsReport = GlobalConfiguration().getDeepValue("endpoints:visits:byDate");
 
   @override
-  Future<VisitEntity> getVisit(Int id) async {
+  Future<VisitEntity> getVisit(int id) async {
+    String finalEndpoint = _endpointGetVisit.replaceAll("{id}", id.toString());
     String data = await httpClient.get(
-      url: "$_url/$_endpointGetVisit/$id",
+      url: "$_url/$finalEndpoint",
       requireToken: true,
     );
 

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:yendoc/data/models/requests/location_body_model/location_body_model.dart';
-import 'package:yendoc/domain/entities/responses/visit_card_entity.dart';
-import 'package:yendoc/domain/usecases/visits/post/post_visits.dart';
+import '../../../data/models/requests/location_body_model/location_body_model.dart';
+import '../../../domain/entities/responses/visit_card_entity.dart';
+import '../../../domain/usecases/visits/post/post_visits.dart';
 
 import '../../../core/errors/failures/failure.dart';
 import '../../../core/framework/bloc/cubit/cubit_base.dart';

@@ -8,15 +8,19 @@ import '../../../../data/models/requests/location_body_model/location_body_model
 import '../../../cubit/visits_list/visits_list_cubit.dart';
 
 class HomeController extends ChangeNotifier {
-  void init(BuildContext blocContext) async {
-    try {
-      LocationData locationData = await getLocation(blocContext);
-      blocContext.read<VisitsListCubit>().getVisits(LocationBodyModel(
-            latitude: locationData.latitude.toString(),
-            longitude: locationData.longitude.toString(),
-          ));
-    } catch (e) {
-      blocContext.read<VisitsListCubit>().geoLocalizationError();
+  void init(BuildContext blocContext, DateTime datePick) async {
+    if (DateTime.now().difference(datePick).inDays == 0) {
+      try {
+        LocationData locationData = await getLocation(blocContext);
+        blocContext.read<VisitsListCubit>().getVisits(LocationBodyModel(
+              latitude: locationData.latitude.toString(),
+              longitude: locationData.longitude.toString(),
+            ));
+      } catch (e) {
+        blocContext.read<VisitsListCubit>().geoLocalizationError();
+      }
+    } else {
+      //TODO: Consumo reporte por fecha
     }
   }
 

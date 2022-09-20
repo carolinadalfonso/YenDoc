@@ -1,9 +1,9 @@
-import 'package:yendoc/core/errors/exceptions/exception.dart';
-import 'package:yendoc/data/datasources/authentication_datasource.dart';
-import 'package:yendoc/domain/entities/responses/user_entity.dart';
-import 'package:yendoc/core/errors/failures/failure.dart';
+import '../../core/errors/exceptions/exception.dart';
+import '../datasources/authentication_datasource.dart';
+import '../../domain/entities/responses/user_entity.dart';
+import '../../core/errors/failures/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:yendoc/domain/repositories/iauthentication_repository.dart';
+import '../../domain/repositories/iauthentication_repository.dart';
 
 import '../models/requests/login_body_model/login_body_model.dart';
 import 'base/repository.dart';

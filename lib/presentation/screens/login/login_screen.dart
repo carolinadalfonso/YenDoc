@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:yendoc/core/framework/util/cool_snack_bar.dart';
-import 'package:yendoc/presentation/cubit/login/login_cubit.dart';
-import 'package:yendoc/presentation/screens/login/controller/login_controller.dart';
-import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/core/framework/size_config/size_config.dart';
-import 'package:yendoc/presentation/widgets/common/simple_button.dart';
-import 'package:yendoc/presentation/widgets/common/text_field_custom.dart';
+import '../../../core/framework/util/cool_snack_bar.dart';
+import '../../cubit/login/login_cubit.dart';
+import 'controller/login_controller.dart';
+import '../../../core/framework/localization/localization.dart';
+import '../../../core/framework/size_config/size_config.dart';
+import '../../widgets/common/simple_button.dart';
+import '../../widgets/common/text_field_custom.dart';
 
 import '../../../core/framework/bloc/injection_container.dart';
 

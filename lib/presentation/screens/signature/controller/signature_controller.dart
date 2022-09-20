@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hand_signature/signature.dart';
-import 'package:yendoc/core/framework/util/general_navigator.dart';
-import 'package:yendoc/domain/entities/responses/visit_entity.dart';
+import '../../../../core/framework/util/general_navigator.dart';
+import '../../../../domain/entities/responses/visit_entity.dart';
 
 import '../../../../core/framework/util/util.dart';
 

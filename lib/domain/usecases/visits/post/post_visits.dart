@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:yendoc/domain/entities/responses/visit_card_entity.dart';
+import '../../../entities/responses/visit_card_entity.dart';
 
 import '../../../../core/errors/failures/failure.dart';
 import '../../../../core/framework/bloc/usecase/iusecase.dart';

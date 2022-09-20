@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:yendoc/presentation/screens/visit_screen/controller/visit_controller.dart';
-import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/core/framework/size_config/size_config.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
-import 'package:yendoc/domain/entities/responses/visit_entity.dart';
-import 'package:yendoc/presentation/screens/gallery/gallery_screen.dart';
-import 'package:yendoc/presentation/screens/map/map_screen.dart';
-import 'package:yendoc/presentation/widgets/common/checkbox_custom.dart';
-import 'package:yendoc/presentation/widgets/common/row_item_info.dart';
-import 'package:yendoc/presentation/widgets/common/simple_scroll.dart';
-import 'package:yendoc/presentation/widgets/common/text_field_custom.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../../../core/framework/bloc/injection_container.dart';
+import '../../../core/framework/localization/localization.dart';
+import '../../../core/framework/size_config/size_config.dart';
+import '../../../core/framework/theme/theme_manager.dart';
+import '../../../core/framework/util/cool_snack_bar.dart';
+import '../../../core/framework/util/general_navigator.dart';
+import '../../cubit/visit/visit_cubit.dart';
+import '../../widgets/common/checkbox_custom.dart';
 import '../../widgets/common/drawer/drawer_menu.dart';
+import '../../widgets/common/row_item_info.dart';
+import '../../widgets/common/simple_scroll.dart';
+import '../../widgets/common/text_field_custom.dart';
+import '../gallery/gallery_screen.dart';
+import '../map/map_screen.dart';
+import 'controller/visit_controller.dart';
 
 class VisitScreen extends StatefulWidget {
-  final VisitEntity visit;
+  final int visitId;
   final DateTime datePick;
   final bool? readOnly;
 
   const VisitScreen({
     Key? key,
-    required this.visit,
+    required this.visitId,
     required this.datePick,
     this.readOnly = false,
   }) : super(key: key);
@@ -38,9 +43,10 @@ class _VisitScreenState extends State<VisitScreen> {
   void initState() {
     super.initState();
 
-    controller.addListener(() => setState(() => {}));
-    controller.setVisit(widget.visit);
-    controller.setPossibleCovid(widget.visit.posibleCovid);
+    controller.addListener(() {
+      if (!controller.isFetching) setState(() => {});
+    });
+    controller.setVisitId(widget.visitId);
     controller.getFirstCamera();
   }
 
@@ -88,70 +94,95 @@ class _VisitScreenState extends State<VisitScreen> {
                 ),
               ),
             ),
-            body: Align(
-              alignment: Alignment.topCenter,
-              child: TabBarView(
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: SimpleScroll(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+            body: BlocProvider<VisitCubit>(
+              create: (context) => sl<VisitCubit>(),
+              child: BlocConsumer<VisitCubit, VisitState>(
+                listener: (bloc, state) {
+                  if (state is VisitSuccess) {
+                    controller.setPossibleCovid(state.visit.posibleCovid);
+                    controller.setVisit(state.visit);
+                  } else if (state is VisitError) {
+                    CoolSnackBar.of(context).error(state.failure.message);
+                    GeneralNavigator.pop();
+                  }
+                },
+                builder: (blocContext, state) {
+                  controller.setIsFetching(state is VisitInitial);
+
+                  if (state is VisitInitial) {
+                    controller.cargarVisita(blocContext);
+                    return _buildShimmer();
+                  } else if (state is VisitSuccess) {
+                    return Align(
+                      alignment: Alignment.topCenter,
+                      child: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          RowItemInfo(
-                            title: Localization.xVisit.patient,
-                            value: widget.visit.patient,
+                          Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: SimpleScroll(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RowItemInfo(
+                                    title: Localization.xVisit.patient,
+                                    value: state.visit.patient.name,
+                                  ),
+                                  RowItemInfo(
+                                    title: Localization.xVisit.address,
+                                    value: "${state.visit.patient.address}, ${state.visit.patient.location}",
+                                  ),
+                                  RowItemInfo(
+                                    title: Localization.xVisit.age,
+                                    value: "${state.visit.patient.age} ${Localization.xCommon.yearsOld}",
+                                  ),
+                                  RowItemInfo(
+                                    title: Localization.xVisit.symptoms,
+                                    value: state.visit.symptoms,
+                                  ),
+                                  CheckboxCustom(
+                                    text: Localization.xVisit.posibleCovid,
+                                    checked: controller.possibleCovid,
+                                    onChanged: (value) => controller.onCheckboxCovidTapped(value!),
+                                    enabled: !widget.readOnly!,
+                                  ),
+                                  RowItemInfo(
+                                    title: Localization.xVisit.diagnostic,
+                                  ),
+                                  TextFieldCustom(
+                                    controller: controller.textDiagnosticController,
+                                    keyboardType: TextInputType.multiline,
+                                    initialValue: state.visit.diagnostic,
+                                    maxLenght: 500,
+                                    lines: 8,
+                                    style: const TextStyle(fontSize: 14),
+                                    enabled: !widget.readOnly!,
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
-                          RowItemInfo(
-                            title: Localization.xVisit.address,
-                            value: widget.visit.address,
+                          Align(
+                            alignment: Alignment.center,
+                            child: MapScreen(
+                              visit: controller.visit,
+                            ),
                           ),
-                          RowItemInfo(
-                            title: Localization.xVisit.age,
-                            value: "${widget.visit.age} ${Localization.xCommon.yearsOld}",
+                          Align(
+                            alignment: Alignment.center,
+                            child: GalleryScreen(
+                              visit: controller.visit,
+                              readOnly: widget.readOnly,
+                              controller: controller.galleryController,
+                            ),
                           ),
-                          RowItemInfo(
-                            title: Localization.xVisit.symptoms,
-                            value: widget.visit.symptoms,
-                          ),
-                          CheckboxCustom(
-                            text: Localization.xVisit.posibleCovid,
-                            checked: controller.possibleCovid,
-                            onChanged: (value) => controller.onCheckboxCovidTapped(value!),
-                            enabled: !widget.readOnly!,
-                          ),
-                          RowItemInfo(
-                            title: Localization.xVisit.diagnostic,
-                          ),
-                          TextFieldCustom(
-                            controller: controller.textDiagnosticController,
-                            keyboardType: TextInputType.multiline,
-                            initialValue: widget.visit.diagnostic,
-                            maxLenght: 500,
-                            lines: 8,
-                            style: const TextStyle(fontSize: 14),
-                            enabled: !widget.readOnly!,
-                          )
                         ],
                       ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: MapScreen(
-                      visit: controller.visit,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: GalleryScreen(
-                      visit: controller.visit,
-                      readOnly: widget.readOnly,
-                      controller: controller.galleryController,
-                    ),
-                  ),
-                ],
+                    );
+                  } else {
+                    return _buildShimmer();
+                  }
+                },
               ),
             ),
             bottomNavigationBar: Container(
@@ -201,6 +232,84 @@ class _VisitScreenState extends State<VisitScreen> {
           ),
         );
       },
+    );
+  }
+
+  Padding _buildShimmer() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: SizedBox(
+        width: 500,
+        height: 500,
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[50]!,
+          child: Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 150,
+                          height: 22,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Container(
+                          width: double.infinity,
+                          height: 22,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    );
+                  },
+                ),
+                Container(
+                  width: 200,
+                  height: 22,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: 150,
+                  height: 22,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Container(
+                  width: double.infinity,
+                  height: 200,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

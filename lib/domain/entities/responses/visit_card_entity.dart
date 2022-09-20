@@ -1,5 +1,5 @@
-import 'package:yendoc/domain/entities/responses/patient_entity.dart';
-import 'package:yendoc/domain/entities/responses/visit_state_entity.dart';
+import 'patient_entity.dart';
+import 'visit_state_entity.dart';
 
 abstract class VisitCardEntity {
   final int id;

@@ -1,4 +1,4 @@
-import 'package:yendoc/core/framework/localization/localization.dart';
+import '../../framework/localization/localization.dart';
 
 abstract class Failure {
   final int code;

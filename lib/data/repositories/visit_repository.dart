@@ -1,10 +1,9 @@
-import 'package:yendoc/data/models/requests/location_body_model/location_body_model.dart';
-import 'dart:ffi';
+import '../models/requests/location_body_model/location_body_model.dart';
 
-import 'package:yendoc/core/errors/failures/failure.dart';
+import '../../core/errors/failures/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:yendoc/domain/entities/responses/visit_entity.dart';
-import 'package:yendoc/domain/entities/responses/visit_card_entity.dart';
+import '../../domain/entities/responses/visit_entity.dart';
+import '../../domain/entities/responses/visit_card_entity.dart';
 
 import '../../core/errors/exceptions/exception.dart';
 import '../../domain/repositories/ivisit_repository.dart';
@@ -15,7 +14,7 @@ class VisitRepository extends Repository<VisitDatasource> implements IVisitRepos
   VisitRepository({required super.dataSource});
 
   @override
-  Future<Either<Failure, VisitEntity>> getVisit(Int id) async {
+  Future<Either<Failure, VisitEntity>> getVisit(int id) async {
     try {
       VisitEntity visit = await dataSource.getVisit(id);
       return Right(visit);

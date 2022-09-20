@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yendoc/domain/entities/responses/visit_state_entity.dart';
+import '../../../../domain/entities/responses/visit_state_entity.dart';
 
 part 'visit_state_model.g.dart';
 

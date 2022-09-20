@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/core/framework/util/util_preferences.dart';
-import 'package:yendoc/core/network/network_info.dart';
+import '../framework/localization/localization.dart';
+import '../framework/util/util_preferences.dart';
+import '../network/network_info.dart';
 
 import '../errors/exceptions/exception.dart';
 

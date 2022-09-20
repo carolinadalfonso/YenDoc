@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yendoc/presentation/cubit/change_password/change_password_cubit.dart';
+import '../../../cubit/change_password/change_password_cubit.dart';
 
 import '../../../../core/framework/util/form_validator.dart';
 import '../../../../data/models/requests/change_password_body_model/change_password_body_model.dart';

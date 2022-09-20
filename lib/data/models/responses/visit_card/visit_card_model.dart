@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yendoc/domain/entities/responses/visit_card_entity.dart';
+import '../../../../domain/entities/responses/visit_card_entity.dart';
 import '../patient/patient_model.dart';
 import '../visit_state/visit_state_model.dart';
 
@@ -21,7 +21,6 @@ class VisitCardModel extends VisitCardEntity {
   VisitStateModel get state => super.state as VisitStateModel;
 
   @override
-  @JsonKey(name: "pacient")
   PatientModel get patient => super.patient as PatientModel;
 
   factory VisitCardModel.fromJson(Map<String, dynamic> json) {

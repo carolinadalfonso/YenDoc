@@ -1,4 +1,4 @@
-import 'package:yendoc/core/http/http_client.dart';
+import '../../../core/http/http_client.dart';
 
 abstract class DataSource {
   final HttpClient httpClient;

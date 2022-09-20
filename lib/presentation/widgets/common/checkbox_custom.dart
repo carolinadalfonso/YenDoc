@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
+import '../../../core/framework/theme/theme_manager.dart';
 
 class CheckboxCustom extends StatelessWidget {
   final String text;

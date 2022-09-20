@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:global_configuration/global_configuration.dart';
-import 'package:yendoc/data/datasources/base/datasource.dart';
-import 'package:yendoc/data/models/requests/change_password_body_model/change_password_body_model.dart';
-import 'package:yendoc/data/models/responses/user/user_model.dart';
-import 'package:yendoc/domain/entities/responses/user_entity.dart';
+import 'base/datasource.dart';
+import '../models/requests/change_password_body_model/change_password_body_model.dart';
+import '../models/responses/user/user_model.dart';
+import '../../domain/entities/responses/user_entity.dart';
 
 import 'interfaces/iuser_datasource.dart';
 

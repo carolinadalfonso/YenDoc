@@ -1,5 +1,5 @@
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:yendoc/core/framework/localization/base/localization_base.dart';
+import 'base/localization_base.dart';
 
 class Localization extends LocalizationBase {
   static _CommonLocalization xCommon = _CommonLocalization();

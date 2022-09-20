@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:yendoc/presentation/screens/report/controller/report_controller.dart';
-import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/core/framework/size_config/size_config.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
-import 'package:yendoc/presentation/widgets/common/simple_button.dart';
-import 'package:yendoc/presentation/widgets/common/text_field_custom.dart';
+import 'controller/report_controller.dart';
+import '../../../core/framework/localization/localization.dart';
+import '../../../core/framework/size_config/size_config.dart';
+import '../../../core/framework/theme/theme_manager.dart';
+import '../../widgets/common/simple_button.dart';
+import '../../widgets/common/text_field_custom.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({Key? key}) : super(key: key);

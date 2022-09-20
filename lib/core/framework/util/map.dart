@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:yendoc/core/framework/localization/localization.dart';
+import '../localization/localization.dart';
 
 class MapUtils {
   MapUtils._();

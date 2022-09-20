@@ -1,27 +1,20 @@
-import 'package:yendoc/domain/entities/responses/visit_state_entity.dart';
+import 'patient_entity.dart';
+import 'visit_state_entity.dart';
 
 abstract class VisitEntity {
   final int id;
-  final String patient;
-  final String address;
-  final VisitStateEntity state;
-  final int age;
+  final PatientEntity patient;
   final String symptoms;
+  final VisitStateEntity state;
   final bool posibleCovid;
   final String? diagnostic;
-  final double latitude;
-  final double longitude;
 
   const VisitEntity({
     required this.id,
     required this.patient,
-    required this.address,
-    required this.age,
     required this.symptoms,
-    required this.posibleCovid,
     required this.state,
+    required this.posibleCovid,
     this.diagnostic,
-    required this.latitude,
-    required this.longitude,
   });
 }

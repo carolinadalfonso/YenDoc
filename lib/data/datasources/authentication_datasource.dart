@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:global_configuration/global_configuration.dart';
-import 'package:yendoc/data/datasources/base/datasource.dart';
-import 'package:yendoc/data/datasources/interfaces/iauthentication_datasource.dart';
-import 'package:yendoc/data/models/responses/user/user_model.dart';
-import 'package:yendoc/domain/entities/responses/user_entity.dart';
-import 'package:yendoc/data/models/requests/login_body_model/login_body_model.dart';
+import 'base/datasource.dart';
+import 'interfaces/iauthentication_datasource.dart';
+import '../models/responses/user/user_model.dart';
+import '../../domain/entities/responses/user_entity.dart';
+import '../models/requests/login_body_model/login_body_model.dart';
 
 class AuthenticationDatasource extends DataSource implements IAuthenticationDatasource {
   AuthenticationDatasource({

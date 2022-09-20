@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/core/framework/size_config/size_config.dart';
-import 'package:yendoc/presentation/widgets/common/visit_card/visit_card.dart';
+import '../../../core/framework/localization/localization.dart';
+import '../../../core/framework/size_config/size_config.dart';
+import '../../widgets/common/simple_scroll.dart';
+import '../../widgets/common/visit_card/visit_card.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../core/framework/bloc/injection_container.dart';
@@ -61,27 +62,33 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             builder: (blocContext, state) {
               if (state is VisitsListInitial) {
-                controller.init(blocContext);
+                controller.init(blocContext, widget.datePick);
                 return _buildShimmer();
               } else if (state is VisitsListLoading) {
                 return _buildShimmer();
               } else if (state is VisitsListSuccess) {
                 return Align(
                   alignment: Alignment.center,
-                  child: SizedBox(
-                    width: SizeConfig.screenWidth / 1.1,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: ListView.builder(
-                        itemCount: state.visits.length,
-                        itemBuilder: (context, index) {
-                          VisitCardEntity visitCard = state.visits[index];
-                          return VisitCard(
-                            visitCard: visitCard,
-                            datePick: widget.datePick,
-                            readOnly: widget.readOnly,
-                          );
-                        },
+                  child: RefreshIndicator(
+                    onRefresh: () => Future.microtask(() => controller.init(blocContext, widget.datePick)),
+                    child: SizedBox(
+                      width: SizeConfig.screenWidth / 1.1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: SimpleScroll(
+                          onlyDisableGlobe: true,
+                          child: ListView.builder(
+                            itemCount: state.visits.length,
+                            itemBuilder: (context, index) {
+                              VisitCardEntity visitCard = state.visits[index];
+                              return VisitCard(
+                                visitCard: visitCard,
+                                datePick: widget.datePick,
+                                readOnly: widget.readOnly,
+                              );
+                            },
+                          ),
+                        ),
                       ),
                     ),
                   ),

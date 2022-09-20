@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yendoc/core/framework/size_config/size_config.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
+import '../../../core/framework/size_config/size_config.dart';
+import '../../../core/framework/theme/theme_manager.dart';
 
 class ListItem extends StatelessWidget {
   final String title;

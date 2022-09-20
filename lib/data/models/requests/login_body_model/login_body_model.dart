@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yendoc/domain/entities/requests/login_body_entity.dart';
+
+import '../../../../domain/entities/requests/login_body_entity.dart';
 
 part 'login_body_model.g.dart';
 

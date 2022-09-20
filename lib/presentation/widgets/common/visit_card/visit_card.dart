@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:text_scroll/text_scroll.dart';
-import 'package:yendoc/presentation/widgets/common/visit_card/controller/visit_card_controller.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
 
+import '../../../../core/framework/theme/theme_manager.dart';
 import '../../../../domain/entities/responses/visit_card_entity.dart';
+import 'controller/visit_card_controller.dart';
 
 class VisitCard extends StatelessWidget {
   final VisitCardEntity visitCard;
@@ -27,7 +27,7 @@ class VisitCard extends StatelessWidget {
       child: InkWell(
         highlightColor: ThemeManager.kPrimaryColor100,
         borderRadius: BorderRadius.circular(8),
-        onTap: () => {}, //TODO: controller.goToVisit(visit, datePick, readOnly)
+        onTap: () => controller.goToVisit(visitCard.id, datePick, readOnly),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -77,7 +77,7 @@ class VisitCard extends StatelessWidget {
                           ),
                           Flexible(
                             child: TextScroll(
-                              visitCard.patient.address,
+                              "${visitCard.patient.address}, ${visitCard.patient.location}",
                               style: TextStyle(color: Colors.grey[500], fontSize: 12),
                               mode: TextScrollMode.bouncing,
                               velocity: const Velocity(pixelsPerSecond: Offset(15, 0)),

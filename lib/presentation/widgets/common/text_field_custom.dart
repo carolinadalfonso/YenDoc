@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
+
+import '../../../core/framework/theme/theme_manager.dart';
 
 class TextFieldCustom extends StatefulWidget {
   final TextEditingController controller;
@@ -78,8 +79,9 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Text(
                   widget.description!,
-                  style: TextStyle(
-                    color: ThemeManager.kPrimaryColor,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               )

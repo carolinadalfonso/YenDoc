@@ -1,8 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:yendoc/presentation/screens/gallery/controller/gallery_controller.dart';
-import 'package:yendoc/core/framework/localization/localization.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
+import '../gallery/controller/gallery_controller.dart';
+import '../../../core/framework/localization/localization.dart';
+import '../../../core/framework/theme/theme_manager.dart';
 
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;

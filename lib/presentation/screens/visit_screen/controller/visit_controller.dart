@@ -3,28 +3,45 @@ import 'dart:ui';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:yendoc/core/framework/util/general_navigator.dart';
-import 'package:yendoc/domain/entities/responses/visit_entity.dart';
-import 'package:yendoc/presentation/screens/gallery/controller/gallery_controller.dart';
-import 'package:yendoc/presentation/screens/signature/signature_screen.dart';
-import 'package:yendoc/presentation/screens/take_picture/take_picture_screen.dart';
 
 import '../../../../core/framework/localization/localization.dart';
+import '../../../../core/framework/util/general_navigator.dart';
+import '../../../../domain/entities/responses/visit_entity.dart';
+import '../../../cubit/visit/visit_cubit.dart';
 import '../../../widgets/common/simple_button.dart';
+import '../../gallery/controller/gallery_controller.dart';
+import '../../signature/signature_screen.dart';
+import '../../take_picture/take_picture_screen.dart';
 
 class VisitController extends ChangeNotifier {
   final TextEditingController textDiagnosticController = TextEditingController();
   final GalleryController galleryController = GalleryController();
+  late int _visitId;
   late VisitEntity _visit;
   late CameraDescription _firstCamera;
   late bool _possibleCovid;
   int selectedIndex = 0;
+  bool _isFetching = false;
 
   CameraDescription get firstCamera => _firstCamera;
 
   void setFirstCamera(CameraDescription firstCamera) {
     _firstCamera = firstCamera;
+    notifyListeners();
+  }
+
+  bool get isFetching => _isFetching;
+
+  void setIsFetching(bool isFetching) {
+    _isFetching = isFetching;
+  }
+
+  int get visitId => _visitId;
+
+  void setVisitId(int visitId) {
+    _visitId = visitId;
     notifyListeners();
   }
 
@@ -40,6 +57,10 @@ class VisitController extends ChangeNotifier {
   void setPossibleCovid(bool possibleCovid) {
     _possibleCovid = possibleCovid;
     notifyListeners();
+  }
+
+  void cargarVisita(BuildContext blocContext) {
+    blocContext.read<VisitCubit>().getVisit(_visitId);
   }
 
   void goToCamera() {

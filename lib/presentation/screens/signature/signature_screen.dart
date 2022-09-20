@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hand_signature/signature.dart';
-import 'package:yendoc/core/framework/theme/theme_manager.dart';
+import '../../../core/framework/theme/theme_manager.dart';
 
 import 'controller/signature_controller.dart';
 import '../../../core/framework/localization/localization.dart';
