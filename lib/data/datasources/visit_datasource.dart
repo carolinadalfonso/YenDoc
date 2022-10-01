@@ -5,6 +5,7 @@ import 'package:global_configuration/global_configuration.dart';
 import '../../domain/entities/responses/visit_card_entity.dart';
 import '../../domain/entities/responses/visit_entity.dart';
 import '../models/requests/location_body_model/location_body_model.dart';
+import '../models/requests/visit_body_model/visit_body_model.dart';
 import '../models/responses/visit/visit_model.dart';
 import '../models/responses/visit_card/visit_card_model.dart';
 import 'base/datasource.dart';
@@ -19,6 +20,7 @@ class VisitDatasource extends DataSource implements IVisitDatasource {
   final String _endpointGetVisit = GlobalConfiguration().getDeepValue("endpoints:visits:byId");
   final String _endpointGetVisits = GlobalConfiguration().getDeepValue("endpoints:visits:today");
   final String _endpointGetVisitsReport = GlobalConfiguration().getDeepValue("endpoints:visits:byDate");
+  final String _endpointSaveVisit = GlobalConfiguration().getDeepValue("endpoints:visits:save");
 
   @override
   Future<VisitEntity> getVisit(int id) async {
@@ -52,5 +54,14 @@ class VisitDatasource extends DataSource implements IVisitDatasource {
 
     List dataVisits = json.decode(data);
     return dataVisits.map((visit) => VisitCardModel.fromJson(visit)).toList();
+  }
+
+  @override
+  Future<void> saveVisit(VisitBodyModel visitBodyModel) async {
+    await httpClient.post(
+      url: "$_url/$_endpointSaveVisit",
+      body: json.encode(visitBodyModel.toJson()),
+      requireToken: true,
+    );
   }
 }

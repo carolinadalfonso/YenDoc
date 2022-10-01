@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:yendoc/presentation/screens/home/home_screen.dart';
+import 'package:yendoc/presentation/widgets/common/message_info.dart';
 
 import '../../../core/framework/bloc/injection_container.dart';
 import '../../../core/framework/localization/localization.dart';
@@ -10,10 +14,13 @@ import '../../../core/framework/size_config/size_config.dart';
 import '../../../core/framework/theme/theme_manager.dart';
 import '../../../core/framework/util/cool_snack_bar.dart';
 import '../../../core/framework/util/general_navigator.dart';
+import '../../cubit/save_visit/save_visit_cubit.dart';
 import '../../cubit/visit/visit_cubit.dart';
 import '../../widgets/common/checkbox_custom.dart';
 import '../../widgets/common/drawer/drawer_menu.dart';
+import '../../widgets/common/error_text.dart';
 import '../../widgets/common/row_item_info.dart';
+import '../../widgets/common/simple_button.dart';
 import '../../widgets/common/simple_scroll.dart';
 import '../../widgets/common/text_field_custom.dart';
 import '../gallery/gallery_screen.dart';
@@ -223,7 +230,33 @@ class _VisitScreenState extends State<VisitScreen> {
                         label: Localization.xVisit.finish,
                       ),
                     ],
-                    onTap: (index) => controller.onItemTapped(index, context, widget.readOnly!),
+                    onTap: (index) {
+                      if (widget.readOnly != null && !widget.readOnly!) {
+                        switch (index) {
+                          case 0:
+                            controller.goToSign();
+                            break;
+                          case 1:
+                            controller.goToCamera();
+                            break;
+                          case 2:
+                            FocusScope.of(context).unfocus();
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return _finishDialog(setState);
+                                  },
+                                );
+                              },
+                            );
+                            break;
+                        }
+                      }
+                      //onTap: (index) => controller.onItemTapped(index, context, widget.readOnly!),
+                    },
                   ),
                 ),
               ),
@@ -231,6 +264,99 @@ class _VisitScreenState extends State<VisitScreen> {
           ),
         );
       },
+    );
+  }
+
+  _finishDialog(StateSetter setState) {
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+        child: AlertDialog(
+          actionsPadding: const EdgeInsets.all(10),
+          actions: [
+            BlocProvider<SaveVisitCubit>(
+              create: (context) => sl<SaveVisitCubit>(),
+              child: BlocConsumer<SaveVisitCubit, SaveVisitState>(
+                listener: (bloc, state) {
+                  if (state is SaveVisitError) {
+                    GeneralNavigator.pop();
+                    CoolSnackBar.of(context).error(state.failure.message);
+                  } else if (state is SaveVisitSuccess) {
+                    GeneralNavigator.pushAndRemoveUntil(HomeScreen(datePick: DateTime.now()));
+                    CoolSnackBar.of(context).success(Localization.xValidation.saveVisitOk);
+                  }
+                },
+                builder: (blocContext, state) {
+                  return AbsorbPointer(
+                    absorbing: state is SaveVisitLoading,
+                    child: Column(
+                      children: [
+                        SimpleButton(
+                          onPressed: () {
+                            controller.validateVisitFinishOk().then((hasError) async {
+                              if (hasError) {
+                                setState(() => controller.setHasErrorOnSave(hasError));
+                              } else {
+                                await controller.saveVisit(blocContext, "DONE");
+                              }
+                            });
+                          },
+                          text: Localization.xFinish.ok,
+                          isSmall: true,
+                          isSecondary: true,
+                          icon: FontAwesomeIcons.solidCircleCheck,
+                          iconColor: Colors.green[400],
+                          mainAxisAlignmentBody: MainAxisAlignment.start,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        SimpleButton(
+                          onPressed: () {
+                            controller.validateVisitFinishNotOk().then((hasError) async {
+                              if (hasError) {
+                                setState(() => controller.setHasErrorOnSave(hasError));
+                              } else {
+                                await controller.saveVisit(blocContext, "NOT_DONE");
+                              }
+                            });
+                          },
+                          text: Localization.xFinish.notOk,
+                          isSmall: true,
+                          isSecondary: true,
+                          icon: FontAwesomeIcons.solidCircleXmark,
+                          iconColor: Colors.red[400],
+                          mainAxisAlignmentBody: MainAxisAlignment.start,
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        SimpleButton(
+                          onPressed: controller.cancelSaveVisit,
+                          text: Localization.xCommon.cancel,
+                          enabled: state is! SaveVisitLoading,
+                        ),
+                        if (controller.hasErrorOnSave) ErrorText(errorText: controller.errorTextOnSave),
+                        if (state is SaveVisitLoading)
+                          Column(
+                            children: [
+                              const SizedBox(height: 15),
+                              MessageInfo(text: Localization.xValidation.finishingVisit),
+                            ],
+                          )
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+          alignment: Alignment.center,
+          content: Text(Localization.xFinish.question),
+          title: Text(Localization.xFinish.visit),
+        ),
+      ),
     );
   }
 
@@ -243,69 +369,74 @@ class _VisitScreenState extends State<VisitScreen> {
         child: Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[50]!,
-          child: Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 150,
-                          height: 22,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Container(
-                          width: double.infinity,
-                          height: 22,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                      ],
-                    );
-                  },
+          child: Flex(
+            direction: Axis.vertical,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 150,
+                              height: 22,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Container(
+                              width: double.infinity,
+                              height: 22,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        );
+                      },
+                    ),
+                    Container(
+                      width: 200,
+                      height: 22,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: 150,
+                      height: 22,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  width: 200,
-                  height: 22,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  width: 150,
-                  height: 22,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Container(
-                  width: double.infinity,
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

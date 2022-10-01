@@ -8,6 +8,7 @@ abstract class VisitEntity {
   final VisitStateEntity state;
   final bool posibleCovid;
   final String? diagnostic;
+  final String? signature;
 
   const VisitEntity({
     required this.id,
@@ -16,5 +17,6 @@ abstract class VisitEntity {
     required this.state,
     required this.posibleCovid,
     this.diagnostic,
+    this.signature,
   });
 }

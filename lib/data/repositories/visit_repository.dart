@@ -1,3 +1,5 @@
+import 'package:yendoc/data/models/requests/visit_body_model/visit_body_model.dart';
+
 import '../models/requests/location_body_model/location_body_model.dart';
 
 import '../../core/errors/failures/failure.dart';
@@ -42,6 +44,18 @@ class VisitRepository extends Repository<VisitDatasource> implements IVisitRepos
     try {
       List<VisitCardEntity> visitasReporte = await dataSource.getVisitsReport(dateTime);
       return Right(visitasReporte);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(code: e.code, message: e.message));
+    } on NoInternetConnectionException catch (e) {
+      return Left(NoInternetConnectionFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> saveVisit(VisitBodyModel visitBodyModel) async {
+    try {
+      await dataSource.saveVisit(visitBodyModel);
+      return const Right(null);
     } on ServerException catch (e) {
       return Left(ServerFailure(code: e.code, message: e.message));
     } on NoInternetConnectionException catch (e) {

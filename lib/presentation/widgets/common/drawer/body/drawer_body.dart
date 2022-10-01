@@ -15,20 +15,29 @@ class _DrawerBody extends StatelessWidget {
         ListItem(
           title: Localization.xDrawer.report,
           icon: FontAwesomeIcons.chartColumn,
-          onTap: () => GeneralNavigator.push(const ReportScreen()),
+          onTap: () => GeneralNavigator.push(
+            const ReportScreen(),
+            transitionType: PageTransitionType.rightToLeft,
+          ),
         ),
         ListItem(
           title: Localization.xDrawer.changePassword,
           icon: FontAwesomeIcons.key,
           onTap: () {
             Scaffold.of(context).closeDrawer();
-            GeneralNavigator.push(const ChangePasswordScreen());
+            GeneralNavigator.push(
+              const ChangePasswordScreen(),
+              transitionType: PageTransitionType.rightToLeft,
+            );
           },
         ),
         ListItem(
           title: Localization.xDrawer.about,
           icon: FontAwesomeIcons.circleInfo,
-          onTap: () => GeneralNavigator.push(const AboutScreen()),
+          onTap: () => GeneralNavigator.push(
+            const AboutScreen(),
+            transitionType: PageTransitionType.rightToLeft,
+          ),
         ),
       ],
     );

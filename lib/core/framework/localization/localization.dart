@@ -112,4 +112,9 @@ class _ValidationLocalization {
   final passwordDontMatch = 'validation.passwordDontMatch'.tr;
   final passwordRequisits = 'validation.passwordRequisits'.tr;
   final userLenght = 'validation.userLenght'.tr;
+  final visitRequisitsOk = 'validation.visitRequisitsOk'.tr;
+  final visitRequisitsOkPossibleCOVID = 'validation.visitRequisitsOkPossibleCOVID'.tr;
+  final visitRequisitsNotOk = 'validation.visitRequisitsNotOk'.tr;
+  final saveVisitOk = 'validation.saveVisitOk'.tr;
+  final finishingVisit = 'validation.finishingVisit'.tr;
 }

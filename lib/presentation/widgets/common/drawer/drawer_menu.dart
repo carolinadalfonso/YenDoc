@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:text_scroll/text_scroll.dart';
 import '../../../../core/framework/util/general_navigator.dart';
 import '../../../../core/framework/localization/localization.dart';

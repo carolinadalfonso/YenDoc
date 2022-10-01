@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:yendoc/presentation/widgets/common/error_text.dart';
 
 import '../../../core/framework/theme/theme_manager.dart';
 
@@ -191,44 +191,12 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                         }
                       : null,
                 ),
-                if (state.hasError) buildError(state.errorText!)
+                if (state.hasError) ErrorText(errorText: state.errorText!)
               ],
             );
           },
         ),
       ],
-    );
-  }
-
-  buildError(String errorText) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(top: 5),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: Colors.red[50],
-        border: Border.all(color: Colors.red[100]!.withAlpha(100)),
-        borderRadius: const BorderRadius.all(Radius.circular(6)),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            FontAwesomeIcons.circleInfo,
-            color: Colors.redAccent[400],
-            size: 14,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            errorText,
-            style: TextStyle(
-              color: Colors.redAccent[400],
-              fontSize: 11,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

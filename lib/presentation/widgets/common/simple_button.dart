@@ -11,6 +11,7 @@ class SimpleButton extends StatelessWidget {
   final bool isSecondary;
   final VoidCallback? onPressed;
   final MainAxisAlignment? mainAxisAlignmentBody;
+  final Color? iconColor;
 
   const SimpleButton({
     Key? key,
@@ -23,6 +24,7 @@ class SimpleButton extends StatelessWidget {
     this.isSecondary = false,
     required this.onPressed,
     this.mainAxisAlignmentBody,
+    this.iconColor,
   }) : super(key: key);
 
   @override
@@ -39,14 +41,13 @@ class SimpleButton extends StatelessWidget {
                   ? Colors.white
                   : ThemeManager.kPrimaryColor
               : ThemeManager.kPrimaryColor50,
-          foregroundColor: isSecondary ? ThemeManager.kPrimaryColor : Colors.white,
           textStyle: TextStyle(
             fontFamily: 'Poppins',
             fontSize: isSmall ? 14 : 16,
           ),
           shape: RoundedRectangleBorder(
             side: isSecondary
-                ? BorderSide(color: ThemeManager.kPrimaryColor, width: 2, style: BorderStyle.solid)
+                ? BorderSide(color: ThemeManager.kPrimaryColor, width: 1, style: BorderStyle.solid)
                 : const BorderSide(color: Colors.transparent, width: 0, style: BorderStyle.none),
             borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
@@ -60,7 +61,11 @@ class SimpleButton extends StatelessWidget {
                 ? !isLoading
                     ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Icon(icon, size: isSmall ? 22 : 24),
+                        child: Icon(
+                          icon,
+                          size: isSmall ? 22 : 24,
+                          color: iconColor ?? ThemeManager.kPrimaryColor,
+                        ),
                       )
                     : const SizedBox.shrink()
                 : const SizedBox.shrink(),
@@ -75,7 +80,18 @@ class SimpleButton extends StatelessWidget {
                       ),
                     ),
                   )
-                : Text(text),
+                : Text(
+                    text,
+                    style: TextStyle(
+                      color: isSecondary
+                          ? enabled
+                              ? ThemeManager.kPrimaryColor
+                              : Colors.blueGrey[200]
+                          : enabled
+                              ? Colors.white
+                              : Colors.blueGrey[200],
+                    ),
+                  ),
           ],
         ),
       ),

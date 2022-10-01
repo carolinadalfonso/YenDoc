@@ -14,6 +14,7 @@ class VisitModel extends VisitEntity {
     required bool posibleCovid,
     required VisitStateModel state,
     String? diagnostic,
+    String? signature,
   }) : super(
           id: id,
           patient: patient,
@@ -21,6 +22,7 @@ class VisitModel extends VisitEntity {
           posibleCovid: posibleCovid,
           state: state,
           diagnostic: diagnostic,
+          signature: signature,
         );
 
   @override

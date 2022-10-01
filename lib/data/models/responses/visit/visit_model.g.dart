@@ -13,4 +13,5 @@ VisitModel _$VisitModelFromJson(Map<String, dynamic> json) => VisitModel(
       posibleCovid: json['posibleCovid'] as bool,
       state: VisitStateModel.fromJson(json['state'] as Map<String, dynamic>),
       diagnostic: json['diagnostic'] as String?,
+      signature: json['signature'] as String?,
     );

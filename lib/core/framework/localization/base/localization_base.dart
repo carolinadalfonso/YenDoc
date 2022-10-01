@@ -63,6 +63,11 @@ abstract class LocalizationBase extends Translations {
           'validation.passwordDontMatch': 'Las contraseñas no coinciden',
           'validation.passwordRequisits':
               'La contraseña debe de tener al menos:\n- 8 caracteres\n- Una letra mayúscula\n- Una letra minúscula\n- Un número',
+          'validation.visitRequisitsOk': 'La visita debe de tener:\n- Diagnóstico\n- Al menos una foto\n- Firma del paciente atendido',
+          'validation.visitRequisitsOkPossibleCOVID': 'La visita debe de tener:\n- Diagnóstico\n- Al menos una foto',
+          'validation.visitRequisitsNotOk': 'La visita debe de tener:\n- Razón de No Realizada\n- Al menos una foto',
+          'validation.saveVisitOk': '¡Visita finalizada!',
+          'validation.finishingVisit': 'Finalizando visita...',
         },
         'en': {
           'common.yes': 'Yes',
@@ -123,6 +128,11 @@ abstract class LocalizationBase extends Translations {
           'validation.passwordDontMatch': 'Passwords do not match',
           'validation.passwordRequisits':
               'The password must have, at least:\n- 8 characters\n- One uppercase letter\n- One lowercase letter\n- One number',
+          'validation.visitRequisitsOk': 'The visit must have:\n- Diagnostic\n- At least a photo\n- Signature of the treated patient',
+          'validation.visitRequisitsOkPossibleCOVID': 'The visit must have:\n- Diagnostic\n- At least a photo',
+          'validation.visitRequisitsNotOk': 'The visit must have:\n- Reason for Not Realized\n- At least a photo',
+          'validation.saveVisitOk': 'Visit completed!',
+          'validation.finishingVisit': 'Finishing visit...',
         }
       };
 }

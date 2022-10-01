@@ -1,16 +1,20 @@
-import 'dart:ui';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/framework/localization/localization.dart';
+import '../../../../core/framework/util/form_validator.dart';
 import '../../../../core/framework/util/general_navigator.dart';
+import '../../../../core/framework/util/util.dart';
+import '../../../../data/models/requests/visit_body_model/visit_body_model.dart';
 import '../../../../domain/entities/responses/visit_entity.dart';
+import '../../../cubit/save_visit/save_visit_cubit.dart';
 import '../../../cubit/visit/visit_cubit.dart';
-import '../../../widgets/common/simple_button.dart';
 import '../../gallery/controller/gallery_controller.dart';
 import '../../signature/signature_screen.dart';
 import '../../take_picture/take_picture_screen.dart';
@@ -18,12 +22,21 @@ import '../../take_picture/take_picture_screen.dart';
 class VisitController extends ChangeNotifier {
   final TextEditingController textDiagnosticController = TextEditingController();
   final GalleryController galleryController = GalleryController();
+  final FormValidator formValidator = FormValidator();
+  late String _fullPathSign;
   late int _visitId;
   late VisitEntity _visit;
   late CameraDescription _firstCamera;
   late bool _possibleCovid;
-  int selectedIndex = 0;
   bool _isFetching = false;
+  bool _hasErrorOnSave = false;
+  String errorTextOnSave = "";
+
+  bool get hasErrorOnSave => _hasErrorOnSave;
+
+  void setHasErrorOnSave(bool hasError) {
+    _hasErrorOnSave = hasError;
+  }
 
   CameraDescription get firstCamera => _firstCamera;
 
@@ -54,6 +67,9 @@ class VisitController extends ChangeNotifier {
     }
     _possibleCovid = _visit.posibleCovid;
     notifyListeners();
+    if (_visit.signature != null) {
+      saveLocalSignature();
+    }
   }
 
   bool get possibleCovid => _possibleCovid;
@@ -76,6 +92,7 @@ class VisitController extends ChangeNotifier {
         camera: firstCamera,
         controller: galleryController,
       ),
+      transitionType: PageTransitionType.rightToLeft,
     );
   }
 
@@ -85,78 +102,12 @@ class VisitController extends ChangeNotifier {
         SignatureScreen(
           visit: _visit,
         ),
+        transitionType: PageTransitionType.rightToLeft,
       );
       if (result != null && result) {
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       }
     });
-  }
-
-  void onItemTapped(int index, BuildContext context, bool readOnly) {
-    selectedIndex = index;
-    notifyListeners();
-    if (!readOnly) {
-      switch (index) {
-        case 0:
-          goToSign();
-          break;
-        case 1:
-          goToCamera();
-          break;
-        case 2:
-          final BackdropFilter coolDialog = BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-            child: AlertDialog(
-              actionsPadding: const EdgeInsets.all(10),
-              actions: [
-                Column(
-                  children: [
-                    SimpleButton(
-                      onPressed: () => {}, //TODO: Cambio de estado y cooldialog de que se hizo correctamente
-                      text: Localization.xFinish.ok,
-                      isSmall: true,
-                      isSecondary: true,
-                      icon: FontAwesomeIcons.circleCheck,
-                      mainAxisAlignmentBody: MainAxisAlignment.start,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    SimpleButton(
-                      onPressed: () => {}, //TODO: Cambio de estado y cooldialog de que se hizo correctamente
-                      text: Localization.xFinish.notOk,
-                      isSmall: true,
-                      isSecondary: true,
-                      icon: FontAwesomeIcons.circleXmark,
-                      mainAxisAlignmentBody: MainAxisAlignment.start,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    SimpleButton(
-                      onPressed: () => GeneralNavigator.pop(),
-                      text: Localization.xCommon.cancel,
-                      isSmall: true,
-                    ),
-                  ],
-                ),
-              ],
-              alignment: Alignment.center,
-              content: Text(Localization.xFinish.question),
-              title: Text(Localization.xFinish.visit),
-            ),
-          );
-
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return coolDialog;
-            },
-          );
-          break;
-        default:
-      }
-    }
   }
 
   void onCheckboxCovidTapped(bool value) {
@@ -167,5 +118,93 @@ class VisitController extends ChangeNotifier {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     setFirstCamera(cameras.first);
+  }
+
+  Future<bool> validateVisitFinishOk() async {
+    if (!validateDiagnostic()) {
+      _hasErrorOnSave = true;
+    }
+    if (!await validateAtLeastOnePhoto()) {
+      _hasErrorOnSave = true;
+    }
+    if (!_possibleCovid && await validateSignature()) {
+      _hasErrorOnSave = true;
+    }
+    if (_hasErrorOnSave) {
+      errorTextOnSave = !_possibleCovid ? Localization.xValidation.visitRequisitsOk : Localization.xValidation.visitRequisitsOkPossibleCOVID;
+    }
+    return _hasErrorOnSave;
+  }
+
+  Future<bool> validateVisitFinishNotOk() async {
+    if (!validateDiagnostic()) {
+      _hasErrorOnSave = true;
+    }
+    if (!await validateAtLeastOnePhoto()) {
+      _hasErrorOnSave = true;
+    }
+    if (_hasErrorOnSave) {
+      errorTextOnSave = Localization.xValidation.visitRequisitsNotOk;
+    }
+    return _hasErrorOnSave;
+  }
+
+  Future<void> saveVisit(BuildContext blocContext, String stateCode) async {
+//TODO: Guardar fotos sacadas
+    blocContext.read<SaveVisitCubit>().saveVisit(VisitBodyModel(
+          id: visit.id,
+          posibleCovid: _possibleCovid,
+          diagnostic: textDiagnosticController.text,
+          stateCode: stateCode,
+          signature: await validateSignature() ? await getSignature() : null,
+        ));
+  }
+
+  bool validateDiagnostic() {
+    return !formValidator.isEmpty(textDiagnosticController.text);
+  }
+
+  Future<bool> validateAtLeastOnePhoto() async {
+    final Directory fullPath = await Util.getPhotosPath(visit.id);
+    bool hasAPhoto = false;
+    if (await fullPath.exists()) {
+      var images = fullPath.listSync();
+      hasAPhoto = images.isNotEmpty;
+    }
+    return hasAPhoto;
+  }
+
+  Future<bool> validateSignature() async {
+    _fullPathSign = await Util.getAndCreateSignaturePath(visit.id);
+    File file = File(_fullPathSign);
+    return await file.exists();
+  }
+
+  Future<String> getSignature() async {
+    File file = File(_fullPathSign);
+    Uint8List bytes = file.readAsBytesSync();
+    return base64.encode(bytes);
+  }
+
+  void cancelSaveVisit() {
+    _hasErrorOnSave = false;
+    notifyListeners();
+    GeneralNavigator.pop();
+  }
+
+  void saveLocalSignature() async {
+    bool saveSignature = true;
+    Uint8List bytesSignature = base64.decode(_visit.signature!);
+    _fullPathSign = await Util.getAndCreateSignaturePath(visit.id);
+    File file = File("$_fullPathSign/");
+    if (await file.exists()) {
+      Uint8List bytesLocal = file.readAsBytesSync();
+      String local = String.fromCharCodes(bytesLocal);
+      String endpoint = String.fromCharCodes(bytesSignature);
+      saveSignature = !(local == endpoint);
+    }
+    if (saveSignature) {
+      await file.writeAsBytes(bytesSignature);
+    }
   }
 }

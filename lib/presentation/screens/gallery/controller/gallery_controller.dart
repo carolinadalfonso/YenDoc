@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../../core/framework/localization/localization.dart';
 import '../../../../core/framework/util/cool_snack_bar.dart';
 import '../../../../core/framework/util/general_navigator.dart';
@@ -78,6 +79,7 @@ class GalleryController extends ChangeNotifier {
               imagePath: fullPath,
               galleryController: this,
             ),
+            transitionType: PageTransitionType.rightToLeft,
           );
         }).whenComplete(() {
           isCapturing = false;
