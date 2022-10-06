@@ -232,6 +232,7 @@ class _VisitScreenState extends State<VisitScreen> {
                     ],
                     onTap: (index) {
                       if (widget.readOnly != null && !widget.readOnly!) {
+                        FocusScope.of(context).unfocus();
                         switch (index) {
                           case 0:
                             controller.goToSign();
@@ -240,7 +241,6 @@ class _VisitScreenState extends State<VisitScreen> {
                             controller.goToCamera();
                             break;
                           case 2:
-                            FocusScope.of(context).unfocus();
                             showDialog(
                               barrierDismissible: false,
                               context: context,

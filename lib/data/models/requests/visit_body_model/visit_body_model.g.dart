@@ -6,8 +6,7 @@ part of 'visit_body_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$VisitBodyModelToJson(VisitBodyModel instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$VisitBodyModelToJson(VisitBodyModel instance) => <String, dynamic>{
       'id': instance.id,
       'stateCode': instance.stateCode,
       'posibleCovid': instance.posibleCovid,

@@ -127,7 +127,7 @@ class VisitController extends ChangeNotifier {
     if (!await validateAtLeastOnePhoto()) {
       _hasErrorOnSave = true;
     }
-    if (!_possibleCovid && await validateSignature()) {
+    if (!_possibleCovid && !await validateSignature()) {
       _hasErrorOnSave = true;
     }
     if (_hasErrorOnSave) {
@@ -196,8 +196,9 @@ class VisitController extends ChangeNotifier {
     bool saveSignature = true;
     Uint8List bytesSignature = base64.decode(_visit.signature!);
     _fullPathSign = await Util.getAndCreateSignaturePath(visit.id);
-    File file = File("$_fullPathSign/");
-    if (await file.exists()) {
+    File file = File(_fullPathSign);
+    bool exist = await file.exists();
+    if (exist) {
       Uint8List bytesLocal = file.readAsBytesSync();
       String local = String.fromCharCodes(bytesLocal);
       String endpoint = String.fromCharCodes(bytesSignature);

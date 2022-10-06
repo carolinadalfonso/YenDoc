@@ -58,8 +58,9 @@ class VisitDatasource extends DataSource implements IVisitDatasource {
 
   @override
   Future<void> saveVisit(VisitBodyModel visitBodyModel) async {
+    String finalEndpoint = _endpointSaveVisit.replaceAll("{id}", visitBodyModel.id.toString());
     await httpClient.post(
-      url: "$_url/$_endpointSaveVisit",
+      url: "$_url/$finalEndpoint",
       body: json.encode(visitBodyModel.toJson()),
       requireToken: true,
     );

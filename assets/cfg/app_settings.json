@@ -12,7 +12,7 @@
             "byId": "visits/{id}",
             "today": "visits",
             "byDate": "visits?date={date}",
-            "save": "save"
+            "save": "visits/{id}/save"
         }
     }
 }
