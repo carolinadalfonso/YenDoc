@@ -46,6 +46,7 @@ class GalleryController extends ChangeNotifier {
   }
 
   void deleteImage(File image, BuildContext context) async {
+    //TODO: Borrar en servidor
     await image.delete();
     CoolSnackBar.of(context).success(Localization.xGallery.deletedPhoto);
     getVisitImages();
@@ -73,6 +74,7 @@ class GalleryController extends ChangeNotifier {
           await image.saveTo(fullPath);
           final imagenDefault = File(image.path);
           await imagenDefault.delete();
+          //TODO: Guardar en servidor y Borrar en local
 
           GeneralNavigator.push(
             DisplayPictureScreen(

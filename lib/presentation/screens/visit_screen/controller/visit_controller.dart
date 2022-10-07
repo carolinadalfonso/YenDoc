@@ -81,6 +81,7 @@ class VisitController extends ChangeNotifier {
 
   void cargarVisita(BuildContext blocContext) {
     blocContext.read<VisitCubit>().getVisit(_visitId);
+    //TODO: Get de pictures y compartir con función al gallery
   }
 
   void goToCamera() {
@@ -150,7 +151,6 @@ class VisitController extends ChangeNotifier {
   }
 
   Future<void> saveVisit(BuildContext blocContext, String stateCode) async {
-//TODO: Guardar fotos sacadas
     blocContext.read<SaveVisitCubit>().saveVisit(VisitBodyModel(
           id: visit.id,
           posibleCovid: _possibleCovid,

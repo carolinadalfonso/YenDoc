@@ -13,6 +13,10 @@
             "today": "visits",
             "byDate": "visits?date={date}",
             "save": "visits/{id}/save"
+        },
+        "pictures": {
+            "byVisit": "pictures/{visitId}",
+            "save": "pictures"
         }
     }
 }
