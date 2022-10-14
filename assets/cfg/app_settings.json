@@ -11,7 +11,7 @@
         "visits": {
             "byId": "visits/{id}",
             "today": "visits",
-            "byDate": "visits?date={date}",
+            "byDate": "report/{date}",
             "save": "visits/{id}/save"
         },
         "pictures": {

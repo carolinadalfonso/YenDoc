@@ -40,9 +40,9 @@ class VisitRepository extends Repository<VisitDatasource> implements IVisitRepos
   }
 
   @override
-  Future<Either<Failure, List<VisitCardEntity>>> getVisitsReport(DateTime dateTime) async {
+  Future<Either<Failure, List<VisitCardEntity>>> getReportVisits(DateTime dateTime) async {
     try {
-      List<VisitCardEntity> visitasReporte = await dataSource.getVisitsReport(dateTime);
+      List<VisitCardEntity> visitasReporte = await dataSource.getReportVisits(dateTime);
       return Right(visitasReporte);
     } on ServerException catch (e) {
       return Left(ServerFailure(code: e.code, message: e.message));

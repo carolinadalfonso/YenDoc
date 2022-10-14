@@ -19,6 +19,7 @@ import '../../../domain/usecases/change_password/post/post_change_password.dart'
 import '../../../domain/usecases/login/post/post_login.dart';
 import '../../../domain/usecases/picture/post/post_picture.dart';
 import '../../../domain/usecases/visits/get/get_visit.dart';
+import '../../../domain/usecases/visits/post/post_report_visit.dart';
 import '../../../domain/usecases/visits/post/post_save_visit.dart';
 import '../../../domain/usecases/visits/post/post_visits.dart';
 import '../../../presentation/cubit/change_password/change_password_cubit.dart';
@@ -37,7 +38,7 @@ Future<void> init() async {
   //! Cubit
   sl.registerFactory(() => LoginCubit(sl()));
   sl.registerFactory(() => ChangePasswordCubit(sl()));
-  sl.registerFactory(() => VisitsListCubit(sl()));
+  sl.registerFactory(() => VisitsListCubit(sl(), sl()));
   sl.registerFactory(() => VisitCubit(sl()));
   sl.registerFactory(() => SaveVisitCubit(sl()));
   sl.registerFactory(() => SavePictureCubit(sl()));
@@ -51,6 +52,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => PostSaveVisit(sl()));
   sl.registerLazySingleton(() => PostSavePicture(sl()));
   sl.registerLazySingleton(() => GetPictures(sl()));
+  sl.registerLazySingleton(() => PostReportVisits(sl()));
 
   //! Repositories
   sl.registerLazySingleton<IAuthenticationRepository>(() => AuthenticationRepository(dataSource: sl()));

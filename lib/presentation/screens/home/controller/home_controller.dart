@@ -20,7 +20,7 @@ class HomeController extends ChangeNotifier {
         blocContext.read<VisitsListCubit>().geoLocalizationError();
       }
     } else {
-      //TODO: Consumo reporte por fecha
+      blocContext.read<VisitsListCubit>().getReportVisits(datePick);
     }
   }
 

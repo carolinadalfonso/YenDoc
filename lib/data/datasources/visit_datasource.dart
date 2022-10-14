@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:global_configuration/global_configuration.dart';
+import 'package:intl/intl.dart';
 
 import '../../domain/entities/responses/visit_card_entity.dart';
 import '../../domain/entities/responses/visit_entity.dart';
@@ -46,9 +47,11 @@ class VisitDatasource extends DataSource implements IVisitDatasource {
   }
 
   @override
-  Future<List<VisitCardEntity>> getVisitsReport(DateTime dateTime) async {
+  Future<List<VisitCardEntity>> getReportVisits(DateTime dateTime) async {
+    final String formatted = DateFormat('yyyy-MM-dd').format(dateTime);
+    String finalEndpoint = _endpointGetVisitsReport.replaceAll("{date}", formatted);
     String data = await httpClient.get(
-      url: "$_url/$_endpointGetVisitsReport/$dateTime",
+      url: "$_url/$finalEndpoint",
       requireToken: true,
     );
 

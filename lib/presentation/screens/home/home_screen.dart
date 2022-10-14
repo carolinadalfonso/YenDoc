@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import '../../../core/framework/localization/localization.dart';
 import '../../../core/framework/size_config/size_config.dart';
+import '../../widgets/common/message_image.dart';
 import '../../widgets/common/simple_scroll.dart';
 import '../../widgets/common/visit_card/visit_card.dart';
 import 'package:shimmer/shimmer.dart';
@@ -41,7 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async {
+        if (DateTime.now().difference(widget.datePick).inDays > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      },
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -67,57 +74,43 @@ class _HomeScreenState extends State<HomeScreen> {
               } else if (state is VisitsListLoading) {
                 return _buildShimmer();
               } else if (state is VisitsListSuccess) {
-                return Align(
-                  alignment: Alignment.center,
-                  child: RefreshIndicator(
-                    onRefresh: () => Future.microtask(() => controller.init(blocContext, widget.datePick)),
-                    child: SizedBox(
-                      width: SizeConfig.screenWidth / 1.1,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: SimpleScroll(
-                          onlyDisableGlobe: true,
-                          child: ListView.builder(
-                            itemCount: state.visits.length,
-                            itemBuilder: (context, index) {
-                              VisitCardEntity visitCard = state.visits[index];
-                              return VisitCard(
-                                visitCard: visitCard,
-                                datePick: widget.datePick,
-                                readOnly: widget.readOnly,
-                              );
-                            },
+                if (state.visits.isEmpty) {
+                  return MessageImage(
+                    image: Image.asset("assets/images/like.png", width: SizeConfig.screenWidth / 1.8),
+                    message: Localization.xVisit.empty,
+                  );
+                } else {
+                  return Align(
+                    alignment: Alignment.center,
+                    child: RefreshIndicator(
+                      onRefresh: () => Future.microtask(() => controller.init(blocContext, widget.datePick)),
+                      child: SizedBox(
+                        width: SizeConfig.screenWidth / 1.1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: SimpleScroll(
+                            onlyDisableGlobe: true,
+                            child: ListView.builder(
+                              itemCount: state.visits.length,
+                              itemBuilder: (context, index) {
+                                VisitCardEntity visitCard = state.visits[index];
+                                return VisitCard(
+                                  visitCard: visitCard,
+                                  datePick: widget.datePick,
+                                  readOnly: widget.readOnly,
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                );
+                  );
+                }
               } else {
-                return Center(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Image.asset("assets/images/error.png", width: SizeConfig.screenWidth / 1.6),
-                        ),
-                        Container(
-                          height: 50,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            Localization.xVisit.error,
-                            style: const TextStyle(fontSize: 20),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                return MessageImage(
+                  image: Image.asset("assets/images/error.png", width: SizeConfig.screenWidth / 1.6),
+                  message: Localization.xVisit.error,
                 );
               }
             },
