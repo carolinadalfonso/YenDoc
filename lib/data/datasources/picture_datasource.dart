@@ -16,11 +16,12 @@ class PictureDatasource extends DataSource implements IPictureDatasource {
   final String _url = GlobalConfiguration().getValue("api");
   final String _endpointGetPictures = GlobalConfiguration().getDeepValue("endpoints:pictures:byVisit");
   final String _endpointSavePicture = GlobalConfiguration().getDeepValue("endpoints:pictures:save");
+  final String _endpointDeletePicture = GlobalConfiguration().getDeepValue("endpoints:pictures:delete");
 
   @override
   Future<List<PictureEntity>> getPictures(int id) async {
     String finalEndpoint = _endpointGetPictures.replaceAll("{visitId}", id.toString());
-    String data = await httpClient.post(
+    String data = await httpClient.get(
       url: "$_url/$finalEndpoint",
       requireToken: true,
     );
@@ -30,10 +31,20 @@ class PictureDatasource extends DataSource implements IPictureDatasource {
   }
 
   @override
-  Future<void> savePicture(PictureBodyModel pictureBodyModel) async {
-    await httpClient.post(
+  Future<int> savePicture(PictureBodyModel pictureBodyModel) async {
+    String data = await httpClient.post(
       url: "$_url/$_endpointSavePicture",
       body: json.encode(pictureBodyModel.toJson()),
+      requireToken: true,
+    );
+    return int.parse(data);
+  }
+
+  @override
+  Future<void> deletePicture(int pictureId) async {
+    String finalEndpoint = _endpointDeletePicture.replaceAll("{pictureId}", pictureId.toString());
+    await httpClient.delete(
+      url: "$_url/$finalEndpoint",
       requireToken: true,
     );
   }

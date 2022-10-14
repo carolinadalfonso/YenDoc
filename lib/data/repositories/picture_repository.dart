@@ -26,9 +26,21 @@ class PictureRepository extends Repository<PictureDatasource> implements IPictur
   }
 
   @override
-  Future<Either<Failure, void>> savePicture(PictureBodyModel pictureBodyModel) async {
+  Future<Either<Failure, int>> savePicture(PictureBodyModel pictureBodyModel) async {
     try {
-      await dataSource.savePicture(pictureBodyModel);
+      int id = await dataSource.savePicture(pictureBodyModel);
+      return Right(id);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(code: e.code, message: e.message));
+    } on NoInternetConnectionException catch (e) {
+      return Left(NoInternetConnectionFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deletePicture(int pictureId) async {
+    try {
+      await dataSource.deletePicture(pictureId);
       return const Right(null);
     } on ServerException catch (e) {
       return Left(ServerFailure(code: e.code, message: e.message));

@@ -19,6 +19,7 @@ class VisitDatasource extends DataSource implements IVisitDatasource {
 
   final String _url = GlobalConfiguration().getValue("api");
   final String _endpointGetVisit = GlobalConfiguration().getDeepValue("endpoints:visits:byId");
+  final String _endpointGetReportVisit = GlobalConfiguration().getDeepValue("endpoints:visits:reportById");
   final String _endpointGetVisits = GlobalConfiguration().getDeepValue("endpoints:visits:today");
   final String _endpointGetVisitsReport = GlobalConfiguration().getDeepValue("endpoints:visits:byDate");
   final String _endpointSaveVisit = GlobalConfiguration().getDeepValue("endpoints:visits:save");
@@ -26,6 +27,17 @@ class VisitDatasource extends DataSource implements IVisitDatasource {
   @override
   Future<VisitEntity> getVisit(int id) async {
     String finalEndpoint = _endpointGetVisit.replaceAll("{id}", id.toString());
+    String data = await httpClient.get(
+      url: "$_url/$finalEndpoint",
+      requireToken: true,
+    );
+
+    return VisitModel.fromJson(json.decode(data));
+  }
+
+  @override
+  Future<VisitEntity> getReportVisit(int id) async {
+    String finalEndpoint = _endpointGetReportVisit.replaceAll("{id}", id.toString());
     String data = await httpClient.get(
       url: "$_url/$finalEndpoint",
       requireToken: true,

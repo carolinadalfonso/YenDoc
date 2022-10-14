@@ -10,13 +10,15 @@
         },
         "visits": {
             "byId": "visits/{id}",
+            "reportById": "report/{id}/detail",
             "today": "visits",
             "byDate": "report/{date}",
             "save": "visits/{id}/save"
         },
         "pictures": {
             "byVisit": "pictures/{visitId}",
-            "save": "pictures"
+            "save": "pictures",
+            "delete": "pictures/{pictureId}"
         }
     }
 }

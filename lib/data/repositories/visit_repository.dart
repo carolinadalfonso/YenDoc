@@ -28,6 +28,18 @@ class VisitRepository extends Repository<VisitDatasource> implements IVisitRepos
   }
 
   @override
+  Future<Either<Failure, VisitEntity>> getReportVisit(int id) async {
+    try {
+      VisitEntity visit = await dataSource.getReportVisit(id);
+      return Right(visit);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(code: e.code, message: e.message));
+    } on NoInternetConnectionException catch (e) {
+      return Left(NoInternetConnectionFailure(message: e.message));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<VisitCardEntity>>> getVisits(LocationBodyModel locationModel) async {
     try {
       List<VisitCardEntity> visitas = await dataSource.getVisits(locationModel);

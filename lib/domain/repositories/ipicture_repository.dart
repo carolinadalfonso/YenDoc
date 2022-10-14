@@ -6,5 +6,6 @@ import '../entities/responses/picture_entity.dart';
 
 abstract class IPictureRepository {
   Future<Either<Failure, List<PictureEntity>>> getPictures(int id);
-  Future<Either<Failure, void>> savePicture(PictureBodyModel pictureBodyModel);
+  Future<Either<Failure, int>> savePicture(PictureBodyModel pictureBodyModel);
+  Future<Either<Failure, void>> deletePicture(int pictureId);
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yendoc/domain/entities/responses/picture_entity.dart';
 
 import '../../../../core/framework/localization/localization.dart';
 import '../../../../core/framework/util/form_validator.dart';
@@ -28,6 +29,7 @@ class VisitController extends ChangeNotifier {
   late VisitEntity _visit;
   late CameraDescription _firstCamera;
   late bool _possibleCovid;
+  late List<PictureEntity> pictures;
   bool _isFetching = false;
   bool _hasErrorOnSave = false;
   String errorTextOnSave = "";
@@ -79,9 +81,12 @@ class VisitController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void cargarVisita(BuildContext blocContext) {
-    blocContext.read<VisitCubit>().getVisit(_visitId);
-    //TODO: Get de pictures y compartir con función al gallery
+  void loadVisit(BuildContext blocContext, DateTime datePick) {
+    if (DateTime.now().difference(datePick).inDays == 0) {
+      blocContext.read<VisitCubit>().getVisit(_visitId);
+    } else {
+      blocContext.read<VisitCubit>().getReportVisit(_visitId);
+    }
   }
 
   void goToCamera() {
@@ -125,7 +130,7 @@ class VisitController extends ChangeNotifier {
     if (!validateDiagnostic()) {
       _hasErrorOnSave = true;
     }
-    if (!await validateAtLeastOnePhoto()) {
+    if (!validateAtLeastOnePhoto()) {
       _hasErrorOnSave = true;
     }
     if (!_possibleCovid && !await validateSignature()) {
@@ -137,11 +142,11 @@ class VisitController extends ChangeNotifier {
     return _hasErrorOnSave;
   }
 
-  Future<bool> validateVisitFinishNotOk() async {
+  bool validateVisitFinishNotOk() {
     if (!validateDiagnostic()) {
       _hasErrorOnSave = true;
     }
-    if (!await validateAtLeastOnePhoto()) {
+    if (!validateAtLeastOnePhoto()) {
       _hasErrorOnSave = true;
     }
     if (_hasErrorOnSave) {
@@ -164,14 +169,8 @@ class VisitController extends ChangeNotifier {
     return !formValidator.isEmpty(textDiagnosticController.text);
   }
 
-  Future<bool> validateAtLeastOnePhoto() async {
-    final Directory fullPath = await Util.getPhotosPath(visit.id);
-    bool hasAPhoto = false;
-    if (await fullPath.exists()) {
-      var images = fullPath.listSync();
-      hasAPhoto = images.isNotEmpty;
-    }
-    return hasAPhoto;
+  bool validateAtLeastOnePhoto() {
+    return pictures.isNotEmpty;
   }
 
   Future<bool> validateSignature() async {
@@ -207,5 +206,15 @@ class VisitController extends ChangeNotifier {
     if (saveSignature) {
       await file.writeAsBytes(bytesSignature);
     }
+  }
+
+  void addPicture(PictureEntity pictureEntity) {
+    pictures.add(pictureEntity);
+    notifyListeners();
+  }
+
+  void removePicture(int pictureId) {
+    pictures.removeWhere((picture) => picture.id == pictureId);
+    notifyListeners();
   }
 }

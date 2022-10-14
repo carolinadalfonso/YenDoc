@@ -71,7 +71,9 @@ class _VisitLocalization {
 class _GalleryLocalization {
   final noPhotos = 'gallery.noPhotos'.tr;
   final deletedPhoto = 'gallery.deletedPhoto'.tr;
+  final savedPhoto = 'gallery.savedPhoto'.tr;
   final deletedPhotoError = 'gallery.deletedPhotoError'.tr;
+  final savePhotoError = 'gallery.savePhotoError'.tr;
   final photo = 'gallery.photo'.tr;
   final questionDeletePhoto = 'gallery.questionDeletePhoto'.tr;
   final deletePhoto = 'gallery.deletePhoto'.tr;

@@ -65,6 +65,14 @@ class HttpClient {
         ));
   }
 
+  Future<String> delete({required String url, bool requireToken = false}) async {
+    final Uri uriUrl = Uri.parse(url);
+    return _execute(() async => await client.delete(
+          uriUrl,
+          headers: _getHeaders(requireToken),
+        ));
+  }
+
   Map<String, String> _getHeaders(bool requireToken) {
     if (requireToken) {
       var token = UtilPreferences.prefs.getString(UtilPreferences.token)!;

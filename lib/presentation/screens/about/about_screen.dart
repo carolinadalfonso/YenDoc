@@ -36,7 +36,7 @@ class AboutScreen extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 3),
-                child: Text("Josefina Celeste Garcia Sardella"),
+                child: Text("Josefina Celeste García Sardella"),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 3),
@@ -44,7 +44,7 @@ class AboutScreen extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 3),
-                child: Text("Tadeo German Granese"),
+                child: Text("Tadeo Germán Granese"),
               ),
             ],
           ),

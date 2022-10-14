@@ -19,6 +19,7 @@ class CoolDialog {
     required VoidCallback onPressed1,
     required VoidCallback onPressed2,
     EdgeInsets? margin,
+    bool? loadingButton1,
   }) {
     final BackdropFilter coolDialog = BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
@@ -31,6 +32,7 @@ class CoolDialog {
             width: 100,
             isSmall: true,
             isSecondary: true,
+            isLoading: loadingButton1 ?? false,
           ),
           SimpleButton(
             onPressed: onPressed2,

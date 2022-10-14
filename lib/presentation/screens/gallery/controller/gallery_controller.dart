@@ -1,23 +1,44 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yendoc/data/models/requests/picture_bode_model/picture_body_model.dart';
+import 'package:yendoc/data/models/responses/picture/picture_model.dart';
+import 'package:yendoc/domain/entities/responses/picture_entity.dart';
 import '../../../../core/framework/localization/localization.dart';
 import '../../../../core/framework/util/cool_snack_bar.dart';
 import '../../../../core/framework/util/general_navigator.dart';
 import '../../../../core/framework/util/util.dart';
 import '../../../../domain/entities/responses/visit_entity.dart';
+import '../../../cubit/delete_picture/delete_picture_cubit.dart';
+import '../../../cubit/save_picture/save_picture_cubit.dart';
 import '../../display_picture/display_picture_screen.dart';
+
+typedef PictureCallback = void Function(PictureEntity pictureEntity);
+typedef RemovePictureCallback = void Function(int pictureId);
 
 class GalleryController extends ChangeNotifier {
   late CameraController _cameraController;
   late VisitEntity _visit;
-  List images = [];
 
   late Future<void> initializeControllerFuture;
   bool isCapturing = false;
   bool flashOn = false;
+
+  late List<PictureEntity> pictures;
+  late final PictureCallback _addPicture;
+  late final RemovePictureCallback _removePicture;
+
+  void setPictureCallback(PictureCallback addPicture) {
+    _addPicture = addPicture;
+  }
+
+  void setRemovePictureCallback(RemovePictureCallback removePicture) {
+    _removePicture = removePicture;
+  }
 
   CameraController get cameraController => _cameraController;
 
@@ -36,20 +57,13 @@ class GalleryController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getVisitImages() async {
-    final Directory fullPath = await Util.getPhotosPath(_visit.id);
-    images.clear();
-    if (await fullPath.exists()) {
-      images = fullPath.listSync();
-    }
-    notifyListeners();
+  void deleteImage(int id, BuildContext blocContext) {
+    blocContext.read<DeletePictureCubit>().deletePicture(id);
   }
 
-  void deleteImage(File image, BuildContext context) async {
-    //TODO: Borrar en servidor
-    await image.delete();
-    CoolSnackBar.of(context).success(Localization.xGallery.deletedPhoto);
-    getVisitImages();
+  void removeImage(int id) {
+    _removePicture(id);
+    notifyListeners();
   }
 
   void changeFlash() {
@@ -74,7 +88,6 @@ class GalleryController extends ChangeNotifier {
           await image.saveTo(fullPath);
           final imagenDefault = File(image.path);
           await imagenDefault.delete();
-          //TODO: Guardar en servidor y Borrar en local
 
           GeneralNavigator.push(
             DisplayPictureScreen(
@@ -93,7 +106,7 @@ class GalleryController extends ChangeNotifier {
     }
   }
 
-  deletePictureDisplay(BuildContext context, String imagePath) async {
+  Future<void> deletePictureDisplay(BuildContext context, String imagePath) async {
     try {
       final file = File(imagePath);
       await file.delete();
@@ -106,8 +119,22 @@ class GalleryController extends ChangeNotifier {
     }
   }
 
-  savePicture() {
-    getVisitImages();
+  void savePicture(BuildContext blocContext, String imagePath) {
+    final file = File(imagePath);
+    final bytes = file.readAsBytesSync();
+    blocContext.read<SavePictureCubit>().savePicture(PictureBodyModel(
+          visitId: visit.id,
+          picture: base64Encode(bytes),
+        ));
+  }
+
+  Future<void> savePictureSuccess(String imagePath, int pictureId) async {
+    final file = File(imagePath);
+    final bytes = file.readAsBytesSync();
+    PictureModel picture = PictureModel(id: pictureId, picture: base64Encode(bytes));
+    _addPicture(picture);
+    await file.delete();
+    notifyListeners();
     GeneralNavigator.pop();
     GeneralNavigator.pop();
   }

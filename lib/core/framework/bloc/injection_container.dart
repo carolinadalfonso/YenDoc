@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:yendoc/domain/usecases/picture/get/get_pictures.dart';
+import 'package:yendoc/domain/usecases/visits/get/get_report_visit.dart';
 
 import '../../../data/datasources/authentication_datasource.dart';
 import '../../../data/datasources/picture_datasource.dart';
@@ -17,12 +18,14 @@ import '../../../domain/repositories/iuser_repository.dart';
 import '../../../domain/repositories/ivisit_repository.dart';
 import '../../../domain/usecases/change_password/post/post_change_password.dart';
 import '../../../domain/usecases/login/post/post_login.dart';
+import '../../../domain/usecases/picture/delete/delete_picture.dart';
 import '../../../domain/usecases/picture/post/post_picture.dart';
 import '../../../domain/usecases/visits/get/get_visit.dart';
 import '../../../domain/usecases/visits/post/post_report_visit.dart';
 import '../../../domain/usecases/visits/post/post_save_visit.dart';
 import '../../../domain/usecases/visits/post/post_visits.dart';
 import '../../../presentation/cubit/change_password/change_password_cubit.dart';
+import '../../../presentation/cubit/delete_picture/delete_picture_cubit.dart';
 import '../../../presentation/cubit/login/login_cubit.dart';
 import '../../../presentation/cubit/picture_list/pictures_list_cubit.dart';
 import '../../../presentation/cubit/save_picture/save_picture_cubit.dart';
@@ -39,10 +42,11 @@ Future<void> init() async {
   sl.registerFactory(() => LoginCubit(sl()));
   sl.registerFactory(() => ChangePasswordCubit(sl()));
   sl.registerFactory(() => VisitsListCubit(sl(), sl()));
-  sl.registerFactory(() => VisitCubit(sl()));
+  sl.registerFactory(() => VisitCubit(sl(), sl()));
   sl.registerFactory(() => SaveVisitCubit(sl()));
   sl.registerFactory(() => SavePictureCubit(sl()));
   sl.registerFactory(() => PicturesListCubit(sl()));
+  sl.registerFactory(() => DeletePictureCubit(sl()));
 
   //! Use Cases
   sl.registerLazySingleton(() => PostLogin(sl()));
@@ -53,6 +57,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => PostSavePicture(sl()));
   sl.registerLazySingleton(() => GetPictures(sl()));
   sl.registerLazySingleton(() => PostReportVisits(sl()));
+  sl.registerLazySingleton(() => DeletePicture(sl()));
+  sl.registerLazySingleton(() => GetReportVisit(sl()));
 
   //! Repositories
   sl.registerLazySingleton<IAuthenticationRepository>(() => AuthenticationRepository(dataSource: sl()));

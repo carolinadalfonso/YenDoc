@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:yendoc/presentation/cubit/picture_list/pictures_list_cubit.dart';
 import 'package:yendoc/presentation/screens/home/home_screen.dart';
 import 'package:yendoc/presentation/widgets/common/message_info.dart';
 
@@ -55,6 +56,8 @@ class _VisitScreenState extends State<VisitScreen> {
     });
     controller.setVisitId(widget.visitId);
     controller.getFirstCamera();
+    controller.galleryController.setPictureCallback((pictureEntity) => controller.addPicture(pictureEntity));
+    controller.galleryController.setRemovePictureCallback((pictureId) => controller.removePicture(pictureId));
   }
 
   @override
@@ -101,8 +104,15 @@ class _VisitScreenState extends State<VisitScreen> {
                 ),
               ),
             ),
-            body: BlocProvider<VisitCubit>(
-              create: (context) => sl<VisitCubit>(),
+            body: MultiBlocProvider(
+              providers: [
+                BlocProvider<VisitCubit>(
+                  create: (context) => sl<VisitCubit>(),
+                ),
+                BlocProvider<PicturesListCubit>(
+                  create: (context) => sl<PicturesListCubit>()..getPictures(controller.visitId),
+                ),
+              ],
               child: BlocConsumer<VisitCubit, VisitState>(
                 listener: (bloc, state) {
                   if (state is VisitSuccess) {
@@ -114,76 +124,92 @@ class _VisitScreenState extends State<VisitScreen> {
                 },
                 builder: (blocContext, state) {
                   controller.setIsFetching(state is VisitInitial);
-
                   if (state is VisitInitial) {
-                    controller.cargarVisita(blocContext);
+                    controller.loadVisit(blocContext, widget.datePick);
                     return _buildShimmer();
                   } else if (state is VisitSuccess) {
-                    return Align(
-                      alignment: Alignment.topCenter,
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: SimpleScroll(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  RowItemInfo(
-                                    title: Localization.xVisit.patient,
-                                    value: state.visit.patient.name,
+                    return BlocConsumer<PicturesListCubit, PicturesListState>(
+                      listener: (context, statePicture) {
+                        if (statePicture is PicturesListSuccess) {
+                          controller.pictures = statePicture.pictures;
+                          controller.galleryController.pictures = statePicture.pictures;
+                        } else if (statePicture is PicturesListError) {
+                          CoolSnackBar.of(context).error(statePicture.failure.message);
+                          GeneralNavigator.pop();
+                        }
+                      },
+                      builder: (builContext, statePicture) {
+                        if (statePicture is PicturesListSuccess) {
+                          return Align(
+                            alignment: Alignment.topCenter,
+                            child: TabBarView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: SimpleScroll(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        RowItemInfo(
+                                          title: Localization.xVisit.patient,
+                                          value: state.visit.patient.name,
+                                        ),
+                                        RowItemInfo(
+                                          title: Localization.xVisit.address,
+                                          value: "${state.visit.patient.address}, ${state.visit.patient.location}",
+                                        ),
+                                        RowItemInfo(
+                                          title: Localization.xVisit.age,
+                                          value: "${state.visit.patient.age} ${Localization.xCommon.yearsOld}",
+                                        ),
+                                        RowItemInfo(
+                                          title: Localization.xVisit.symptoms,
+                                          value: state.visit.symptoms,
+                                        ),
+                                        CheckboxCustom(
+                                          text: Localization.xVisit.possibleCovid,
+                                          checked: controller.possibleCovid,
+                                          onChanged: (value) => controller.onCheckboxCovidTapped(value!),
+                                          enabled: !widget.readOnly!,
+                                        ),
+                                        RowItemInfo(
+                                          title: Localization.xVisit.diagnostic,
+                                        ),
+                                        TextFieldCustom(
+                                          controller: controller.textDiagnosticController,
+                                          keyboardType: TextInputType.multiline,
+                                          initialValue: state.visit.diagnostic,
+                                          maxLenght: 500,
+                                          lines: 8,
+                                          style: const TextStyle(fontSize: 14),
+                                          enabled: !widget.readOnly!,
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  RowItemInfo(
-                                    title: Localization.xVisit.address,
-                                    value: "${state.visit.patient.address}, ${state.visit.patient.location}",
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: MapScreen(
+                                    visit: controller.visit,
                                   ),
-                                  RowItemInfo(
-                                    title: Localization.xVisit.age,
-                                    value: "${state.visit.patient.age} ${Localization.xCommon.yearsOld}",
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: GalleryScreen(
+                                    visit: controller.visit,
+                                    readOnly: widget.readOnly,
+                                    controller: controller.galleryController,
                                   ),
-                                  RowItemInfo(
-                                    title: Localization.xVisit.symptoms,
-                                    value: state.visit.symptoms,
-                                  ),
-                                  CheckboxCustom(
-                                    text: Localization.xVisit.possibleCovid,
-                                    checked: controller.possibleCovid,
-                                    onChanged: (value) => controller.onCheckboxCovidTapped(value!),
-                                    enabled: !widget.readOnly!,
-                                  ),
-                                  RowItemInfo(
-                                    title: Localization.xVisit.diagnostic,
-                                  ),
-                                  TextFieldCustom(
-                                    controller: controller.textDiagnosticController,
-                                    keyboardType: TextInputType.multiline,
-                                    initialValue: state.visit.diagnostic,
-                                    maxLenght: 500,
-                                    lines: 8,
-                                    style: const TextStyle(fontSize: 14),
-                                    enabled: !widget.readOnly!,
-                                  )
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: MapScreen(
-                              visit: controller.visit,
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: GalleryScreen(
-                              visit: controller.visit,
-                              readOnly: widget.readOnly,
-                              controller: controller.galleryController,
-                            ),
-                          ),
-                        ],
-                      ),
+                          );
+                        } else {
+                          return _buildShimmer();
+                        }
+                      },
                     );
                   } else {
                     return _buildShimmer();
@@ -313,14 +339,13 @@ class _VisitScreenState extends State<VisitScreen> {
                           height: 15,
                         ),
                         SimpleButton(
-                          onPressed: () {
-                            controller.validateVisitFinishNotOk().then((hasError) async {
-                              if (hasError) {
-                                setState(() => controller.setHasErrorOnSave(hasError));
-                              } else {
-                                await controller.saveVisit(blocContext, "NOT_DONE");
-                              }
-                            });
+                          onPressed: () async {
+                            bool hasError = controller.validateVisitFinishNotOk();
+                            if (hasError) {
+                              setState(() => controller.setHasErrorOnSave(hasError));
+                            } else {
+                              await controller.saveVisit(blocContext, "NOT_DONE");
+                            }
                           },
                           text: Localization.xFinish.notOk,
                           isSmall: true,

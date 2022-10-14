@@ -9,6 +9,7 @@ import '../entities/responses/visit_entity.dart';
 abstract class IVisitRepository {
   Future<Either<Failure, List<VisitCardEntity>>> getVisits(LocationBodyModel locationModel);
   Future<Either<Failure, VisitEntity>> getVisit(int id);
+  Future<Either<Failure, VisitEntity>> getReportVisit(int id);
   Future<Either<Failure, List<VisitCardEntity>>> getReportVisits(DateTime dateTime);
   Future<Either<Failure, void>> saveVisit(VisitBodyModel visitBodyModel);
 }

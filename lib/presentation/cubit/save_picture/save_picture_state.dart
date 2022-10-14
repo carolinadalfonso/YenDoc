@@ -8,7 +8,11 @@ class SavePictureInitial extends SavePictureState {}
 
 class SavePictureLoading extends SavePictureState {}
 
-class SavePictureSuccess extends SavePictureState {}
+class SavePictureSuccess extends SavePictureState {
+  final int id;
+
+  const SavePictureSuccess(this.id);
+}
 
 class SavePictureError extends SavePictureState {
   final Failure failure;

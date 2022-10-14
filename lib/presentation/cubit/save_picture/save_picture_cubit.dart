@@ -7,22 +7,22 @@ import '../../../domain/usecases/picture/post/post_picture.dart';
 
 part 'save_picture_state.dart';
 
-class SavePictureCubit extends CubitBase<void, SavePictureState> {
+class SavePictureCubit extends CubitBase<int, SavePictureState> {
   final PostSavePicture _postSavePicture;
 
   SavePictureCubit(this._postSavePicture) : super(SavePictureInitial());
 
-  void saveVisit(PictureBodyModel pictureBodyModel) async {
+  void savePicture(PictureBodyModel pictureBodyModel) async {
     emit(SavePictureLoading());
     final either = await _postSavePicture.call(pictureBodyModel);
     emit(getState(either));
   }
 
   @override
-  SavePictureState getState(Either<Failure, void> either) {
+  SavePictureState getState(Either<Failure, int> either) {
     return either.fold(
       (failure) => SavePictureError(failure),
-      (data) => SavePictureSuccess(),
+      (data) => SavePictureSuccess(data),
     );
   }
 }
