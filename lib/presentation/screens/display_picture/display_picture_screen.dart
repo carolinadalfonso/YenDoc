@@ -52,8 +52,8 @@ class DisplayPictureScreen extends StatelessWidget {
                     children: [
                       FloatingActionButton(
                         backgroundColor: Colors.green[600],
-                        onPressed: () {
-                          galleryController.savePicture(blocContext, imagePath);
+                        onPressed: () async {
+                          await galleryController.savePicture(blocContext, imagePath);
                         },
                         child: state is SavePictureLoading ? const CircularProgressIndicator() : const Icon(FontAwesomeIcons.fileCircleCheck),
                         heroTag: null,

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:yendoc/data/models/requests/picture_bode_model/picture_body_model.dart';
 import 'package:yendoc/data/models/responses/picture/picture_model.dart';
@@ -119,9 +120,12 @@ class GalleryController extends ChangeNotifier {
     }
   }
 
-  void savePicture(BuildContext blocContext, String imagePath) {
-    final file = File(imagePath);
-    final bytes = file.readAsBytesSync();
+  Future<void> savePicture(BuildContext blocContext, String imagePath) async {
+    File compressedFile = await FlutterNativeImage.compressImage(
+      imagePath,
+      quality: 50,
+    );
+    final bytes = compressedFile.readAsBytesSync();
     blocContext.read<SavePictureCubit>().savePicture(PictureBodyModel(
           visitId: visit.id,
           picture: base64Encode(bytes),
@@ -130,7 +134,11 @@ class GalleryController extends ChangeNotifier {
 
   Future<void> savePictureSuccess(String imagePath, int pictureId) async {
     final file = File(imagePath);
-    final bytes = file.readAsBytesSync();
+    File compressedFile = await FlutterNativeImage.compressImage(
+      imagePath,
+      quality: 50,
+    );
+    final bytes = compressedFile.readAsBytesSync();
     PictureModel picture = PictureModel(id: pictureId, picture: base64Encode(bytes));
     _addPicture(picture);
     await file.delete();
