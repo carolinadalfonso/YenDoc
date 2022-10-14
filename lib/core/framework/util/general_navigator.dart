@@ -31,8 +31,8 @@ class GeneralNavigator {
     return PageTransition(
       child: screen,
       type: transitionType,
-      duration: const Duration(milliseconds: 400),
-      reverseDuration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 200),
+      reverseDuration: const Duration(milliseconds: 200),
     );
   }
 }
