@@ -22,7 +22,7 @@ class CheckboxCustom extends StatelessWidget {
     return Transform.translate(
       offset: const Offset(-15, -6),
       child: GestureDetector(
-        onTap: () => onChanged(!checked),
+        onTap: enabled! ? () => onChanged(!checked) : null,
         child: Row(
           children: [
             Transform.scale(
