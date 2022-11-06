@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/carolinadalfonso/YenDoc/blob/main/assets/images/logo.png" width="600px">
+  <img src="assets/images/logo.png" width="600px">
 </p>
 
 ---
