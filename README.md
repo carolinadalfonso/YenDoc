@@ -46,3 +46,6 @@ Cuenta con una API para conectarse a una base de datos de donde obtiene los dato
 <p align="center">
   Hecho en <b><a href="https://flutter.dev/">Flutter</a></b>
 </p>
+<p align="center">
+  <img src="https://storage.googleapis.com/cms-storage-bucket/4fd5520fe28ebf839174.svg" width="113px"/>
+</p>
