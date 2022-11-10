@@ -31,6 +31,12 @@ class _DrawerBody extends StatelessWidget {
             );
           },
         ),
+        const Divider(),
+        ListItem(
+          title: Localization.xDrawer.userGuide,
+          icon: FontAwesomeIcons.bookMedical,
+          onTap: () => Util.launchURL(GlobalConfiguration().getValue<String>("manual_usuario"), context),
+        ),
         ListItem(
           title: Localization.xDrawer.about,
           icon: FontAwesomeIcons.circleInfo,

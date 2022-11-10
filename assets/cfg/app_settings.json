@@ -21,5 +21,6 @@
             "delete": "pictures/{pictureId}"
         }
     },
-    "github_app": "https://github.com/carolinadalfonso/YenDoc"
+    "github_app": "https://github.com/carolinadalfonso/YenDoc",
+    "manual_usuario": "https://drive.google.com/file/d/1--AQFGA_47Mfn9aOcCgOAMZnH8xWU73Q/view?usp=sharing"
 }

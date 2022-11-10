@@ -45,6 +45,7 @@ class _DrawerLocalization {
   final report = 'drawer.report'.tr;
   final changePassword = 'drawer.changePassword'.tr;
   final questionSignOut = 'drawer.questionSignOut'.tr;
+  final userGuide = 'drawer.userGuide'.tr;
 }
 
 class _AboutLocalization {

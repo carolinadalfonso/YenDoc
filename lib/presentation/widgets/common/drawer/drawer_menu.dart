@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:text_scroll/text_scroll.dart';
 import '../../../../core/framework/util/general_navigator.dart';
 import '../../../../core/framework/localization/localization.dart';
 import '../../../../core/framework/theme/theme_manager.dart';
 import '../../../../core/framework/util/cool_dialog.dart';
+import '../../../../core/framework/util/util.dart';
 import '../../../../core/framework/util/util_preferences.dart';
 import '../../../screens/about/about_screen.dart';
 import '../../../screens/change_password/change_password_screen.dart';
