@@ -24,62 +24,67 @@ class DisplayPictureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(title: Text(Localization.xGallery.photo)),
-      body: BlocProvider<SavePictureCubit>(
-        create: (context) => sl<SavePictureCubit>(),
-        child: BlocConsumer<SavePictureCubit, SavePictureState>(
-          listener: (bloc, state) async {
-            if (state is SavePictureSuccess) {
-              await galleryController.savePictureSuccess(imagePath, state.id);
-              CoolSnackBar.of(context).success(Localization.xGallery.savedPhoto);
-            } else if (state is SavePictureError) {
-              CoolSnackBar.of(context).error(state.failure.message);
-            }
-          },
-          builder: (blocContext, state) {
-            return AbsorbPointer(
-              absorbing: state is SavePictureLoading,
-              child: Stack(alignment: Alignment.bottomCenter, children: [
-                Center(
-                  child: Image.file(File(imagePath)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      FloatingActionButton(
-                        backgroundColor: Colors.green[600],
-                        onPressed: () async {
-                          await galleryController.savePicture(blocContext, imagePath);
-                        },
-                        child: state is SavePictureLoading ? const CircularProgressIndicator() : const Icon(FontAwesomeIcons.fileCircleCheck),
-                        heroTag: null,
-                      ),
-                      FloatingActionButton(
-                        backgroundColor: Colors.red[700],
-                        onPressed: () async {
-                          CoolDialog.of(context).show(
-                            textButton1: Localization.xCommon.yes,
-                            textButton2: Localization.xCommon.no,
-                            question: Localization.xGallery.questionDeletePhoto,
-                            title: Localization.xGallery.deletePhoto,
-                            onPressed1: () async {
-                              await galleryController.deletePictureDisplay(context, imagePath);
-                            },
-                            onPressed2: () => GeneralNavigator.pop(),
-                          );
-                        },
-                        child: const Icon(FontAwesomeIcons.trashCan),
-                      ),
-                    ],
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(title: Text(Localization.xGallery.photo)),
+        body: BlocProvider<SavePictureCubit>(
+          create: (context) => sl<SavePictureCubit>(),
+          child: BlocConsumer<SavePictureCubit, SavePictureState>(
+            listener: (bloc, state) async {
+              if (state is SavePictureSuccess) {
+                await galleryController.savePictureSuccess(imagePath, state.id);
+                CoolSnackBar.of(context).success(Localization.xGallery.savedPhoto);
+              } else if (state is SavePictureError) {
+                CoolSnackBar.of(context).error(state.failure.message);
+              }
+            },
+            builder: (blocContext, state) {
+              return AbsorbPointer(
+                absorbing: state is SavePictureLoading,
+                child: Stack(alignment: Alignment.bottomCenter, children: [
+                  Center(
+                    child: Image.file(File(imagePath)),
                   ),
-                ),
-              ]),
-            );
-          },
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FloatingActionButton(
+                          backgroundColor: Colors.green[600],
+                          onPressed: () async {
+                            await galleryController.savePicture(blocContext, imagePath);
+                          },
+                          child: state is SavePictureLoading ? const CircularProgressIndicator() : const Icon(FontAwesomeIcons.fileCircleCheck),
+                          heroTag: null,
+                        ),
+                        FloatingActionButton(
+                          backgroundColor: Colors.red[700],
+                          onPressed: () async {
+                            CoolDialog.of(context).show(
+                              textButton1: Localization.xCommon.yes,
+                              textButton2: Localization.xCommon.no,
+                              question: Localization.xGallery.questionDeletePhoto,
+                              title: Localization.xGallery.deletePhoto,
+                              onPressed1: () async {
+                                await galleryController.deletePictureDisplay(context, imagePath);
+                              },
+                              onPressed2: () => GeneralNavigator.pop(),
+                            );
+                          },
+                          child: const Icon(FontAwesomeIcons.trashCan),
+                        ),
+                      ],
+                    ),
+                  ),
+                ]),
+              );
+            },
+          ),
         ),
       ),
     );

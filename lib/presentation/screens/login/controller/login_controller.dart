@@ -11,8 +11,8 @@ import '../../../cubit/login/login_cubit.dart';
 import '../../home/home_screen.dart';
 
 class LoginController extends ChangeNotifier {
-  final TextEditingController textUserController = TextEditingController(text: "rrudiger");
-  final TextEditingController textPasswordController = TextEditingController(text: "Password1");
+  final TextEditingController textUserController = TextEditingController();
+  final TextEditingController textPasswordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final FormValidator formValidator = FormValidator();
 

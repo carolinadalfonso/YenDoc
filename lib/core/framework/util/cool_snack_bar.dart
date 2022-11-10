@@ -48,13 +48,14 @@ class CoolSnackBar {
     );
   }
 
-  custom({required String text, Color? backgroundColor, IconData? icon, Duration? duration, EdgeInsets? margin}) {
+  custom({required String text, Color? backgroundColor, IconData? icon, Duration? duration, EdgeInsets? margin, BorderRadius? borderRadius}) {
     _show(
       text: text,
       backgroundColor: backgroundColor,
       icon: icon,
       duration: duration,
       margin: margin,
+      borderRadius: borderRadius,
     );
   }
 
@@ -64,13 +65,14 @@ class CoolSnackBar {
     IconData? icon,
     Duration? duration,
     EdgeInsets? margin,
+    BorderRadius? borderRadius,
   }) {
     final snackBar = SnackBar(
       elevation: 3,
       backgroundColor: backgroundColor,
       margin: margin,
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      shape: RoundedRectangleBorder(borderRadius: borderRadius ?? BorderRadius.circular(5)),
       duration: duration ?? const Duration(seconds: 3),
       content: Row(
         children: [

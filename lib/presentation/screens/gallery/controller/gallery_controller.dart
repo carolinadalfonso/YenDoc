@@ -97,8 +97,9 @@ class GalleryController extends ChangeNotifier {
             ),
             transitionType: PageTransitionType.rightToLeft,
           );
-        }).whenComplete(() {
+        }).whenComplete(() async {
           isCapturing = false;
+          await cameraController.pausePreview();
           notifyListeners();
         });
       } catch (e) {
@@ -114,6 +115,7 @@ class GalleryController extends ChangeNotifier {
       CoolSnackBar.of(context).success(Localization.xGallery.deletedPhoto, margin: const EdgeInsets.symmetric(vertical: 90, horizontal: 15));
       GeneralNavigator.pop();
       GeneralNavigator.pop();
+      await cameraController.resumePreview();
     } catch (e) {
       CoolSnackBar.of(context).error(Localization.xGallery.deletedPhotoError, margin: const EdgeInsets.symmetric(vertical: 90, horizontal: 15));
       rethrow;
