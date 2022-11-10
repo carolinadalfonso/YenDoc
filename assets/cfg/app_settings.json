@@ -20,5 +20,6 @@
             "save": "pictures",
             "delete": "pictures/{pictureId}"
         }
-    }
+    },
+    "github_app": "https://github.com/carolinadalfonso/YenDoc"
 }
