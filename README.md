@@ -5,7 +5,7 @@
 ---
 
 <p align="center">
-<i>La aplicación para médicos a domicilio.</i>  
+<i>La solución integral para médicos a domicilio.</i>  
 </p>
 
 ## Descripción
@@ -26,6 +26,8 @@ Cuenta con una API para conectarse a una base de datos de donde obtiene los dato
 - Tadeo German Granese
 
 ## Capturas:
+
+<img src="assets/app/Splash.jpeg" width="200" height="400" /> <img src="assets/app/Login.jpeg" width="200" height="400" /> <img src="assets/app/Lista.jpeg" width="200" height="400" /> <img src="assets/app/Detalle.jpeg" width="200" height="400" /> <img src="assets/app/Mapa.jpeg" width="200" height="400" /> <img src="assets/app/Fotos.jpeg" width="200" height="400" /> <img src="assets/app/Drawer.jpeg" width="200" height="400" /> <img src="assets/app/About.jpeg" width="200" height="400" />
 
 ## Licencia:
 
